@@ -23,6 +23,9 @@ defmodule PulapWeb do
       import Plug.Conn
       import PulapWeb.Router.Helpers
       import PulapWeb.Gettext
+      # Custom
+      alias Pulap.Repo
+      import Pulap.Controllers.Helpers
     end
   end
 
