@@ -13,5 +13,7 @@ defmodule PulapWeb.Router do
       # patch "/profile", ProfileController, :update
       # put "/profile", ProfileController, :update
     end
+    resources "/organizations", OrganizationController do
+    end
   end
 end
