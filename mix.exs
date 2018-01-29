@@ -20,7 +20,11 @@ defmodule Pulap.Mixfile do
   def application do
     [
       mod: {Pulap.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [
+        :logger,
+        :runtime_tools,
+        :comeonin
+      ]
     ]
   end
 
@@ -38,7 +42,14 @@ defmodule Pulap.Mixfile do
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:csv, "~> 2.0.0"},
+      {:geo, "~> 2.0.0"},
+      {:geo_postgis, "~> 1.0"},
+      # Custom
+      {:comeonin, "~> 4.0.0"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:guardian, "~> 1.0-beta"}
     ]
   end
 
