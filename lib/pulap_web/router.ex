@@ -8,10 +8,10 @@ defmodule PulapWeb.Router do
   scope "/api", PulapWeb do
     pipe_through :api
     resources "/users", UserController do
-      # get "/profile/edit", ProfileController, :edit
-      # get "/profile", ProfileController, :show
-      # patch "/profile", ProfileController, :update
-      # put "/profile", ProfileController, :update
+      get "/profile/edit", ProfileController, :edit
+      get "/profile", ProfileController, :show
+      patch "/profile", ProfileController, :update
+      put "/profile", ProfileController, :update
     end
     resources "/organizations", OrganizationController do
     end
