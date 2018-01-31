@@ -12,7 +12,6 @@ defmodule PulapWeb.OrganizationView do
 
   def render("organization.json", %{organization: organization}) do
     %{id: organization.id,
-      id: organization.id,
       owner_username: organization.owner_username,
       name: organization.name,
       description: organization.description,
