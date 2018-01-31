@@ -330,4 +330,74 @@ defmodule Pulap.AuthTest do
       assert %Ecto.Changeset{} = Auth.change_role(role)
     end
   end
+
+  describe "permissions" do
+    alias Pulap.Auth.Permission
+
+    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name"}
+    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name"}
+    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil}
+
+    def permission_fixture(attrs \\ %{}) do
+      {:ok, permission} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_permission()
+
+      permission
+    end
+
+    test "list_permissions/0 returns all permissions" do
+      permission = permission_fixture()
+      assert Auth.list_permissions() == [permission]
+    end
+
+    test "get_permission!/1 returns the permission with given id" do
+      permission = permission_fixture()
+      assert Auth.get_permission!(permission.id) == permission
+    end
+
+    test "create_permission/1 with valid data creates a permission" do
+      assert {:ok, %Permission{} = permission} = Auth.create_permission(@valid_attrs)
+      assert permission.description == "some description"
+      assert permission.id == "7488a646-e31f-11e4-aace-600308960662"
+      assert permission.is_active == true
+      assert permission.is_logical_deleted == true
+      assert permission.name == "some name"
+      assert permission.organization_name == "some organization_name"
+    end
+
+    test "create_permission/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_permission(@invalid_attrs)
+    end
+
+    test "update_permission/2 with valid data updates the permission" do
+      permission = permission_fixture()
+      assert {:ok, permission} = Auth.update_permission(permission, @update_attrs)
+      assert %Permission{} = permission
+      assert permission.description == "some updated description"
+      assert permission.id == "7488a646-e31f-11e4-aace-600308960668"
+      assert permission.is_active == false
+      assert permission.is_logical_deleted == false
+      assert permission.name == "some updated name"
+      assert permission.organization_name == "some updated organization_name"
+    end
+
+    test "update_permission/2 with invalid data returns error changeset" do
+      permission = permission_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_permission(permission, @invalid_attrs)
+      assert permission == Auth.get_permission!(permission.id)
+    end
+
+    test "delete_permission/1 deletes the permission" do
+      permission = permission_fixture()
+      assert {:ok, %Permission{}} = Auth.delete_permission(permission)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_permission!(permission.id) end
+    end
+
+    test "change_permission/1 returns a permission changeset" do
+      permission = permission_fixture()
+      assert %Ecto.Changeset{} = Auth.change_permission(permission)
+    end
+  end
 end
