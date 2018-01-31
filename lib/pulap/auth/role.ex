@@ -1,5 +1,5 @@
 defmodule Pulap.Auth.Role do
-  use Ecto.Schema
+  use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Auth.Role
 

@@ -1,8 +1,9 @@
 defmodule Pulap.Auth.Permission do
-  use Ecto.Schema
+  use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Auth.Permission
 
+  @primary_key {:id, :binary_id, autogenerate: true}
 
   schema "permissions" do
     field :description, :string

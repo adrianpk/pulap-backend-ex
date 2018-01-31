@@ -400,4 +400,76 @@ defmodule Pulap.AuthTest do
       assert %Ecto.Changeset{} = Auth.change_permission(permission)
     end
   end
+
+  describe "resources" do
+    alias Pulap.Auth.Resource
+
+    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name", tag: "some tag"}
+    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name", tag: "some updated tag"}
+    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil, tag: nil}
+
+    def resource_fixture(attrs \\ %{}) do
+      {:ok, resource} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_resource()
+
+      resource
+    end
+
+    test "list_resources/0 returns all resources" do
+      resource = resource_fixture()
+      assert Auth.list_resources() == [resource]
+    end
+
+    test "get_resource!/1 returns the resource with given id" do
+      resource = resource_fixture()
+      assert Auth.get_resource!(resource.id) == resource
+    end
+
+    test "create_resource/1 with valid data creates a resource" do
+      assert {:ok, %Resource{} = resource} = Auth.create_resource(@valid_attrs)
+      assert resource.description == "some description"
+      assert resource.id == "7488a646-e31f-11e4-aace-600308960662"
+      assert resource.is_active == true
+      assert resource.is_logical_deleted == true
+      assert resource.name == "some name"
+      assert resource.organization_name == "some organization_name"
+      assert resource.tag == "some tag"
+    end
+
+    test "create_resource/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_resource(@invalid_attrs)
+    end
+
+    test "update_resource/2 with valid data updates the resource" do
+      resource = resource_fixture()
+      assert {:ok, resource} = Auth.update_resource(resource, @update_attrs)
+      assert %Resource{} = resource
+      assert resource.description == "some updated description"
+      assert resource.id == "7488a646-e31f-11e4-aace-600308960668"
+      assert resource.is_active == false
+      assert resource.is_logical_deleted == false
+      assert resource.name == "some updated name"
+      assert resource.organization_name == "some updated organization_name"
+      assert resource.tag == "some updated tag"
+    end
+
+    test "update_resource/2 with invalid data returns error changeset" do
+      resource = resource_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_resource(resource, @invalid_attrs)
+      assert resource == Auth.get_resource!(resource.id)
+    end
+
+    test "delete_resource/1 deletes the resource" do
+      resource = resource_fixture()
+      assert {:ok, %Resource{}} = Auth.delete_resource(resource)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_resource!(resource.id) end
+    end
+
+    test "change_resource/1 returns a resource changeset" do
+      resource = resource_fixture()
+      assert %Ecto.Changeset{} = Auth.change_resource(resource)
+    end
+  end
 end
