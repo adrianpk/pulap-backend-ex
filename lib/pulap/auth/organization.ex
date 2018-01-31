@@ -1,10 +1,7 @@
 defmodule Pulap.Auth.Organization do
-  use Ecto.Schema
+  use Pulap .Schema
   import Ecto.Changeset
   alias Pulap.Auth.Organization
-
-
-  @primary_key {:id, :binary_id, autogenerate: true}
 
   schema "organizations" do
     field :annotations, :string
