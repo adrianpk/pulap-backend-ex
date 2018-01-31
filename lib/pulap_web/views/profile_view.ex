@@ -12,7 +12,6 @@ defmodule PulapWeb.ProfileView do
 
   def render("profile.json", %{profile: profile}) do
     %{id: profile.id,
-      id: profile.id,
       property_set_name: profile.property_set_name,
       name: profile.name,
       email: profile.email,

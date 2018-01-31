@@ -14,6 +14,10 @@ defmodule PulapWeb.Router do
       put "/profile", ProfileController, :update
     end
     resources "/organizations", OrganizationController do
+      # nested resources
+    end
+    resources "/roles", RoleController do
+      # nested resources
     end
   end
 end
