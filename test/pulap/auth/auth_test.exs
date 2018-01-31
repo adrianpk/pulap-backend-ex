@@ -472,4 +472,76 @@ defmodule Pulap.AuthTest do
       assert %Ecto.Changeset{} = Auth.change_resource(resource)
     end
   end
+
+  describe "role_permissions" do
+    alias Pulap.Auth.RolePermission
+
+    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name", tag: "some tag"}
+    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name", tag: "some updated tag"}
+    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil, tag: nil}
+
+    def role_permission_fixture(attrs \\ %{}) do
+      {:ok, role_permission} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_role_permission()
+
+      role_permission
+    end
+
+    test "list_role_permissions/0 returns all role_permissions" do
+      role_permission = role_permission_fixture()
+      assert Auth.list_role_permissions() == [role_permission]
+    end
+
+    test "get_role_permission!/1 returns the role_permission with given id" do
+      role_permission = role_permission_fixture()
+      assert Auth.get_role_permission!(role_permission.id) == role_permission
+    end
+
+    test "create_role_permission/1 with valid data creates a role_permission" do
+      assert {:ok, %RolePermission{} = role_permission} = Auth.create_role_permission(@valid_attrs)
+      assert role_permission.description == "some description"
+      assert role_permission.id == "7488a646-e31f-11e4-aace-600308960662"
+      assert role_permission.is_active == true
+      assert role_permission.is_logical_deleted == true
+      assert role_permission.name == "some name"
+      assert role_permission.organization_name == "some organization_name"
+      assert role_permission.tag == "some tag"
+    end
+
+    test "create_role_permission/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_role_permission(@invalid_attrs)
+    end
+
+    test "update_role_permission/2 with valid data updates the role_permission" do
+      role_permission = role_permission_fixture()
+      assert {:ok, role_permission} = Auth.update_role_permission(role_permission, @update_attrs)
+      assert %RolePermission{} = role_permission
+      assert role_permission.description == "some updated description"
+      assert role_permission.id == "7488a646-e31f-11e4-aace-600308960668"
+      assert role_permission.is_active == false
+      assert role_permission.is_logical_deleted == false
+      assert role_permission.name == "some updated name"
+      assert role_permission.organization_name == "some updated organization_name"
+      assert role_permission.tag == "some updated tag"
+    end
+
+    test "update_role_permission/2 with invalid data returns error changeset" do
+      role_permission = role_permission_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_role_permission(role_permission, @invalid_attrs)
+      assert role_permission == Auth.get_role_permission!(role_permission.id)
+    end
+
+    test "delete_role_permission/1 deletes the role_permission" do
+      role_permission = role_permission_fixture()
+      assert {:ok, %RolePermission{}} = Auth.delete_role_permission(role_permission)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_role_permission!(role_permission.id) end
+    end
+
+    test "change_role_permission/1 returns a role_permission changeset" do
+      role_permission = role_permission_fixture()
+      assert %Ecto.Changeset{} = Auth.change_role_permission(role_permission)
+    end
+  end
 end
