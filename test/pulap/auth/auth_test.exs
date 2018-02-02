@@ -618,4 +618,74 @@ defmodule Pulap.AuthTest do
       assert %Ecto.Changeset{} = Auth.change_resource_permission(resource_permission)
     end
   end
+
+  describe "user_roles" do
+    alias Pulap.Auth.UserRole
+
+    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name"}
+    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name"}
+    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil}
+
+    def user_role_fixture(attrs \\ %{}) do
+      {:ok, user_role} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_user_role()
+
+      user_role
+    end
+
+    test "list_user_roles/0 returns all user_roles" do
+      user_role = user_role_fixture()
+      assert Auth.list_user_roles() == [user_role]
+    end
+
+    test "get_user_role!/1 returns the user_role with given id" do
+      user_role = user_role_fixture()
+      assert Auth.get_user_role!(user_role.id) == user_role
+    end
+
+    test "create_user_role/1 with valid data creates a user_role" do
+      assert {:ok, %UserRole{} = user_role} = Auth.create_user_role(@valid_attrs)
+      assert user_role.description == "some description"
+      assert user_role.id == "7488a646-e31f-11e4-aace-600308960662"
+      assert user_role.is_active == true
+      assert user_role.is_logical_deleted == true
+      assert user_role.name == "some name"
+      assert user_role.organization_name == "some organization_name"
+    end
+
+    test "create_user_role/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_user_role(@invalid_attrs)
+    end
+
+    test "update_user_role/2 with valid data updates the user_role" do
+      user_role = user_role_fixture()
+      assert {:ok, user_role} = Auth.update_user_role(user_role, @update_attrs)
+      assert %UserRole{} = user_role
+      assert user_role.description == "some updated description"
+      assert user_role.id == "7488a646-e31f-11e4-aace-600308960668"
+      assert user_role.is_active == false
+      assert user_role.is_logical_deleted == false
+      assert user_role.name == "some updated name"
+      assert user_role.organization_name == "some updated organization_name"
+    end
+
+    test "update_user_role/2 with invalid data returns error changeset" do
+      user_role = user_role_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_user_role(user_role, @invalid_attrs)
+      assert user_role == Auth.get_user_role!(user_role.id)
+    end
+
+    test "delete_user_role/1 deletes the user_role" do
+      user_role = user_role_fixture()
+      assert {:ok, %UserRole{}} = Auth.delete_user_role(user_role)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_user_role!(user_role.id) end
+    end
+
+    test "change_user_role/1 returns a user_role changeset" do
+      user_role = user_role_fixture()
+      assert %Ecto.Changeset{} = Auth.change_user_role(user_role)
+    end
+  end
 end
