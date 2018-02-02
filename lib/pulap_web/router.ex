@@ -36,5 +36,8 @@ defmodule PulapWeb.Router do
     resources "/property-sets", PropertySetController do
       # nested resources
     end
+    resources "/properties", PropertyController do
+      # nested resources
+    end
   end
 end
