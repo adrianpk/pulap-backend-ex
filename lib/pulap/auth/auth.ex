@@ -1520,4 +1520,100 @@ defmodule Pulap.Auth do
   def change_role_permission(%RolePermission{} = role_permission) do
     RolePermission.changeset(role_permission, %{})
   end
+
+  alias Pulap.Auth.ResourcePermission
+
+  @doc """
+  Returns the list of resource_permissions.
+
+  ## Examples
+
+      iex> list_resource_permissions()
+      [%ResourcePermission{}, ...]
+
+  """
+  def list_resource_permissions do
+    Repo.all(ResourcePermission)
+  end
+
+  @doc """
+  Gets a single resource_permission.
+
+  Raises `Ecto.NoResultsError` if the Resource permission does not exist.
+
+  ## Examples
+
+      iex> get_resource_permission!(123)
+      %ResourcePermission{}
+
+      iex> get_resource_permission!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_resource_permission!(id), do: Repo.get!(ResourcePermission, id)
+
+  @doc """
+  Creates a resource_permission.
+
+  ## Examples
+
+      iex> create_resource_permission(%{field: value})
+      {:ok, %ResourcePermission{}}
+
+      iex> create_resource_permission(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_resource_permission(attrs \\ %{}) do
+    %ResourcePermission{}
+    |> ResourcePermission.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a resource_permission.
+
+  ## Examples
+
+      iex> update_resource_permission(resource_permission, %{field: new_value})
+      {:ok, %ResourcePermission{}}
+
+      iex> update_resource_permission(resource_permission, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_resource_permission(%ResourcePermission{} = resource_permission, attrs) do
+    resource_permission
+    |> ResourcePermission.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a ResourcePermission.
+
+  ## Examples
+
+      iex> delete_resource_permission(resource_permission)
+      {:ok, %ResourcePermission{}}
+
+      iex> delete_resource_permission(resource_permission)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_resource_permission(%ResourcePermission{} = resource_permission) do
+    Repo.delete(resource_permission)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking resource_permission changes.
+
+  ## Examples
+
+      iex> change_resource_permission(resource_permission)
+      %Ecto.Changeset{source: %ResourcePermission{}}
+
+  """
+  def change_resource_permission(%ResourcePermission{} = resource_permission) do
+    ResourcePermission.changeset(resource_permission, %{})
+  end
 end
