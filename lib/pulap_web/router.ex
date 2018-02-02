@@ -27,5 +27,8 @@ defmodule PulapWeb.Router do
     resources "/role-permissions", RolePermissionController do
       # nested resources
     end
+    resources "/resource-permissions", ResourcePermissionController do
+      # nested resources
+    end
   end
 end

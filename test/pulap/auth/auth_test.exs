@@ -544,4 +544,78 @@ defmodule Pulap.AuthTest do
       assert %Ecto.Changeset{} = Auth.change_role_permission(role_permission)
     end
   end
+
+  describe "resource_permissions" do
+    alias Pulap.Auth.ResourcePermission
+
+    @valid_attrs %{"": "some ", description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name", tag: "some tag"}
+    @update_attrs %{"": "some updated ", description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name", tag: "some updated tag"}
+    @invalid_attrs %{"": nil, description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil, tag: nil}
+
+    def resource_permission_fixture(attrs \\ %{}) do
+      {:ok, resource_permission} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_resource_permission()
+
+      resource_permission
+    end
+
+    test "list_resource_permissions/0 returns all resource_permissions" do
+      resource_permission = resource_permission_fixture()
+      assert Auth.list_resource_permissions() == [resource_permission]
+    end
+
+    test "get_resource_permission!/1 returns the resource_permission with given id" do
+      resource_permission = resource_permission_fixture()
+      assert Auth.get_resource_permission!(resource_permission.id) == resource_permission
+    end
+
+    test "create_resource_permission/1 with valid data creates a resource_permission" do
+      assert {:ok, %ResourcePermission{} = resource_permission} = Auth.create_resource_permission(@valid_attrs)
+      assert resource_permission. == "some "
+      assert resource_permission.description == "some description"
+      assert resource_permission.id == "7488a646-e31f-11e4-aace-600308960662"
+      assert resource_permission.is_active == true
+      assert resource_permission.is_logical_deleted == true
+      assert resource_permission.name == "some name"
+      assert resource_permission.organization_name == "some organization_name"
+      assert resource_permission.tag == "some tag"
+    end
+
+    test "create_resource_permission/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_resource_permission(@invalid_attrs)
+    end
+
+    test "update_resource_permission/2 with valid data updates the resource_permission" do
+      resource_permission = resource_permission_fixture()
+      assert {:ok, resource_permission} = Auth.update_resource_permission(resource_permission, @update_attrs)
+      assert %ResourcePermission{} = resource_permission
+      assert resource_permission. == "some updated "
+      assert resource_permission.description == "some updated description"
+      assert resource_permission.id == "7488a646-e31f-11e4-aace-600308960668"
+      assert resource_permission.is_active == false
+      assert resource_permission.is_logical_deleted == false
+      assert resource_permission.name == "some updated name"
+      assert resource_permission.organization_name == "some updated organization_name"
+      assert resource_permission.tag == "some updated tag"
+    end
+
+    test "update_resource_permission/2 with invalid data returns error changeset" do
+      resource_permission = resource_permission_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_resource_permission(resource_permission, @invalid_attrs)
+      assert resource_permission == Auth.get_resource_permission!(resource_permission.id)
+    end
+
+    test "delete_resource_permission/1 deletes the resource_permission" do
+      resource_permission = resource_permission_fixture()
+      assert {:ok, %ResourcePermission{}} = Auth.delete_resource_permission(resource_permission)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_resource_permission!(resource_permission.id) end
+    end
+
+    test "change_resource_permission/1 returns a resource_permission changeset" do
+      resource_permission = resource_permission_fixture()
+      assert %Ecto.Changeset{} = Auth.change_resource_permission(resource_permission)
+    end
+  end
 end
