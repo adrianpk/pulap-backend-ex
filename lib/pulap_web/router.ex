@@ -33,6 +33,8 @@ defmodule PulapWeb.Router do
     resources "/user-roles", UserRoleController do
       # nested resources
     end
- 
+    resources "/property-sets", PropertySetController do
+      # nested resources
+    end
   end
 end
