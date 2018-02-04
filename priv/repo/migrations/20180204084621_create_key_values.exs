@@ -22,4 +22,4 @@ defmodule Pulap.Repo.Migrations.CreateKeyValues do
     create index(:key_values, [:created_by_id])
     create index(:key_values, [:updated_by_id])
   end
-end
+end 
