@@ -101,4 +101,100 @@ defmodule Pulap.Biz do
   def change_plan(%Plan{} = plan) do
     Plan.changeset(plan, %{})
   end
+
+  alias Pulap.Biz.PlanSubscription
+
+  @doc """
+  Returns the list of plan_subscriptions.
+
+  ## Examples
+
+      iex> list_plan_subscriptions()
+      [%PlanSubscription{}, ...]
+
+  """
+  def list_plan_subscriptions do
+    Repo.all(PlanSubscription)
+  end
+
+  @doc """
+  Gets a single plan_subscription.
+
+  Raises `Ecto.NoResultsError` if the Plan subscription does not exist.
+
+  ## Examples
+
+      iex> get_plan_subscription!(123)
+      %PlanSubscription{}
+
+      iex> get_plan_subscription!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_plan_subscription!(id), do: Repo.get!(PlanSubscription, id)
+
+  @doc """
+  Creates a plan_subscription.
+
+  ## Examples
+
+      iex> create_plan_subscription(%{field: value})
+      {:ok, %PlanSubscription{}}
+
+      iex> create_plan_subscription(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_plan_subscription(attrs \\ %{}) do
+    %PlanSubscription{}
+    |> PlanSubscription.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a plan_subscription.
+
+  ## Examples
+
+      iex> update_plan_subscription(plan_subscription, %{field: new_value})
+      {:ok, %PlanSubscription{}}
+
+      iex> update_plan_subscription(plan_subscription, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_plan_subscription(%PlanSubscription{} = plan_subscription, attrs) do
+    plan_subscription
+    |> PlanSubscription.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a PlanSubscription.
+
+  ## Examples
+
+      iex> delete_plan_subscription(plan_subscription)
+      {:ok, %PlanSubscription{}}
+
+      iex> delete_plan_subscription(plan_subscription)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_plan_subscription(%PlanSubscription{} = plan_subscription) do
+    Repo.delete(plan_subscription)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking plan_subscription changes.
+
+  ## Examples
+
+      iex> change_plan_subscription(plan_subscription)
+      %Ecto.Changeset{source: %PlanSubscription{}}
+
+  """
+  def change_plan_subscription(%PlanSubscription{} = plan_subscription) do
+    PlanSubscription.changeset(plan_subscription, %{})
+  end
 end

@@ -45,5 +45,8 @@ defmodule PulapWeb.Router do
     resources "/plans", PlanController do
       # nested resources
     end
+    resources "/plan-subscriptions", PlanSubscriptionController do
+      # nested resources
+    end
   end
 end
