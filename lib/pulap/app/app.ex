@@ -197,4 +197,100 @@ defmodule Pulap.App do
   def change_property(%Property{} = property) do
     Property.changeset(property, %{})
   end
+
+  alias Pulap.App.KeyValue
+
+  @doc """
+  Returns the list of key_values.
+
+  ## Examples
+
+      iex> list_key_values()
+      [%KeyValue{}, ...]
+
+  """
+  def list_key_values do
+    Repo.all(KeyValue)
+  end
+
+  @doc """
+  Gets a single key_value.
+
+  Raises `Ecto.NoResultsError` if the Key value does not exist.
+
+  ## Examples
+
+      iex> get_key_value!(123)
+      %KeyValue{}
+
+      iex> get_key_value!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_key_value!(id), do: Repo.get!(KeyValue, id)
+
+  @doc """
+  Creates a key_value.
+
+  ## Examples
+
+      iex> create_key_value(%{field: value})
+      {:ok, %KeyValue{}}
+
+      iex> create_key_value(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_key_value(attrs \\ %{}) do
+    %KeyValue{}
+    |> KeyValue.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a key_value.
+
+  ## Examples
+
+      iex> update_key_value(key_value, %{field: new_value})
+      {:ok, %KeyValue{}}
+
+      iex> update_key_value(key_value, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_key_value(%KeyValue{} = key_value, attrs) do
+    key_value
+    |> KeyValue.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a KeyValue.
+
+  ## Examples
+
+      iex> delete_key_value(key_value)
+      {:ok, %KeyValue{}}
+
+      iex> delete_key_value(key_value)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_key_value(%KeyValue{} = key_value) do
+    Repo.delete(key_value)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking key_value changes.
+
+  ## Examples
+
+      iex> change_key_value(key_value)
+      %Ecto.Changeset{source: %KeyValue{}}
+
+  """
+  def change_key_value(%KeyValue{} = key_value) do
+    KeyValue.changeset(key_value, %{})
+  end
 end

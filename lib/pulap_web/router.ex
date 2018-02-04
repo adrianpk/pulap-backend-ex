@@ -39,5 +39,8 @@ defmodule PulapWeb.Router do
     resources "/properties", PropertyController do
       # nested resources
     end
+    resources "/key-values", KeyValueController do
+      # nested resources
+    end
   end
 end
