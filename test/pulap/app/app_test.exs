@@ -234,4 +234,82 @@ defmodule Pulap.AppTest do
       assert %Ecto.Changeset{} = App.change_property(property)
     end
   end
+
+  describe "key_values" do
+    alias Pulap.App.KeyValue
+
+    @valid_attrs %{id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, key: "some key", key_group: "some key_group", key_subgroup: "some key_subgroup", locale: "some locale", position: 42, set: "some set", value: "some value"}
+    @update_attrs %{id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, key: "some updated key", key_group: "some updated key_group", key_subgroup: "some updated key_subgroup", locale: "some updated locale", position: 43, set: "some updated set", value: "some updated value"}
+    @invalid_attrs %{id: nil, is_active: nil, is_logical_deleted: nil, key: nil, key_group: nil, key_subgroup: nil, locale: nil, position: nil, set: nil, value: nil}
+
+    def key_value_fixture(attrs \\ %{}) do
+      {:ok, key_value} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> App.create_key_value()
+
+      key_value
+    end
+
+    test "list_key_values/0 returns all key_values" do
+      key_value = key_value_fixture()
+      assert App.list_key_values() == [key_value]
+    end
+
+    test "get_key_value!/1 returns the key_value with given id" do
+      key_value = key_value_fixture()
+      assert App.get_key_value!(key_value.id) == key_value
+    end
+
+    test "create_key_value/1 with valid data creates a key_value" do
+      assert {:ok, %KeyValue{} = key_value} = App.create_key_value(@valid_attrs)
+      assert key_value.id == "7488a646-e31f-11e4-aace-600308960662"
+      assert key_value.is_active == true
+      assert key_value.is_logical_deleted == true
+      assert key_value.key == "some key"
+      assert key_value.key_group == "some key_group"
+      assert key_value.key_subgroup == "some key_subgroup"
+      assert key_value.locale == "some locale"
+      assert key_value.position == 42
+      assert key_value.set == "some set"
+      assert key_value.value == "some value"
+    end
+
+    test "create_key_value/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = App.create_key_value(@invalid_attrs)
+    end
+
+    test "update_key_value/2 with valid data updates the key_value" do
+      key_value = key_value_fixture()
+      assert {:ok, key_value} = App.update_key_value(key_value, @update_attrs)
+      assert %KeyValue{} = key_value
+      assert key_value.id == "7488a646-e31f-11e4-aace-600308960668"
+      assert key_value.is_active == false
+      assert key_value.is_logical_deleted == false
+      assert key_value.key == "some updated key"
+      assert key_value.key_group == "some updated key_group"
+      assert key_value.key_subgroup == "some updated key_subgroup"
+      assert key_value.locale == "some updated locale"
+      assert key_value.position == 43
+      assert key_value.set == "some updated set"
+      assert key_value.value == "some updated value"
+    end
+
+    test "update_key_value/2 with invalid data returns error changeset" do
+      key_value = key_value_fixture()
+      assert {:error, %Ecto.Changeset{}} = App.update_key_value(key_value, @invalid_attrs)
+      assert key_value == App.get_key_value!(key_value.id)
+    end
+
+    test "delete_key_value/1 deletes the key_value" do
+      key_value = key_value_fixture()
+      assert {:ok, %KeyValue{}} = App.delete_key_value(key_value)
+      assert_raise Ecto.NoResultsError, fn -> App.get_key_value!(key_value.id) end
+    end
+
+    test "change_key_value/1 returns a key_value changeset" do
+      key_value = key_value_fixture()
+      assert %Ecto.Changeset{} = App.change_key_value(key_value)
+    end
+  end
 end
