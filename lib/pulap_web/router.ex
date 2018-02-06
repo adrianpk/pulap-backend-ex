@@ -48,5 +48,8 @@ defmodule PulapWeb.Router do
     resources "/plan-subscriptions", PlanSubscriptionController do
       # nested resources
     end
+    resources "/geo-areas", GeoAreaController do
+      # nested resources
+    end
   end
 end
