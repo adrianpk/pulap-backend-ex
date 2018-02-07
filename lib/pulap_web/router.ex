@@ -54,5 +54,8 @@ defmodule PulapWeb.Router do
     resources "/currencies", CurrencyController do
       # nested resources
     end
+    resources "/real-estate", RealEstateController do
+      # nested resources
+    end
   end
 end
