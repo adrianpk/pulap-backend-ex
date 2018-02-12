@@ -57,5 +57,8 @@ defmodule PulapWeb.Router do
     resources "/real-estate", RealEstateController do
       # nested resources
     end
+    resources "/tenures", TenureController do
+      # nested resources
+    end
   end
 end
