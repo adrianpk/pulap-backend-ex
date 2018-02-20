@@ -14,7 +14,6 @@ defmodule Pulap.Auth.UserRole do
     field :is_active, :boolean, default: false
     field :is_logical_deleted, :boolean, default: false
     field :name, :string
-    # field :organization_id, Ecto.UUID
     field :user_id, Ecto.UUID
     field :role_id, Ecto.UUID
     field :created_by_id, Ecto.UUID
