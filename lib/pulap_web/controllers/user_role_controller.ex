@@ -20,7 +20,9 @@ defmodule PulapWeb.UserRoleController do
     end
   end
 
+  require IEx
   def show(conn, %{"id" => id}) do
+    IEx.pry
     user_role = Auth.get_user_role!(id)
     render(conn, "show.json", user_role: user_role)
   end

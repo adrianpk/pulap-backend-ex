@@ -7,7 +7,7 @@ defmodule Pulap.Repo.Migrations.CreateUserRoles do
       add :id, :uuid, primary_key: true
       add :organization_id, references(:organizations, type: :uuid, on_delete: :nothing)
       add :organization_name, :string, size: 32
-      add :name, :string, size: 32, null: false
+      add :name, :string, size: 32
       add :description, :string, size: 255
       add :user_id, references(:users, type: :uuid, on_delete: :delete_all)
       add :role_id, references(:roles, type: :uuid, on_delete: :delete_all)
