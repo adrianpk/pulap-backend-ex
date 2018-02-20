@@ -21,7 +21,8 @@ defmodule Pulap.Auth.User do
     field :username, :string
 
     timestamps()
-    Roles
+
+    # Roles
     has_many :user_roles, Pulap.Auth.UserRole,
       on_delete: :nothing
     many_to_many :roles, Pulap.Auth.Role,
