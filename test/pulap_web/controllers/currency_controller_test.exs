@@ -31,10 +31,9 @@ defmodule PulapWeb.CurrencyControllerTest do
 
       conn = get conn, currency_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
         "code" => "some code",
         "icon" => "some icon",
-        "id" => "7488a646-e31f-11e4-aace-600308960662",
+        # "id" => "7488a646-e31f-11e4-aace-600308960662",
         "is_active" => true,
         "is_logical_deleted" => true,
         "minor_unit" => "some minor_unit",
@@ -57,7 +56,7 @@ defmodule PulapWeb.CurrencyControllerTest do
 
       conn = get conn, currency_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "code" => "some updated code",
         "icon" => "some updated icon",
         "id" => "7488a646-e31f-11e4-aace-600308960668",

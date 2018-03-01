@@ -11,6 +11,7 @@ defmodule PulapWeb.RealEstateController do
     render(conn, "index.json", real_estates: real_estates)
   end
 
+  require Logger
   def create(conn, %{"real_estate" => real_estate_params}) do
     with {:ok, %RealEstate{} = real_estate} <- Biz.create_real_estate(real_estate_params) do
       conn

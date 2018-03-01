@@ -52,8 +52,6 @@ defmodule PulapWeb.RealEstateView do
       furniture_set: real_estate.furniture_set,
       house_equipment: real_estate.house_equipment,
       house_equipment_description: real_estate.house_equipment_description,
-      active: real_estate.active,
-      logical_deleted: real_estate.logical_deleted,
       cards: real_estate.cards,
       geolocation: real_estate.geolocation,
       locale: real_estate.locale,

@@ -31,7 +31,6 @@ defmodule PulapWeb.AdministratorshipControllerTest do
 
       conn = get conn, administratorship_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
         "default" => "some default",
         "ends_at" => "2010-04-17 14:00:00.000000Z",
         "id" => "7488a646-e31f-11e4-aace-600308960662",
@@ -55,7 +54,7 @@ defmodule PulapWeb.AdministratorshipControllerTest do
 
       conn = get conn, administratorship_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "default" => "some updated default",
         "ends_at" => "2011-05-18 15:01:01.000000Z",
         "id" => "7488a646-e31f-11e4-aace-600308960668",

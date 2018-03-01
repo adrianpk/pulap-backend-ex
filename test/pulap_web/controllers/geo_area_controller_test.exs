@@ -31,7 +31,6 @@ defmodule PulapWeb.GeoAreaControllerTest do
 
       conn = get conn, geo_area_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
         "adm_level" => "some adm_level",
         "adm_level_type" => "some adm_level_type",
         "alternative_name" => "some alternative_name",
@@ -41,7 +40,7 @@ defmodule PulapWeb.GeoAreaControllerTest do
         "cards" => "some cards",
         "dialing_code" => "some dialing_code",
         "geo_areas" => 42,
-        "id" => "7488a646-e31f-11e4-aace-600308960662",
+        # "id" => "7488a646-e31f-11e4-aace-600308960662",
         "is_active" => true,
         "is_logical_deleted" => true,
         "is_main" => true,
@@ -68,7 +67,7 @@ defmodule PulapWeb.GeoAreaControllerTest do
 
       conn = get conn, geo_area_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "adm_level" => "some updated adm_level",
         "adm_level_type" => "some updated adm_level_type",
         "alternative_name" => "some updated alternative_name",

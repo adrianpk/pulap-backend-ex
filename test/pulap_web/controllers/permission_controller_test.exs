@@ -31,9 +31,9 @@ defmodule PulapWeb.PermissionControllerTest do
 
       conn = get conn, permission_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "description" => "some description",
-        "id" => "7488a646-e31f-11e4-aace-600308960662",
+        # "id" => "7488a646-e31f-11e4-aace-600308960662",
         "is_active" => true,
         "is_logical_deleted" => true,
         "name" => "some name",
@@ -55,7 +55,7 @@ defmodule PulapWeb.PermissionControllerTest do
 
       conn = get conn, permission_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "description" => "some updated description",
         "id" => "7488a646-e31f-11e4-aace-600308960668",
         "is_active" => false,
