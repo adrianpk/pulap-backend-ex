@@ -31,7 +31,7 @@ defmodule PulapWeb.PlanControllerTest do
 
       conn = get conn, plan_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "description" => "some description",
         "ends_at" => "2010-04-17 14:00:00.000000Z",
         "id" => "7488a646-e31f-11e4-aace-600308960662",
@@ -56,10 +56,10 @@ defmodule PulapWeb.PlanControllerTest do
 
       conn = get conn, plan_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "description" => "some updated description",
         "ends_at" => "2011-05-18 15:01:01.000000Z",
-        "id" => "7488a646-e31f-11e4-aace-600308960668",
+        # "id" => "7488a646-e31f-11e4-aace-600308960668",
         "is_active" => false,
         "is_logical_deleted" => false,
         "name" => "some updated name",

@@ -31,7 +31,7 @@ defmodule PulapWeb.OrganizationControllerTest do
 
       conn = get conn, organization_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "annotations" => "some annotations",
         "card" => "some card",
         "default" => "some default",
@@ -60,7 +60,7 @@ defmodule PulapWeb.OrganizationControllerTest do
 
       conn = get conn, organization_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
+        # "id" => id,
         "annotations" => "some updated annotations",
         "card" => "some updated card",
         "default" => "some updated default",
