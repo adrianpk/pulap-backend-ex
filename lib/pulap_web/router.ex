@@ -2,10 +2,11 @@ defmodule PulapWeb.Router do
   use PulapWeb, :router
 
   pipeline :api do
-    plug :accepts, ["json"]
+    # plug :accepts, ["json"]
+    plug :put_format, :json
   end
 
-  scope "/api", PulapWeb do
+  scope "/api/v1", PulapWeb do
     pipe_through :api
     resources "/users", UserController do
       get "/profile/edit", ProfileController, :edit
