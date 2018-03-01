@@ -49,7 +49,8 @@ defmodule Pulap.Mixfile do
       # Custom
       {:comeonin, "~> 4.0.0"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:guardian, "~> 1.0"}
+      {:guardian, "~> 1.0"},
+      # {:map_diff, "~> 1.0"}
     ]
   end
 
