@@ -12,8 +12,11 @@ config :logger, level: :warn
 # Configure your database
 config :pulap, Pulap.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "adrian",
+  password: "anpok",
   database: "pulap_test",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  pool: Ecto.Adapters.SQL.Sandbox,
+  # pool_size: 10,
+  extensions: [{Geo.PostGIS.Extension, library: Geo}],
+  types: Pulap.PostgresTypes
