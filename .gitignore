@@ -16,4 +16,9 @@ erl_crash.dump
 /config/*.secret.exs
 
 # REST API client
+test_*
 /test/client
+
+# Scripts
+/priv/scripts
+
