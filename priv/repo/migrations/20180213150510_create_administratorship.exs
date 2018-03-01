@@ -10,7 +10,7 @@ defmodule Pulap.Repo.Migrations.CreateAdministratorships do
       add :is_logical_deleted, :boolean, default: false, null: false
       add :user_id, references(:users, type: :uuid, on_delete: :nothing)
       add :organization_id, references(:organizations, type: :uuid, on_delete: :nothing)
-      add :real_estate_id, references(:real_estates, type: :uuid, on_delete: :nothing)
+      add :real_estate_id, references(:real_estate, type: :uuid, on_delete: :nothing)
       add :created_by_id, references(:users, type: :uuid, on_delete: :nothing)
       add :updated_by_id, references(:users, type: :uuid, on_delete: :nothing)
 
