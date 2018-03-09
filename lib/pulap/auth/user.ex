@@ -71,7 +71,7 @@ defmodule Pulap.Auth.User do
     |> unique_constraint(:username)
     |> unique_constraint(:email)
     |> validate_email()
-    |> hash_password()
+    |> add_password_digest()
   end
 
   def validate_email(changeset) do
@@ -114,7 +114,7 @@ defmodule Pulap.Auth.User do
     Pulap.Auth.get_user_by_email!(email)
   end
 
-  defp hash_password(changeset) do
+  defp add_password_digest(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
