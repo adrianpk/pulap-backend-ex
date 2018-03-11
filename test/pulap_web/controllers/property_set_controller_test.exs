@@ -19,17 +19,17 @@ defmodule PulapWeb.PropertySetControllerTest do
 
   describe "index" do
     test "lists all property_sets", %{conn: conn} do
-      conn = get conn, property_set_path(conn, :index)
+      conn = get conn, api_v1_property_set_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create property_set" do
     test "renders property_set when data is valid", %{conn: conn} do
-      conn = post conn, property_set_path(conn, :create), property_set: @create_attrs
+      conn = post conn, api_v1_property_set_path(conn, :create), property_set: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, property_set_path(conn, :show, id)
+      conn = get conn, api_v1_property_set_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "description" => "some description",
@@ -41,7 +41,7 @@ defmodule PulapWeb.PropertySetControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, property_set_path(conn, :create), property_set: @invalid_attrs
+      conn = post conn, api_v1_property_set_path(conn, :create), property_set: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -50,10 +50,10 @@ defmodule PulapWeb.PropertySetControllerTest do
     setup [:create_property_set]
 
     test "renders property_set when data is valid", %{conn: conn, property_set: %PropertySet{id: id} = property_set} do
-      conn = put conn, property_set_path(conn, :update, property_set), property_set: @update_attrs
+      conn = put conn, api_v1_property_set_path(conn, :update, property_set), property_set: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, property_set_path(conn, :show, id)
+      conn = get conn, api_v1_property_set_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "description" => "some updated description",
@@ -65,7 +65,7 @@ defmodule PulapWeb.PropertySetControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, property_set: property_set} do
-      conn = put conn, property_set_path(conn, :update, property_set), property_set: @invalid_attrs
+      conn = put conn, api_v1_property_set_path(conn, :update, property_set), property_set: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -74,10 +74,10 @@ defmodule PulapWeb.PropertySetControllerTest do
     setup [:create_property_set]
 
     test "deletes chosen property_set", %{conn: conn, property_set: property_set} do
-      conn = delete conn, property_set_path(conn, :delete, property_set)
+      conn = delete conn, api_v1_property_set_path(conn, :delete, property_set)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, property_set_path(conn, :show, property_set)
+        get conn, api_v1_property_set_path(conn, :show, property_set)
       end
     end
   end

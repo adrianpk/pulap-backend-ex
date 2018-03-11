@@ -19,17 +19,17 @@ defmodule PulapWeb.ResourcePermissionControllerTest do
 
   describe "index" do
     test "lists all resource_permissions", %{conn: conn} do
-      conn = get conn, resource_permission_path(conn, :index)
+      conn = get conn, api_v1_resource_permission_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create resource_permission" do
     test "renders resource_permission when data is valid", %{conn: conn} do
-      conn = post conn, resource_permission_path(conn, :create), resource_permission: @create_attrs
+      conn = post conn, api_v1_resource_permission_path(conn, :create), resource_permission: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, resource_permission_path(conn, :show, id)
+      conn = get conn, api_v1_resource_permission_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "" => "some ",
@@ -43,7 +43,7 @@ defmodule PulapWeb.ResourcePermissionControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, resource_permission_path(conn, :create), resource_permission: @invalid_attrs
+      conn = post conn, api_v1_resource_permission_path(conn, :create), resource_permission: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -52,10 +52,10 @@ defmodule PulapWeb.ResourcePermissionControllerTest do
     setup [:create_resource_permission]
 
     test "renders resource_permission when data is valid", %{conn: conn, resource_permission: %ResourcePermission{id: id} = resource_permission} do
-      conn = put conn, resource_permission_path(conn, :update, resource_permission), resource_permission: @update_attrs
+      conn = put conn, api_v1_resource_permission_path(conn, :update, resource_permission), resource_permission: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, resource_permission_path(conn, :show, id)
+      conn = get conn, api_v1_resource_permission_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "" => "some updated ",
@@ -69,7 +69,7 @@ defmodule PulapWeb.ResourcePermissionControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, resource_permission: resource_permission} do
-      conn = put conn, resource_permission_path(conn, :update, resource_permission), resource_permission: @invalid_attrs
+      conn = put conn, api_v1_resource_permission_path(conn, :update, resource_permission), resource_permission: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -78,10 +78,10 @@ defmodule PulapWeb.ResourcePermissionControllerTest do
     setup [:create_resource_permission]
 
     test "deletes chosen resource_permission", %{conn: conn, resource_permission: resource_permission} do
-      conn = delete conn, resource_permission_path(conn, :delete, resource_permission)
+      conn = delete conn, api_v1_resource_permission_path(conn, :delete, resource_permission)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, resource_permission_path(conn, :show, resource_permission)
+        get conn, api_v1_resource_permission_path(conn, :show, resource_permission)
       end
     end
   end

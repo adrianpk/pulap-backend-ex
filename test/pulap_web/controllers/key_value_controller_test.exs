@@ -19,17 +19,17 @@ defmodule PulapWeb.KeyValueControllerTest do
 
   describe "index" do
     test "lists all key_values", %{conn: conn} do
-      conn = get conn, key_value_path(conn, :index)
+      conn = get conn, api_v1_key_value_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create key_value" do
     test "renders key_value when data is valid", %{conn: conn} do
-      conn = post conn, key_value_path(conn, :create), key_value: @create_attrs
+      conn = post conn, api_v1_key_value_path(conn, :create), key_value: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, key_value_path(conn, :show, id)
+      conn = get conn, api_v1_key_value_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         # "id" => "7488a646-e31f-11e4-aace-600308960662",
         "is_active" => true,
@@ -44,7 +44,7 @@ defmodule PulapWeb.KeyValueControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, key_value_path(conn, :create), key_value: @invalid_attrs
+      conn = post conn, api_v1_key_value_path(conn, :create), key_value: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -53,10 +53,10 @@ defmodule PulapWeb.KeyValueControllerTest do
     setup [:create_key_value]
 
     test "renders key_value when data is valid", %{conn: conn, key_value: %KeyValue{id: id} = key_value} do
-      conn = put conn, key_value_path(conn, :update, key_value), key_value: @update_attrs
+      conn = put conn, api_v1_key_value_path(conn, :update, key_value), key_value: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, key_value_path(conn, :show, id)
+      conn = get conn, api_v1_key_value_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         # "id" => id,
         # "id" => "7488a646-e31f-11e4-aace-600308960668",
@@ -72,7 +72,7 @@ defmodule PulapWeb.KeyValueControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, key_value: key_value} do
-      conn = put conn, key_value_path(conn, :update, key_value), key_value: @invalid_attrs
+      conn = put conn, api_v1_key_value_path(conn, :update, key_value), key_value: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -81,10 +81,10 @@ defmodule PulapWeb.KeyValueControllerTest do
     setup [:create_key_value]
 
     test "deletes chosen key_value", %{conn: conn, key_value: key_value} do
-      conn = delete conn, key_value_path(conn, :delete, key_value)
+      conn = delete conn, api_v1_key_value_path(conn, :delete, key_value)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, key_value_path(conn, :show, key_value)
+        get conn, api_v1_key_value_path(conn, :show, key_value)
       end
     end
   end

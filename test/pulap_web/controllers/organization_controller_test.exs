@@ -19,17 +19,17 @@ defmodule PulapWeb.OrganizationControllerTest do
 
   describe "index" do
     test "lists all organizations", %{conn: conn} do
-      conn = get conn, organization_path(conn, :index)
+      conn = get conn, api_v1_organization_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create organization" do
     test "renders organization when data is valid", %{conn: conn} do
-      conn = post conn, organization_path(conn, :create), organization: @create_attrs
+      conn = post conn, api_v1_organization_path(conn, :create), organization: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, organization_path(conn, :show, id)
+      conn = get conn, api_v1_organization_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         # "id" => id,
         "annotations" => "some annotations",
@@ -46,7 +46,7 @@ defmodule PulapWeb.OrganizationControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, organization_path(conn, :create), organization: @invalid_attrs
+      conn = post conn, api_v1_organization_path(conn, :create), organization: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -55,10 +55,10 @@ defmodule PulapWeb.OrganizationControllerTest do
     setup [:create_organization]
 
     test "renders organization when data is valid", %{conn: conn, organization: %Organization{id: id} = organization} do
-      conn = put conn, organization_path(conn, :update, organization), organization: @update_attrs
+      conn = put conn, api_v1_organization_path(conn, :update, organization), organization: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, organization_path(conn, :show, id)
+      conn = get conn, api_v1_organization_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         # "id" => id,
         "annotations" => "some updated annotations",
@@ -75,7 +75,7 @@ defmodule PulapWeb.OrganizationControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, organization: organization} do
-      conn = put conn, organization_path(conn, :update, organization), organization: @invalid_attrs
+      conn = put conn, api_v1_organization_path(conn, :update, organization), organization: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -84,10 +84,10 @@ defmodule PulapWeb.OrganizationControllerTest do
     setup [:create_organization]
 
     test "deletes chosen organization", %{conn: conn, organization: organization} do
-      conn = delete conn, organization_path(conn, :delete, organization)
+      conn = delete conn, api_v1_organization_path(conn, :delete, organization)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, organization_path(conn, :show, organization)
+        get conn, api_v1_organization_path(conn, :show, organization)
       end
     end
   end

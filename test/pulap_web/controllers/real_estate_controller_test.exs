@@ -128,7 +128,7 @@ defmodule PulapWeb.RealEstateControllerTest do
   @invalid_attrs %{
     id: "7488a646-e31f-11e4-aace-600308960662",
     name: nil,
-    short_description: nil, 
+    short_description: nil,
     description: nil,
     geo_area_name: nil,
     geo_area_name_loc: nil,
@@ -196,17 +196,17 @@ defmodule PulapWeb.RealEstateControllerTest do
 
   describe "index" do
     test "lists all real_estates", %{conn: conn} do
-      conn = get conn, real_estate_path(conn, :index)
+      conn = get conn, api_v1_real_estate_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create real_estate" do
     test "renders real_estate when data is valid", %{conn: conn} do
-      conn = post conn, real_estate_path(conn, :create), real_estate: @create_attrs
+      conn = post conn, api_v1_real_estate_path(conn, :create), real_estate: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, real_estate_path(conn, :show, id)
+      conn = get conn, api_v1_real_estate_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "room_height_cm" => @create_attrs.room_height_cm,
@@ -259,9 +259,9 @@ defmodule PulapWeb.RealEstateControllerTest do
         "floor" => @create_attrs.floor
       }
     end
-    
+
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, real_estate_path(conn, :create), real_estate: @invalid_attrs
+      conn = post conn, api_v1_real_estate_path(conn, :create), real_estate: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -270,10 +270,10 @@ defmodule PulapWeb.RealEstateControllerTest do
     setup [:create_real_estate]
 
     test "renders real_estate when data is valid", %{conn: conn, real_estate: %RealEstate{id: id} = real_estate} do
-      conn = put conn, real_estate_path(conn, :update, real_estate), real_estate: @update_attrs
+      conn = put conn, api_v1_real_estate_path(conn, :update, real_estate), real_estate: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, real_estate_path(conn, :show, id)
+      conn = get conn, api_v1_real_estate_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "room_height_cm" => @update_attrs.room_height_cm,
@@ -328,7 +328,7 @@ defmodule PulapWeb.RealEstateControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, real_estate: real_estate} do
-      conn = put conn, real_estate_path(conn, :update, real_estate), real_estate: @invalid_attrs
+      conn = put conn, api_v1_real_estate_path(conn, :update, real_estate), real_estate: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -337,10 +337,10 @@ defmodule PulapWeb.RealEstateControllerTest do
     setup [:create_real_estate]
 
     test "deletes chosen real_estate", %{conn: conn, real_estate: real_estate} do
-      conn = delete conn, real_estate_path(conn, :delete, real_estate)
+      conn = delete conn, api_v1_real_estate_path(conn, :delete, real_estate)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, real_estate_path(conn, :show, real_estate)
+        get conn, api_v1_real_estate_path(conn, :show, real_estate)
       end
     end
   end

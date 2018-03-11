@@ -19,17 +19,17 @@ defmodule PulapWeb.RoleControllerTest do
 
   describe "index" do
     test "lists all roles", %{conn: conn} do
-      conn = get conn, role_path(conn, :index)
+      conn = get conn, api_v1_tenure_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create role" do
     test "renders role when data is valid", %{conn: conn} do
-      conn = post conn, role_path(conn, :create), role: @create_attrs
+      conn = post conn, api_v1_tenure_path(conn, :create), role: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, role_path(conn, :show, id)
+      conn = get conn, api_v1_tenure_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "description" => "some description",
@@ -41,7 +41,7 @@ defmodule PulapWeb.RoleControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, role_path(conn, :create), role: @invalid_attrs
+      conn = post conn, api_v1_tenure_path(conn, :create), role: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -50,10 +50,10 @@ defmodule PulapWeb.RoleControllerTest do
     setup [:create_role]
 
     test "renders role when data is valid", %{conn: conn, role: %Role{id: id} = role} do
-      conn = put conn, role_path(conn, :update, role), role: @update_attrs
+      conn = put conn, api_v1_tenure_path(conn, :update, role), role: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, role_path(conn, :show, id)
+      conn = get conn, api_v1_tenure_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "description" => "some updated description",
@@ -65,7 +65,7 @@ defmodule PulapWeb.RoleControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, role: role} do
-      conn = put conn, role_path(conn, :update, role), role: @invalid_attrs
+      conn = put conn, api_v1_tenure_path(conn, :update, role), role: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -74,10 +74,10 @@ defmodule PulapWeb.RoleControllerTest do
     setup [:create_role]
 
     test "deletes chosen role", %{conn: conn, role: role} do
-      conn = delete conn, role_path(conn, :delete, role)
+      conn = delete conn, api_v1_tenure_path(conn, :delete, role)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, role_path(conn, :show, role)
+        get conn, api_v1_tenure_path(conn, :show, role)
       end
     end
   end
