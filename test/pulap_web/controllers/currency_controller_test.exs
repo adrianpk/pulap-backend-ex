@@ -19,17 +19,17 @@ defmodule PulapWeb.CurrencyControllerTest do
 
   describe "index" do
     test "lists all currencies", %{conn: conn} do
-      conn = get conn, currency_path(conn, :index)
+      conn = get conn,api_v1_currency_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create currency" do
     test "renders currency when data is valid", %{conn: conn} do
-      conn = post conn, currency_path(conn, :create), currency: @create_attrs
+      conn = post conn,api_v1_currency_path(conn, :create), currency: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, currency_path(conn, :show, id)
+      conn = get conn,api_v1_currency_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "code" => "some code",
         "icon" => "some icon",
@@ -42,7 +42,7 @@ defmodule PulapWeb.CurrencyControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, currency_path(conn, :create), currency: @invalid_attrs
+      conn = post conn,api_v1_currency_path(conn, :create), currency: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -51,10 +51,10 @@ defmodule PulapWeb.CurrencyControllerTest do
     setup [:create_currency]
 
     test "renders currency when data is valid", %{conn: conn, currency: %Currency{id: id} = currency} do
-      conn = put conn, currency_path(conn, :update, currency), currency: @update_attrs
+      conn = put conn,api_v1_currency_path(conn, :update, currency), currency: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, currency_path(conn, :show, id)
+      conn = get conn,api_v1_currency_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         # "id" => id,
         "code" => "some updated code",
@@ -68,7 +68,7 @@ defmodule PulapWeb.CurrencyControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, currency: currency} do
-      conn = put conn, currency_path(conn, :update, currency), currency: @invalid_attrs
+      conn = put conn,api_v1_currency_path(conn, :update, currency), currency: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -77,10 +77,10 @@ defmodule PulapWeb.CurrencyControllerTest do
     setup [:create_currency]
 
     test "deletes chosen currency", %{conn: conn, currency: currency} do
-      conn = delete conn, currency_path(conn, :delete, currency)
+      conn = delete conn,api_v1_currency_path(conn, :delete, currency)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, currency_path(conn, :show, currency)
+        get conn,api_v1_currency_path(conn, :show, currency)
       end
     end
   end

@@ -19,17 +19,17 @@ defmodule PulapWeb.PlanSubscriptionControllerTest do
 
   describe "index" do
     test "lists all plan_subscriptions", %{conn: conn} do
-      conn = get conn, plan_subscription_path(conn, :index)
+      conn = get conn, api_v1_plan_subscription_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create plan_subscription" do
     test "renders plan_subscription when data is valid", %{conn: conn} do
-      conn = post conn, plan_subscription_path(conn, :create), plan_subscription: @create_attrs
+      conn = post conn, api_v1_plan_subscription_path(conn, :create), plan_subscription: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, plan_subscription_path(conn, :show, id)
+      conn = get conn, api_v1_plan_subscription_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         # "id" => id,
         "description" => "some description",
@@ -42,7 +42,7 @@ defmodule PulapWeb.PlanSubscriptionControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, plan_subscription_path(conn, :create), plan_subscription: @invalid_attrs
+      conn = post conn, api_v1_plan_subscription_path(conn, :create), plan_subscription: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -51,10 +51,10 @@ defmodule PulapWeb.PlanSubscriptionControllerTest do
     setup [:create_plan_subscription]
 
     test "renders plan_subscription when data is valid", %{conn: conn, plan_subscription: %PlanSubscription{id: id} = plan_subscription} do
-      conn = put conn, plan_subscription_path(conn, :update, plan_subscription), plan_subscription: @update_attrs
+      conn = put conn, api_v1_plan_subscription_path(conn, :update, plan_subscription), plan_subscription: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, plan_subscription_path(conn, :show, id)
+      conn = get conn, api_v1_plan_subscription_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         # "id" => id,
         "description" => "some updated description",
@@ -67,7 +67,7 @@ defmodule PulapWeb.PlanSubscriptionControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, plan_subscription: plan_subscription} do
-      conn = put conn, plan_subscription_path(conn, :update, plan_subscription), plan_subscription: @invalid_attrs
+      conn = put conn, api_v1_plan_subscription_path(conn, :update, plan_subscription), plan_subscription: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -76,10 +76,10 @@ defmodule PulapWeb.PlanSubscriptionControllerTest do
     setup [:create_plan_subscription]
 
     test "deletes chosen plan_subscription", %{conn: conn, plan_subscription: plan_subscription} do
-      conn = delete conn, plan_subscription_path(conn, :delete, plan_subscription)
+      conn = delete conn, api_v1_plan_subscription_path(conn, :delete, plan_subscription)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, plan_subscription_path(conn, :show, plan_subscription)
+        get conn, api_v1_plan_subscription_path(conn, :show, plan_subscription)
       end
     end
   end

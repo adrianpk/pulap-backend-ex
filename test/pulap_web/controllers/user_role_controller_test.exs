@@ -19,17 +19,17 @@ defmodule PulapWeb.UserRoleControllerTest do
 
   describe "index" do
     test "lists all user_roles", %{conn: conn} do
-      conn = get conn, user_role_path(conn, :index)
+      conn = get conn, api_v1_user_role_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create user_role" do
     test "renders user_role when data is valid", %{conn: conn} do
-      conn = post conn, user_role_path(conn, :create), user_role: @create_attrs
+      conn = post conn, api_v1_user_role_path(conn, :create), user_role: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, user_role_path(conn, :show, id)
+      conn = get conn, api_v1_user_role_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "description" => "some description",
@@ -41,7 +41,7 @@ defmodule PulapWeb.UserRoleControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, user_role_path(conn, :create), user_role: @invalid_attrs
+      conn = post conn, api_v1_user_role_path(conn, :create), user_role: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -50,10 +50,10 @@ defmodule PulapWeb.UserRoleControllerTest do
     setup [:create_user_role]
 
     test "renders user_role when data is valid", %{conn: conn, user_role: %UserRole{id: id} = user_role} do
-      conn = put conn, user_role_path(conn, :update, user_role), user_role: @update_attrs
+      conn = put conn, api_v1_user_role_path(conn, :update, user_role), user_role: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, user_role_path(conn, :show, id)
+      conn = get conn, api_v1_user_role_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "description" => "some updated description",
@@ -65,7 +65,7 @@ defmodule PulapWeb.UserRoleControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, user_role: user_role} do
-      conn = put conn, user_role_path(conn, :update, user_role), user_role: @invalid_attrs
+      conn = put conn, api_v1_user_role_path(conn, :update, user_role), user_role: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -74,10 +74,10 @@ defmodule PulapWeb.UserRoleControllerTest do
     setup [:create_user_role]
 
     test "deletes chosen user_role", %{conn: conn, user_role: user_role} do
-      conn = delete conn, user_role_path(conn, :delete, user_role)
+      conn = delete conn, api_v1_user_role_path(conn, :delete, user_role)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, user_role_path(conn, :show, user_role)
+        get conn, api_v1_user_role_path(conn, :show, user_role)
       end
     end
   end

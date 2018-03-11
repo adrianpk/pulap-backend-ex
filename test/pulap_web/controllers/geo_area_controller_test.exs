@@ -19,17 +19,17 @@ defmodule PulapWeb.GeoAreaControllerTest do
 
   describe "index" do
     test "lists all geo_areas", %{conn: conn} do
-      conn = get conn, geo_area_path(conn, :index)
+      conn = get conn, api_v1_geo_area_path(conn, :index)
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create geo_area" do
     test "renders geo_area when data is valid", %{conn: conn} do
-      conn = post conn, geo_area_path(conn, :create), geo_area: @create_attrs
+      conn = post conn, api_v1_geo_area_path(conn, :create), geo_area: @create_attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, geo_area_path(conn, :show, id)
+      conn = get conn, api_v1_geo_area_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "adm_level" => "some adm_level",
         "adm_level_type" => "some adm_level_type",
@@ -53,7 +53,7 @@ defmodule PulapWeb.GeoAreaControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, geo_area_path(conn, :create), geo_area: @invalid_attrs
+      conn = post conn, api_v1_geo_area_path(conn, :create), geo_area: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -62,10 +62,10 @@ defmodule PulapWeb.GeoAreaControllerTest do
     setup [:create_geo_area]
 
     test "renders geo_area when data is valid", %{conn: conn, geo_area: %GeoArea{id: id} = geo_area} do
-      conn = put conn, geo_area_path(conn, :update, geo_area), geo_area: @update_attrs
+      conn = put conn, api_v1_geo_area_path(conn, :update, geo_area), geo_area: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, geo_area_path(conn, :show, id)
+      conn = get conn, api_v1_geo_area_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         # "id" => id,
         "adm_level" => "some updated adm_level",
@@ -90,7 +90,7 @@ defmodule PulapWeb.GeoAreaControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, geo_area: geo_area} do
-      conn = put conn, geo_area_path(conn, :update, geo_area), geo_area: @invalid_attrs
+      conn = put conn, api_v1_geo_area_path(conn, :update, geo_area), geo_area: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -99,10 +99,10 @@ defmodule PulapWeb.GeoAreaControllerTest do
     setup [:create_geo_area]
 
     test "deletes chosen geo_area", %{conn: conn, geo_area: geo_area} do
-      conn = delete conn, geo_area_path(conn, :delete, geo_area)
+      conn = delete conn, api_v1_geo_area_path(conn, :delete, geo_area)
       assert response(conn, 204)
       assert_error_sent 404, fn ->
-        get conn, geo_area_path(conn, :show, geo_area)
+        get conn, api_v1_geo_area_path(conn, :show, geo_area)
       end
     end
   end
