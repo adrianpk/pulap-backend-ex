@@ -1,7 +1,11 @@
 defmodule Pulap.Auth.User do
   use Pulap.Schema
   import Ecto.Changeset
+  alias Pulap.Auth
   alias Pulap.Auth.User
+
+  require Logger
+  require IEx
 
   schema "users" do
     field :annotations, :string
@@ -14,7 +18,9 @@ defmodule Pulap.Auth.User do
     field :is_active, :boolean, default: false
     field :is_logical_deleted, :boolean, default: false
     field :middle_names, :string
+    field :given_password, :string, virtual: true
     field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
     field :password_hash, :string
     field :started_at, :utc_datetime
     field :updated_by_id, Ecto.UUID
@@ -58,7 +64,10 @@ defmodule Pulap.Auth.User do
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:username, :password, :email, :given_name, :middle_names, :family_name])
-    |> validate_required([:username, :password, :email, :given_name, :middle_names, :family_name])
+    |> unique_constraint(:username)
+    |> unique_constraint(:email)
+    |> validate_email(user)
+    |> add_password_digest()
   end
 
   @doc false
@@ -70,11 +79,22 @@ defmodule Pulap.Auth.User do
     |> validate_length(:password, min: 8, max: 32)
     |> unique_constraint(:username)
     |> unique_constraint(:email)
-    |> validate_email()
+    |> validate_email(user)
     |> add_password_digest()
   end
 
-  def validate_email(changeset) do
+  @doc false
+  def update_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:username, :password, :password_confirmation, :given_password, :email, :given_name, :middle_names, :family_name])
+    |> unique_constraint(:username)
+    |> unique_constraint(:email)
+    |> validate_password_change(user)
+    |> validate_email(user)
+    |> add_password_digest()
+  end
+
+  def validate_email(changeset, user) do
     case changeset do
       %Ecto.Changeset{changes: %{email: email}} when is_binary(email) ->
         case Regex.run(~r/^[A-Za-z0-9_%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, email) do
@@ -82,21 +102,27 @@ defmodule Pulap.Auth.User do
             changeset |> add_error(:email, "Invalid email.")
           [email] ->
             try do
-              Regex.run(~r/(\w+)@([\w.]+)/, email) # |> validate_domain_and_unique(changeset)
+              Regex.run(~r/(\w+)@([\w.]+)/, email) |> validate_domain_and_unique(changeset)
               changeset
-            rescue
-              _ ->
+            rescue e in RuntimeError -> e
                 changeset |> add_error(:email, "Invalid email.")
             end
           end
       _ ->
-        changeset |> add_error(:email, "Invalid email.")
+        case user.email do
+          "" ->
+            changeset |> add_error(:email, "Invalid email.")
+          nil ->
+            changeset |> add_error(:email, "Invalid email.")
+          _ ->
+            changeset
+        end
       end
   end
 
   def validate_domain_and_unique([email, username, host], changeset) do
     # accepted_domains = Config.accepted_domains # FIX: Commented only for development
-    accepted_domains = ~w(localhost.com gmail.com hotmail.com)
+    accepted_domains = ~w(localhost.com gmail.com hotmail.com localhost)
     case host in accepted_domains do
       true ->
         case find_by_email(email) do
@@ -111,17 +137,74 @@ defmodule Pulap.Auth.User do
   end
 
   def find_by_email(email) do
-    Pulap.Auth.get_user_by_email!(email)
+    Pulap.Auth.get_user_by_email(email)
   end
 
   defp add_password_digest(changeset) do
     case changeset do
-      %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
-        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(password))
         #put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpass(pass, salt))
       _ ->
         changeset
     end
   end
+
+  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
+
+  def validate_password_change(changeset, user) do
+    case changeset do
+
+      %Ecto.Changeset{changes: %{password: password, password_confirmation: password_confirmation, given_password: given_password}} ->
+        user = Auth.get_user!(user.id)
+        password_verify = checkpw(given_password, user.password_hash)
+        password_confirmation = password == password_confirmation
+        cond do
+          user && password_verify && password_confirmation  ->
+            changeset
+            |> validate_length(:password, min: 8, max: 32)
+            |> validate_password_confirmation()
+
+          !password_verify ->
+            changeset
+            |> add_error(:given_password, "Current password incorrect.")
+
+          !password_confirmation ->
+            changeset
+            |> add_error(:password_confirmation, "Password and confirmations does not match")
+
+          true ->
+            IEx.pry
+            changeset
+      end
+
+      %Ecto.Changeset{changes: %{password: password, given_password: given_password}} ->
+        changeset
+        |> add_error(:password_confirmation, "Password confirmation must be suplied.")
+
+      %Ecto.Changeset{changes: %{password: password, password_confirmation: password_confirmation}} ->
+        changeset
+        |> add_error(:given_password, "Current password must be suplied.")
+
+      _ ->
+        changeset
+    end
+  end
+
+  def validate_password_confirmation(changeset) do
+    case changeset do
+      %Ecto.Changeset{changes: %{password: password, password_confirmation: password_confirmation}} ->
+        cond do
+          password != password_confirmation ->
+            changeset
+            |> add_error(:password, "Password does not match with its confirmation.")
+            |> add_error(:password_confirmation, "Password confirmation does not match with password.")
+          true ->
+            changeset
+        end
+      _ ->
+        changeset
+    end
+ end
 
 end

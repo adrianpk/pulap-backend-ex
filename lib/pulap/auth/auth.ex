@@ -1,4 +1,8 @@
 defmodule Pulap.Auth do
+
+  require Logger
+  require IEx
+
   @moduledoc """
   The Auth context.
   """
@@ -41,6 +45,20 @@ defmodule Pulap.Auth do
   @doc """
   Gets a single user by email.
 
+  ## Examples
+
+  iex> get_user_by_email(user@mail.com)
+  %User{}
+
+  iex> get_user_by_email(user@mail.com)
+  ** (Ecto.NoResultsError)
+
+  """
+  def get_user_by_email(email), do: Repo.get_by(User, email: email)
+
+  @doc """
+  Gets a single user by email.
+
   Raises `Ecto.NoResultsError` if the User does not exist.
 
   ## Examples
@@ -48,13 +66,11 @@ defmodule Pulap.Auth do
   iex> get_user_by_email!(user@mail.com)
   %User{}
 
-  iex> get_user!(user@mail.com)
+  iex> get_user_by_email!(user@mail.com)
   ** (Ecto.NoResultsError)
 
   """
   def get_user_by_email!(email), do: Repo.get_by!(User, email: email)
-
-  require IEx
 
   # import Ecto
 
@@ -75,9 +91,9 @@ defmodule Pulap.Auth do
       user = %User{}
              |> User.signup_changeset(attrs)
              |> Repo.insert!
-      user
-      #|> Ecto.build_assoc(:profile, %Profile{email: user.email})
-      |> Repo.insert()
+      # user
+      # #|> Ecto.build_assoc(:profile, %Profile{email: user.email})
+      # |> Repo.insert()
       user
     end
   end
@@ -144,7 +160,7 @@ defmodule Pulap.Auth do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.update_changeset(attrs)
     |> Repo.update()
   end
 
