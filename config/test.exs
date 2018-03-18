@@ -9,8 +9,8 @@ config :pulap, PulapWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-1 # Reduce bcrypt rounds to speed up tests
-2 config :bcrypt_elixir, :log_rounds, 4
+# Reduce bcrypt rounds to speed up tests
+config :bcrypt_elixir, :log_rounds, 4
 
 # Configure your database
 config :pulap, Pulap.Repo,
