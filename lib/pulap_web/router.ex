@@ -86,6 +86,8 @@ defmodule PulapWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/signup", UserController, :init_signup
+    post "/signup", UserController, :signup
     resources "/users", UserController do
       # get "/profile/edit", ProfileController, :edit
       # get "/profile", ProfileController, :show

@@ -1,7 +1,7 @@
 defmodule PulapWeb.HTML.PageController do
   use PulapWeb, :controller
 
-  plug :authenticate when action in [:index]
+  # plug :authenticate when action in [:index]
 
   def index(conn, _params) do
     render conn, "index.html"

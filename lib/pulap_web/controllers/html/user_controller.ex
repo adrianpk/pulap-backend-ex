@@ -4,6 +4,24 @@ defmodule PulapWeb.HTML.UserController do
   alias Pulap.Auth
   alias Pulap.Auth.User
 
+  require IEx
+
+  def init_signup(conn, _params) do
+    changeset = Auth.change_user(%User{})
+    render(conn, "signup.html", changeset: changeset)
+  end
+
+  def signup(conn, %{"user" => user_params}) do
+    case Auth.sign_up_user(user_params) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "User signed up successfully.")
+        |> redirect(to: user_path(conn, :show, user))
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", changeset: changeset)
+    end
+  end
+
   def index(conn, _params) do
     users = Auth.list_users()
     render(conn, "index.html", users: users)
