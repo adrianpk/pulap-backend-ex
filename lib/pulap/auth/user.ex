@@ -1,4 +1,6 @@
 defmodule Pulap.Auth.User do
+  import Comeonin.Bcrypt #, only: [checkpw: 2, dummy_checkpw: 0]
+
   use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Auth
@@ -86,9 +88,12 @@ defmodule Pulap.Auth.User do
   @doc false
   def update_changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:username, :password, :password_confirmation, :given_password, :email, :given_name, :middle_names, :family_name])
+    |> cast(attrs, [:username, :password, :password_confirmation,
+                   :given_password, :email, :given_name, :middle_names,
+                   :family_name])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
+    |> validate_required([:given_password])
     |> validate_password_change(user)
     |> validate_email(user)
     |> add_password_digest()
@@ -99,29 +104,30 @@ defmodule Pulap.Auth.User do
       %Ecto.Changeset{changes: %{email: email}} when is_binary(email) ->
         case Regex.run(~r/^[A-Za-z0-9_%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, email) do
           nil ->
-            changeset |> add_error(:email, "Invalid email.")
+            changeset |> add_error(:email, "invalid email")
           [email] ->
             try do
               Regex.run(~r/(\w+)@([\w.]+)/, email) |> validate_domain_and_unique(changeset)
               changeset
-            rescue e in RuntimeError -> e
-                changeset |> add_error(:email, "Invalid email.")
+            rescue RuntimeError ->
+                changeset |> add_error(:email, "invalid email")
             end
           end
       _ ->
         case user.email do
           "" ->
-            changeset |> add_error(:email, "Invalid email.")
+            changeset |> add_error(:email, "invalid email")
           nil ->
-            changeset |> add_error(:email, "Invalid email.")
+            changeset |> add_error(:email, "invalid email")
           _ ->
             changeset
         end
       end
   end
 
-  def validate_domain_and_unique([email, username, host], changeset) do
-    # accepted_domains = Config.accepted_domains # FIX: Commented only for development
+  def validate_domain_and_unique([email, _username, host], changeset) do
+    # FIX: Commented only for development
+    # accepted_domains = Config.accepted_domains 
     accepted_domains = ~w(localhost.com gmail.com hotmail.com localhost)
     case host in accepted_domains do
       true ->
@@ -129,10 +135,10 @@ defmodule Pulap.Auth.User do
           nil ->
             changeset
           _account ->
-            changeset |> add_error(:email, "Email is already registered.")
+            changeset |> add_error(:email, "email is already registered")
         end
       _ ->
-        changeset |> add_error(:email, "Not an accepted domain.")
+        changeset |> add_error(:email, "email not accepted")
     end
   end
 
@@ -150,61 +156,52 @@ defmodule Pulap.Auth.User do
     end
   end
 
-  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
-  def validate_password_change(changeset, user) do
+  defp validate_password_change(changeset, user) do
     case changeset do
-
-      %Ecto.Changeset{changes: %{password: password, password_confirmation: password_confirmation, given_password: given_password}} ->
-        user = Auth.get_user!(user.id)
-        password_verify = checkpw(given_password, user.password_hash)
-        password_confirmation = password == password_confirmation
-        cond do
-          user && password_verify && password_confirmation  ->
-            changeset
-            |> validate_length(:password, min: 8, max: 32)
-            |> validate_password_confirmation()
-
-          !password_verify ->
-            changeset
-            |> add_error(:given_password, "Current password incorrect.")
-
-          !password_confirmation ->
-            changeset
-            |> add_error(:password_confirmation, "Password and confirmations does not match")
-
-          true ->
-            IEx.pry
-            changeset
-      end
-
-      %Ecto.Changeset{changes: %{password: password, given_password: given_password}} ->
+      %Ecto.Changeset{valid?: true, changes: %{password: _password, password_confirmation: _password_confirmation, given_password: _given_password}} ->
         changeset
-        |> add_error(:password_confirmation, "Password confirmation must be suplied.")
-
-      %Ecto.Changeset{changes: %{password: password, password_confirmation: password_confirmation}} ->
-        changeset
-        |> add_error(:given_password, "Current password must be suplied.")
+        |> verify_user(user)
+        |> verify_current_password(user)
+        |> verify_password_confirmation
+        |> validate_length(:password, min: 8, max: 32)
 
       _ ->
         changeset
     end
   end
 
-  def validate_password_confirmation(changeset) do
-    case changeset do
-      %Ecto.Changeset{changes: %{password: password, password_confirmation: password_confirmation}} ->
-        cond do
-          password != password_confirmation ->
-            changeset
-            |> add_error(:password, "Password does not match with its confirmation.")
-            |> add_error(:password_confirmation, "Password confirmation does not match with password.")
-          true ->
-            changeset
-        end
-      _ ->
+  defp verify_user(changeset, user) do
+    user = Auth.get_user!(user.id)
+    cond do
+      user ->
         changeset
-    end
- end
 
+      true ->
+        changeset
+        |> add_error(:username, "invalid user")
+    end
+  end
+
+  defp verify_current_password(changeset, user) do
+    cond do
+     checkpw(changeset.changes.given_password, user.password_hash) ->
+        changeset
+
+      true ->
+        changeset
+        |> add_error(:given_password, "does not much with current password")
+    end
+  end
+
+  defp verify_password_confirmation(changeset) do
+    cond do
+      changeset.changes.password == changeset.changes.password_confirmation ->
+        changeset
+
+      true ->
+        changeset
+        |> add_error(:password_confirmation, "does not match with password")
+    end
+  end
 end
