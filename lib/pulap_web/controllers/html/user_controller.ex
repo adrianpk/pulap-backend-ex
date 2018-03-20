@@ -5,6 +5,7 @@ defmodule PulapWeb.HTML.UserController do
   alias Pulap.Auth.User
 
   require IEx
+  require Logger
 
   def init_signup(conn, _params) do
     changeset = Auth.change_user(%User{})
