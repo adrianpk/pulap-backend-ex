@@ -7,7 +7,7 @@ defmodule PulapWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug PulapWeb.Auth.AuthPlug, repo: Pulap.Repo
+    plug PulapWeb.HTML.AuthPlug, repo: Pulap.Repo
   end
 
   pipeline :api do
