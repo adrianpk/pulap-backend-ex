@@ -21,4 +21,24 @@ defmodule PulapWeb.HTML.AuthPlug do
    |> put_session(:user_id, user.id)
    |> configure_session(renew: true)
   end
+
+  def sign_in_with_username_and_password(conn, username, given_password, opts) do
+    repo = Keyword.fetch!(opts, :repo)
+    user = repo.get_by(User, username: username)
+
+    cond do
+      user && Comeonin.Bcrypt.checkpw(given_password, user.password_hash) ->
+        {:ok, sign_in(conn, user)}
+      user ->
+        {:error, :unauthorized, conn}
+      true ->
+        Comeonin.Bcrypt.dummy_checkpw()
+        {:error, :not_found, conn}
+    end
+  end
+
+  def sign_out(conn) do
+    configure_session(conn, drop: true)
+  end
+
 end
