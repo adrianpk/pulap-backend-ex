@@ -5,7 +5,6 @@ defmodule PulapWeb.HTML.UserController do
   alias Pulap.Auth.User
   alias PulapWeb.HTML.AuthPlug
 
-  require IEx
   require Logger
 
   def init_signup(conn, _params) do
