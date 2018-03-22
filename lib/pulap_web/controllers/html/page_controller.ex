@@ -7,8 +7,6 @@ defmodule PulapWeb.HTML.PageController do
     render conn, "index.html"
   end
 
-  require IEx
-
   defp authenticate(conn, _opts) do
     if conn.assigns.current_user() do
       conn

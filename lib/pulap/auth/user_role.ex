@@ -8,6 +8,8 @@ defmodule Pulap.Auth.UserRole do
   alias Pulap.Auth.User
   alias Pulap.Auth.Role
 
+  require Logger
+  require IEx
 
   schema "user_roles" do
     field :description, :string
@@ -20,7 +22,7 @@ defmodule Pulap.Auth.UserRole do
     field :updated_by_id, Ecto.UUID
 
     timestamps()
- 
+
     # Organization
     belongs_to :organization, Pulap.Auth.Organization
     # User
@@ -30,8 +32,6 @@ defmodule Pulap.Auth.UserRole do
       on_delete: :nothing
   end
 
-  require Logger
-  require IEx
   @doc false
   def changeset(%UserRole{} = user_role, attrs) do
     user_role
@@ -43,7 +43,6 @@ defmodule Pulap.Auth.UserRole do
     |> validate_required([:organization_id, :user_id, :role_id, :is_active, :is_logical_deleted])
     |> update_name_and_description
   end
-
 
   def update_name_and_description(changeset) do
     changes = changeset.changes
@@ -57,7 +56,7 @@ defmodule Pulap.Auth.UserRole do
 
   defp get_user_username(changes) do
     user = changes.user_id |> Auth.get_user!
-    user.username 
+    user.username
   end
 
   defp get_role_name(changes) do

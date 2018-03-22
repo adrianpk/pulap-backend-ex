@@ -110,7 +110,6 @@ defmodule Pulap.Auth do
   {:error, %Ecto.Changeset{}}
 
   """
-  require IEx
   alias Comeonin.Bcrypt
 
   def authenticate_user(username, supplied_password) do
