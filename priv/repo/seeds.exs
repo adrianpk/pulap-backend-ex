@@ -15,6 +15,7 @@ alias Pulap.Auth.User
 alias Pulap.Auth.Organization
 alias Pulap.Auth.Role
 alias Pulap.Auth.UserRole
+alias Pulap.Biz.RealEstate
 alias PulapWeb.ControllersHelpers, as: Helper
 
 ## Start and end datetimes
@@ -95,3 +96,15 @@ changeset            = UserRole.changeset(%UserRole{}, data)
 # changeset            = Helper.update_role(changeset, superadmin_role)
 superadmin_user_role = Repo.insert! changeset
 
+
+# RealEstate --------------------------------------------------------------------------------------------------------------
+## RealEstate One
+data      = %{name: "RealEstate One", description: "RealEstate One description"}
+changeset       = RealEstate.changeset(%RealEstate{}, data)
+real_estate_one = Repo.insert! changeset
+
+## RealEstate Two
+data      = %{name: "RealEstate Two", description: "RealEstate Two description"}
+changeset       = RealEstate.changeset(%RealEstate{}, data)
+real_estareal_estate_two = Repo.insert! changeset
+te_two = Repo.insert! changeset
