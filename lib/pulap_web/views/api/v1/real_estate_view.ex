@@ -1,6 +1,6 @@
-defmodule PulapWeb.RealEstateView do
+defmodule PulapWeb.API.V1.RealEstateView do
   use PulapWeb, :view
-  alias PulapWeb.RealEstateView
+  alias PulapWeb.API.V1.RealEstateView
 
   def render("index.json", %{real_estates: real_estates}) do
     %{data: render_many(real_estates, RealEstateView, "real_estate.json")}
