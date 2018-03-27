@@ -20,7 +20,10 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: "css/app.css",
+      order: {
+        after: ["web/static/css/app.css"] // concat app.css last
+      }
     },
     templates: {
       joinTo: "js/app.js"
@@ -52,8 +55,13 @@ exports.config = {
       mainModules: ["elm/Main.elm"],
       makeParameters: ["--debug"],
       outputFolder: "../assets/js"
+    },
+    sass: {
+      options: {
+        includePaths: ["node_modules/bulma/sass"], // Tell sass-brunch where to look for files to @import
+        precision: 8 // Minimum precision required by bootstrap-sass
+      }
     }
-
   },
 
   modules: {
