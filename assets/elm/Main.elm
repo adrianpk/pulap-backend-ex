@@ -10,8 +10,8 @@ import Json.Decode.Pipeline exposing (decode, required, optional)
 -- import Debug exposing (log)
 
 
-type alias RealEstateResponse =
-    { list : List RealEstate
+type alias RealEstateListResponse =
+    { all : List RealEstate
     }
 
 
@@ -22,9 +22,9 @@ type alias RealEstate =
     }
 
 
-realEstateSampleResponse : RealEstateResponse
+realEstateSampleResponse : RealEstateListResponse
 realEstateSampleResponse =
-    RealEstateResponse
+    RealEstateListResponse
         [--RealEstate "1" "RealEstate1" "RealEstate1 description"
          -- , RealEstate "2" "RealEstate2" "RealEstate2 description"
         ]
@@ -35,18 +35,18 @@ realEstateSampleResponse =
 
 
 type alias Model =
-    { reSelectionId : String
-    , realEstateResponse : RealEstateResponse
-    , reListString : String
+    { selected : String
+    , list : RealEstateListResponse
+    , listString : String
     , error : String
     }
 
 
 initModel : Model
 initModel =
-    { reSelectionId = ""
-    , realEstateResponse = realEstateSampleResponse
-    , reListString = ""
+    { selected = ""
+    , list = realEstateSampleResponse
+    , listString = ""
     , error = ""
     }
 
@@ -56,10 +56,10 @@ init =
     ( initModel, fetchRealEstateList )
 
 
-decodeRealEstateResponse : Decoder RealEstateResponse
-decodeRealEstateResponse =
-  Json.Decode.map RealEstateResponse (list decodeRealEstate)
-       |> at [ "data" ]
+decodeRealEstateListResponse : Decoder RealEstateListResponse
+decodeRealEstateListResponse =
+    Json.Decode.map RealEstateListResponse (list decodeRealEstate)
+        |> at [ "data" ]
 
 
 decodeRealEstate : Decoder RealEstate
@@ -77,7 +77,7 @@ fetchRealEstateList =
             "/api/v1/real-estate"
 
         request =
-            Http.get url decodeRealEstateResponse
+            Http.get url decodeRealEstateListResponse
 
         cmd =
             Http.send FetchRealEstateList request
@@ -90,14 +90,14 @@ fetchRealEstateList =
 
 
 type Msg
-    = FetchRealEstateList (Result Http.Error RealEstateResponse)
+    = FetchRealEstateList (Result Http.Error RealEstateListResponse)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FetchRealEstateList (Ok result) ->
-            ( { model | realEstateResponse = result }, Cmd.none )
+            ( { model | list = result }, Cmd.none )
 
         FetchRealEstateList (Err err) ->
             ( { model | error = toString (err) }, Cmd.none )
@@ -113,14 +113,51 @@ view model =
         [ style [ ( "padding", "2rem" ) ] ]
         [ div [] [ text "Real Estate List:" ]
         , div []
-            [ renderRealEstateList model
+            [ renderRealEstateTable model
             ]
+        ]
+
+
+renderRealEstateTable : Model -> Html Msg
+renderRealEstateTable model =
+    table []
+        (List.concat
+            [ [ renderTableHeader ]
+            , renderRealEstateTableRows model
+            ]
+        )
+
+
+renderTableHeader : Html Msg
+renderTableHeader =
+    let
+        th1 field =
+            th [] [ text field ]
+    in
+        thead []
+            ([ "id", "name", "description" ]
+                |> List.map th1
+            )
+
+
+renderRealEstateTableRows : Model -> List (Html Msg)
+renderRealEstateTableRows model =
+    model.list.all
+        |> List.map renderRealEstateRow
+
+
+renderRealEstateRow : RealEstate -> Html Msg
+renderRealEstateRow realEstate =
+    tr []
+        [ td [] [ realEstate.id |> text ]
+        , td [] [ realEstate.name |> text ]
+        , td [] [ realEstate.description |> text ]
         ]
 
 
 renderRealEstateList : Model -> Html Msg
 renderRealEstateList model =
-    model.realEstateResponse.list
+    model.list.all
         |> List.map renderRealEstate
         |> ul []
 
@@ -130,6 +167,7 @@ renderRealEstate realEstate =
     li []
         [ text (realEstate.id ++ " - " ++ realEstate.name ++ " - " ++ realEstate.description)
         ]
+
 
 
 -- Subscriptions
@@ -152,3 +190,4 @@ main =
         , view = view
         , subscriptions = subscriptions
         }
+ 
