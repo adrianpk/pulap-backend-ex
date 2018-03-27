@@ -14,6 +14,9 @@ type alias ListResponse =
     { all : List RealEstate
     }
 
+type alias ItemResponse =
+    { item : Maybe RealEstate
+    }
 
 type alias RealEstate =
     { id : String
@@ -24,19 +27,19 @@ type alias RealEstate =
 
 sampleListResponse : ListResponse
 sampleListResponse =
-    ListResponse
-        [--RealEstate "1" "RealEstate1" "RealEstate1 description"
-         -- , RealEstate "2" "RealEstate2" "RealEstate2 description"
-        ]
+    ListResponse [] 
 
 
+sampleItemResponse : Maybe ItemResponse
+sampleItemResponse = Nothing
 
 -- Model
 
 
 type alias Model =
     { selected : String
-    , list : ListResponse
+    , list : List RealEstate
+    , item : Maybe RealEstate
     , error : String
     }
 
@@ -44,7 +47,8 @@ type alias Model =
 initModel : Model
 initModel =
     { selected = ""
-    , list = sampleListResponse
+    , list = []
+    , item = Maybe.Nothing
     , error = ""
     }
 
@@ -89,16 +93,28 @@ fetchRealEstateList =
 
 type Msg
     = FetchList (Result Http.Error ListResponse)
+    | FetchItem (Result Http.Error ItemResponse)
+
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        FetchList (Ok result) ->
-            ( { model | list = result }, Cmd.none )
+        FetchList result ->
+            case result of
+                Ok listResult ->
+                    ( { model | list = listResult.all }, Cmd.none )
 
-        FetchList (Err err) ->
-            ( { model | error = toString (err) }, Cmd.none )
+                Err err ->
+                    ( { model | error = toString (err) }, Cmd.none )
+
+        FetchItem result ->
+            case result of
+                Ok itemResult ->
+                    ( { model | item = itemResult.item }, Cmd.none )
+
+                Err err ->
+                    ( { model | error = toString (err) }, Cmd.none )
 
 
 
@@ -118,14 +134,15 @@ view model =
 
 renderTable : Model -> Html Msg
 renderTable model =
-    table [class "table is-striped is-narrow is-hoverable"]
+    table [ class "table is-striped is-narrow is-hoverable" ]
         (List.concat
             [ [ renderTableHeader ]
+
             -- , renderRealEstateTableRows model
             , [ renderTableBody model
+              ]
             ]
-            ])
-        
+        )
 
 
 renderTableHeader : Html Msg
@@ -139,16 +156,19 @@ renderTableHeader =
                 |> List.map th1
             )
 
+
 renderTableBody : Model -> Html Msg
 renderTableBody model =
     let
-        rows = renderTableRows model
-    in 
+        rows =
+            renderTableRows model
+    in
         tfoot [] rows
+
 
 renderTableRows : Model -> List (Html Msg)
 renderTableRows model =
-    model.list.all
+    model.list
         |> List.map renderTableRow
 
 
@@ -182,4 +202,3 @@ main =
         , view = view
         , subscriptions = subscriptions
         }
-
