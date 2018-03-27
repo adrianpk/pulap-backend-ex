@@ -10,7 +10,7 @@ import Json.Decode.Pipeline exposing (decode, required, optional)
 -- import Debug exposing (log)
 
 
-type alias RealEstateListResponse =
+type alias ListResponse =
     { all : List RealEstate
     }
 
@@ -22,9 +22,9 @@ type alias RealEstate =
     }
 
 
-realEstateSampleResponse : RealEstateListResponse
-realEstateSampleResponse =
-    RealEstateListResponse
+sampleListResponse : ListResponse
+sampleListResponse =
+    ListResponse
         [--RealEstate "1" "RealEstate1" "RealEstate1 description"
          -- , RealEstate "2" "RealEstate2" "RealEstate2 description"
         ]
@@ -36,8 +36,7 @@ realEstateSampleResponse =
 
 type alias Model =
     { selected : String
-    , list : RealEstateListResponse
-    , listString : String
+    , list : ListResponse
     , error : String
     }
 
@@ -45,8 +44,7 @@ type alias Model =
 initModel : Model
 initModel =
     { selected = ""
-    , list = realEstateSampleResponse
-    , listString = ""
+    , list = sampleListResponse
     , error = ""
     }
 
@@ -56,9 +54,9 @@ init =
     ( initModel, fetchRealEstateList )
 
 
-decodeRealEstateListResponse : Decoder RealEstateListResponse
+decodeRealEstateListResponse : Decoder ListResponse
 decodeRealEstateListResponse =
-    Json.Decode.map RealEstateListResponse (list decodeRealEstate)
+    Json.Decode.map ListResponse (list decodeRealEstate)
         |> at [ "data" ]
 
 
@@ -80,7 +78,7 @@ fetchRealEstateList =
             Http.get url decodeRealEstateListResponse
 
         cmd =
-            Http.send FetchRealEstateList request
+            Http.send FetchList request
     in
         cmd
 
@@ -90,16 +88,16 @@ fetchRealEstateList =
 
 
 type Msg
-    = FetchRealEstateList (Result Http.Error RealEstateListResponse)
+    = FetchList (Result Http.Error ListResponse)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        FetchRealEstateList (Ok result) ->
+        FetchList (Ok result) ->
             ( { model | list = result }, Cmd.none )
 
-        FetchRealEstateList (Err err) ->
+        FetchList (Err err) ->
             ( { model | error = toString (err) }, Cmd.none )
 
 
@@ -111,21 +109,23 @@ view : Model -> Html Msg
 view model =
     div
         [ style [ ( "padding", "2rem" ) ] ]
-        [ div [] [ text "Real Estate List:" ]
+        [ div [] [ text "Real Estate " ]
         , div []
-            [ renderRealEstateTable model
+            [ renderTable model
             ]
         ]
 
 
-renderRealEstateTable : Model -> Html Msg
-renderRealEstateTable model =
-    table []
+renderTable : Model -> Html Msg
+renderTable model =
+    table [class "table is-striped is-narrow is-hoverable"]
         (List.concat
             [ [ renderTableHeader ]
-            , renderRealEstateTableRows model
+            -- , renderRealEstateTableRows model
+            , [ renderTableBody model
             ]
-        )
+            ])
+        
 
 
 renderTableHeader : Html Msg
@@ -139,33 +139,25 @@ renderTableHeader =
                 |> List.map th1
             )
 
+renderTableBody : Model -> Html Msg
+renderTableBody model =
+    let
+        rows = renderTableRows model
+    in 
+        tfoot [] rows
 
-renderRealEstateTableRows : Model -> List (Html Msg)
-renderRealEstateTableRows model =
+renderTableRows : Model -> List (Html Msg)
+renderTableRows model =
     model.list.all
-        |> List.map renderRealEstateRow
+        |> List.map renderTableRow
 
 
-renderRealEstateRow : RealEstate -> Html Msg
-renderRealEstateRow realEstate =
+renderTableRow : RealEstate -> Html Msg
+renderTableRow realEstate =
     tr []
         [ td [] [ realEstate.id |> text ]
         , td [] [ realEstate.name |> text ]
         , td [] [ realEstate.description |> text ]
-        ]
-
-
-renderRealEstateList : Model -> Html Msg
-renderRealEstateList model =
-    model.list.all
-        |> List.map renderRealEstate
-        |> ul []
-
-
-renderRealEstate : RealEstate -> Html Msg
-renderRealEstate realEstate =
-    li []
-        [ text (realEstate.id ++ " - " ++ realEstate.name ++ " - " ++ realEstate.description)
         ]
 
 
@@ -190,4 +182,4 @@ main =
         , view = view
         , subscriptions = subscriptions
         }
- 
+
