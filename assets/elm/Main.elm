@@ -2,7 +2,9 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (href, class, style)
-import Http
+import Html.Events exposing (..)
+import Html.Events exposing (..)
+import Http exposing (..)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (decode, required, optional)
 
@@ -14,9 +16,11 @@ type alias ListResponse =
     { all : List RealEstate
     }
 
+
 type alias ItemResponse =
     { item : Maybe RealEstate
     }
+
 
 type alias RealEstate =
     { id : String
@@ -27,11 +31,14 @@ type alias RealEstate =
 
 sampleListResponse : ListResponse
 sampleListResponse =
-    ListResponse [] 
+    ListResponse []
 
 
 sampleItemResponse : Maybe ItemResponse
-sampleItemResponse = Nothing
+sampleItemResponse =
+    Nothing
+
+
 
 -- Model
 
@@ -64,6 +71,11 @@ decodeRealEstateListResponse =
         |> at [ "data" ]
 
 
+decodeRealEstateItemResponse : Decoder RealEstate
+decodeRealEstateItemResponse =
+    decodeRealEstate |> at ["data"]
+
+
 decodeRealEstate : Decoder RealEstate
 decodeRealEstate =
     decode RealEstate
@@ -82,7 +94,22 @@ fetchRealEstateList =
             Http.get url decodeRealEstateListResponse
 
         cmd =
-            Http.send FetchList request
+            Http.send ShowList request
+    in
+        cmd
+
+
+fetchRealEstateItem : String -> Cmd Msg
+fetchRealEstateItem selectedId =
+    let
+        url =
+            "/api/v1/real-estate/" ++ selectedId
+
+        request =
+            Http.get url decodeRealEstateItemResponse
+
+        cmd =
+            Http.send ShowItem request
     in
         cmd
 
@@ -92,15 +119,22 @@ fetchRealEstateList =
 
 
 type Msg
-    = FetchList (Result Http.Error ListResponse)
-    | FetchItem (Result Http.Error ItemResponse)
-
+    = FetchList
+    | FetchItem String
+    | ShowList (Result Http.Error ListResponse)
+    | ShowItem (Result Http.Error RealEstate)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        FetchList result ->
+        FetchList ->
+            ( model, fetchRealEstateList )
+
+        FetchItem id ->
+            ( model, fetchRealEstateItem(id) )
+
+        ShowList result ->
             case result of
                 Ok listResult ->
                     ( { model | list = listResult.all }, Cmd.none )
@@ -108,10 +142,10 @@ update msg model =
                 Err err ->
                     ( { model | error = toString (err) }, Cmd.none )
 
-        FetchItem result ->
+        ShowItem result ->
             case result of
                 Ok itemResult ->
-                    ( { model | item = itemResult.item }, Cmd.none )
+                    ( { model | item = Just itemResult }, Cmd.none )
 
                 Err err ->
                     ( { model | error = toString (err) }, Cmd.none )
@@ -137,8 +171,6 @@ renderTable model =
     table [ class "table is-striped is-narrow is-hoverable" ]
         (List.concat
             [ [ renderTableHeader ]
-
-            -- , renderRealEstateTableRows model
             , [ renderTableBody model
               ]
             ]
@@ -152,7 +184,7 @@ renderTableHeader =
             th [] [ text field ]
     in
         thead []
-            ([ "id", "name", "description" ]
+            ([ "name", "description" ]
                 |> List.map th1
             )
 
@@ -174,9 +206,8 @@ renderTableRows model =
 
 renderTableRow : RealEstate -> Html Msg
 renderTableRow realEstate =
-    tr []
-        [ td [] [ realEstate.id |> text ]
-        , td [] [ realEstate.name |> text ]
+    tr [ onClick (FetchItem realEstate.id) ]
+        [ td [] [ realEstate.name |> text ]
         , td [] [ realEstate.description |> text ]
         ]
 
