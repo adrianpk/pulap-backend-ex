@@ -12,6 +12,17 @@
   </head>
 
   <body>
+
+    <div>
+      <%= if @current_user do %>
+        <p class="small">Signed in as <strong><%= @current_user.username %></strong></p>
+        <%= link "Sign Out", to: session_path(@conn, :delete, @current_user), method: "delete", class: "btn btn-sm btn-danger" %>
+      <% else %>
+        <%= link "Sign Up", to: user_path(@conn, :new), class: "btn btn-sm btn-success" %>
+        <%= link "Sign In", to: session_path(@conn, :new), class: "btn btn-sm btn-primary" %>
+      <% end %>
+    </div>
+
     <%= render @view_module, @view_template, assigns %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
