@@ -13,16 +13,11 @@ import Json.Decode.Pipeline exposing (decode, required, optional)
 
 
 type alias ListResponse =
-    { all : List RealEstate
+    { all : List ItemResponse
     }
 
 
 type alias ItemResponse =
-    { item : Maybe RealEstate
-    }
-
-
-type alias RealEstate =
     { id : String
     , name : String
     , description : String
@@ -34,26 +29,21 @@ sampleListResponse =
     ListResponse []
 
 
-sampleItemResponse : Maybe ItemResponse
-sampleItemResponse =
-    Nothing
-
-
 
 -- Model
 
 
 type alias Model =
-    { selected : String
-    , list : List RealEstate
-    , item : Maybe RealEstate
+    { selectedId : Maybe String
+    , list : List ItemResponse
+    , item : Maybe ItemResponse
     , error : String
     }
 
 
 initModel : Model
 initModel =
-    { selected = ""
+    { selectedId = Maybe.Nothing
     , list = []
     , item = Maybe.Nothing
     , error = ""
@@ -62,36 +52,36 @@ initModel =
 
 init : ( Model, Cmd Msg )
 init =
-    ( initModel, fetchRealEstateList )
+    ( initModel, fetchList )
 
 
-decodeRealEstateListResponse : Decoder ListResponse
-decodeRealEstateListResponse =
-    Json.Decode.map ListResponse (list decodeRealEstate)
+decodeListResponse : Decoder ListResponse
+decodeListResponse =
+    Json.Decode.map ListResponse (list decodeItem)
         |> at [ "data" ]
 
 
-decodeRealEstateItemResponse : Decoder RealEstate
-decodeRealEstateItemResponse =
-    decodeRealEstate |> at ["data"]
+decodeItemResponse : Decoder ItemResponse
+decodeItemResponse =
+    decodeItem |> at [ "data" ]
 
 
-decodeRealEstate : Decoder RealEstate
-decodeRealEstate =
-    decode RealEstate
+decodeItem : Decoder ItemResponse
+decodeItem =
+    decode ItemResponse
         |> required "id" string
         |> required "name" string
         |> required "description" string
 
 
-fetchRealEstateList : Cmd Msg
-fetchRealEstateList =
+fetchList : Cmd Msg
+fetchList =
     let
         url =
             "/api/v1/real-estate"
 
         request =
-            Http.get url decodeRealEstateListResponse
+            Http.get url decodeListResponse
 
         cmd =
             Http.send ShowList request
@@ -99,14 +89,14 @@ fetchRealEstateList =
         cmd
 
 
-fetchRealEstateItem : String -> Cmd Msg
-fetchRealEstateItem selectedId =
+fetchItem : String -> Cmd Msg
+fetchItem selectedId =
     let
         url =
             "/api/v1/real-estate/" ++ selectedId
 
         request =
-            Http.get url decodeRealEstateItemResponse
+            Http.get url decodeItemResponse
 
         cmd =
             Http.send ShowItem request
@@ -122,17 +112,17 @@ type Msg
     = FetchList
     | FetchItem String
     | ShowList (Result Http.Error ListResponse)
-    | ShowItem (Result Http.Error RealEstate)
+    | ShowItem (Result Http.Error ItemResponse)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FetchList ->
-            ( model, fetchRealEstateList )
+            ( model, fetchList )
 
         FetchItem id ->
-            ( model, fetchRealEstateItem(id) )
+            ( model, fetchItem (id) )
 
         ShowList result ->
             case result of
@@ -145,7 +135,7 @@ update msg model =
         ShowItem result ->
             case result of
                 Ok itemResult ->
-                    ( { model | item = Just itemResult }, Cmd.none )
+                    ( { model | item = Just itemResult, selectedId = Just itemResult.id }, Cmd.none )
 
                 Err err ->
                     ( { model | error = toString (err) }, Cmd.none )
@@ -204,11 +194,11 @@ renderTableRows model =
         |> List.map renderTableRow
 
 
-renderTableRow : RealEstate -> Html Msg
-renderTableRow realEstate =
-    tr [ onClick (FetchItem realEstate.id) ]
-        [ td [] [ realEstate.name |> text ]
-        , td [] [ realEstate.description |> text ]
+renderTableRow : ItemResponse -> Html Msg
+renderTableRow item =
+    tr [ onClick (FetchItem item.id) ]
+        [ td [] [ item.name |> text ]
+        , td [] [ item.description |> text ]
         ]
 
 
