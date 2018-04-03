@@ -1,205 +1,75 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (href, class, style)
+import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Html.Events exposing (..)
-import Http exposing (..)
-import Json.Decode exposing (..)
-import Json.Decode.Pipeline exposing (decode, required, optional)
-
-
--- import Debug exposing (log)
-
-
-type alias ListResponse =
-    { all : List ItemResponse
-    }
-
-
-type alias ItemResponse =
-    { id : String
-    , name : String
-    , description : String
-    }
-
-
-sampleListResponse : ListResponse
-sampleListResponse =
-    ListResponse []
-
+import RealEstateIndex exposing (..)
+import Navigation exposing (..)
 
 
 -- Model
 
 
 type alias Model =
-    { selectedId : Maybe String
-    , list : List ItemResponse
-    , item : Maybe ItemResponse
-    , error : String
+    { page : Page
+    , realEstateIndex : RealEstateIndex.Model
     }
 
 
-initModel : Model
-initModel =
-    { selectedId = Maybe.Nothing
-    , list = []
-    , item = Maybe.Nothing
-    , error = ""
-    }
+type Page
+    = NotFound
+    | RealEstateIndexPage
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( initModel, fetchList )
-
-
-decodeListResponse : Decoder ListResponse
-decodeListResponse =
-    Json.Decode.map ListResponse (list decodeItem)
-        |> at [ "data" ]
-
-
-decodeItemResponse : Decoder ItemResponse
-decodeItemResponse =
-    decodeItem |> at [ "data" ]
-
-
-decodeItem : Decoder ItemResponse
-decodeItem =
-    decode ItemResponse
-        |> required "id" string
-        |> required "name" string
-        |> required "description" string
-
-
-fetchList : Cmd Msg
-fetchList =
+init : Navigation.Location -> ( Model, Cmd Msg )
+init location =
     let
-        url =
-            "/api/v1/real-estate"
+        page =
+            hashToPage location.hash
 
-        request =
-            Http.get url decodeListResponse
+        ( realEstateIndexInitModel, realEstateIndexInitCmd ) =
+            RealEstateIndex.init
 
-        cmd =
-            Http.send ShowList request
+        initModel =
+            { page = page
+            , realEstateIndex = realEstateIndexInitModel
+            }
+
+        commands =
+            Cmd.batch
+                [ Cmd.map RealEstateIndexMsg realEstateIndexInitCmd
+                ]
     in
-        cmd
-
-
-fetchItem : String -> Cmd Msg
-fetchItem selectedId =
-    let
-        url =
-            "/api/v1/real-estate/" ++ selectedId
-
-        request =
-            Http.get url decodeItemResponse
-
-        cmd =
-            Http.send ShowItem request
-    in
-        cmd
+        ( initModel, commands )
 
 
 
--- Update
+-- update
 
 
 type Msg
-    = FetchList
-    | FetchItem String
-    | ShowList (Result Http.Error ListResponse)
-    | ShowItem (Result Http.Error ItemResponse)
+    = Navigate Page
+    | ChangePage Page
+    | RealEstateIndexMsg RealEstateIndex.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        FetchList ->
-            ( model, fetchList )
+        Navigate page ->
+            ( { model | page = page }, Navigation.newUrl <| pageToHash page )
 
-        FetchItem id ->
-            ( model, fetchItem (id) )
+        ChangePage page ->
+            ( { model | page = page }, Cmd.none )
 
-        ShowList result ->
-            case result of
-                Ok listResult ->
-                    ( { model | list = listResult.all }, Cmd.none )
-
-                Err err ->
-                    ( { model | error = toString (err) }, Cmd.none )
-
-        ShowItem result ->
-            case result of
-                Ok itemResult ->
-                    ( { model | item = Just itemResult, selectedId = Just itemResult.id }, Cmd.none )
-
-                Err err ->
-                    ( { model | error = toString (err) }, Cmd.none )
-
-
-
--- View
-
-
-view : Model -> Html Msg
-view model =
-    div
-        [ style [ ( "padding", "2rem" ) ] ]
-        [ div [] [ text "Real Estate " ]
-        , div []
-            [ renderTable model
-            ]
-        ]
-
-
-renderTable : Model -> Html Msg
-renderTable model =
-    table [ class "table is-striped is-narrow is-hoverable" ]
-        (List.concat
-            [ [ renderTableHeader ]
-            , [ renderTableBody model
-              ]
-            ]
-        )
-
-
-renderTableHeader : Html Msg
-renderTableHeader =
-    let
-        th1 field =
-            th [] [ text field ]
-    in
-        thead []
-            ([ "name", "description" ]
-                |> List.map th1
-            )
-
-
-renderTableBody : Model -> Html Msg
-renderTableBody model =
-    let
-        rows =
-            renderTableRows model
-    in
-        tfoot [] rows
-
-
-renderTableRows : Model -> List (Html Msg)
-renderTableRows model =
-    model.list
-        |> List.map renderTableRow
-
-
-renderTableRow : ItemResponse -> Html Msg
-renderTableRow item =
-    tr [ onClick (FetchItem item.id) ]
-        [ td [] [ item.name |> text ]
-        , td [] [ item.description |> text ]
-        ]
+        RealEstateIndexMsg msg ->
+            let
+                ( realEstateIndexModel, cmd ) =
+                    RealEstateIndex.update msg model.realEstateIndex
+            in
+                ( { model | realEstateIndex = realEstateIndexModel }
+                , Cmd.map RealEstateIndexMsg cmd
+                )
 
 
 
@@ -208,16 +78,92 @@ renderTableRow item =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    let
+        realEstateIndexSub =
+            RealEstateIndex.subscriptions model.realEstateIndex
+    in
+        Sub.batch
+            [ Sub.map RealEstateIndexMsg realEstateIndexSub
+            ]
+
+
+hashToPage : String -> Page
+hashToPage hash =
+    case hash of
+        "#/" ->
+            RealEstateIndexPage
+
+        "" ->
+            RealEstateIndexPage
+
+        _ ->
+            NotFound
+
+
+
+-- view
+
+
+view : Model -> Html Msg
+view model =
+    let
+        page =
+            case model.page of
+                RealEstateIndexPage ->
+                    Html.map RealEstateIndexMsg
+                        (RealEstateIndex.view model.realEstateIndex)
+
+                NotFound ->
+                    div [ class "main" ]
+                        [ h1 []
+                            [ text "Page Not Found!" ]
+                        ]
+    in
+        div []
+            [ pageHeader model
+            , page
+            ]
+
+
+pageHeader : Model -> Html Msg
+pageHeader model =
+    header [ class "tabs" ]
+        [ ul
+            []
+            [ li [ class "is-active" ]
+                [ a [ onClick (Navigate RealEstateIndexPage) ] [ text "Real Estate" ]
+                ]
+            , li [ class "is-active" ]
+                [ a [ href "#" ] [ text "Publications" ]
+                ]
+            ]
+        ]
 
 
 
 -- Init
 
 
+pageToHash : Page -> String
+pageToHash page =
+    case page of
+        RealEstateIndexPage ->
+            "#/"
+
+        NotFound ->
+            "#notfound"
+
+
+locationToMsg : Navigation.Location -> Msg
+locationToMsg location =
+    location.hash
+        |> hashToPage
+        |> ChangePage
+
+
 main : Program Never Model Msg
 main =
-    Html.program
+    Navigation.program locationToMsg
         { init = init
         , update = update
         , view = view
