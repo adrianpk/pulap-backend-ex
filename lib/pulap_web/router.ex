@@ -88,6 +88,9 @@ defmodule PulapWeb.Router do
     get "/", PageController, :index
     get "/signup", UserController, :init_signup
     post "/signup", UserController, :signup
+    get "/signin", SessionController, :new
+    post "/signin", SessionController, :create
+    get "/signout", SessionController, :delete
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/users", UserController do
       # get "/profile/edit", ProfileController, :edit
