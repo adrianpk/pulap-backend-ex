@@ -13,14 +13,78 @@
 
   <body>
 
+
+    <nav class="navbar is-transparent">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="/images/phoenix.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+        </a>
+        <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/">
+            Home
+          </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="/documentation/overview/start/">
+              Docs
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="/documentation/overview/start/">
+                Overview
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <%= if @current_user do %>
+              <a class="navbar-item" href="/">
+                <%= @current_user.username %>
+              </a>
+              <p class="control">
+                <a class="button" href="/signout">
+                  <span class="icon">
+                    <i class="fab"></i>
+                  </span>
+                  <span>
+                    Sign out
+                  </span>
+                </a>
+              </p>
+              <% else %>
+              <p class="control">
+                <a class="button is-primary" href="Signup">
+                  <span class="icon">
+                    <i class="fas"></i>
+                  </span>
+                  <span>Signup</span>
+                </a>
+              </p>
+              <p class="control">
+                <a class="button is-primary" href="/signin">
+                  <span class="icon">
+                    <i class="fas"></i>
+                  </span>
+                  <span>Signin</span>
+                </a>
+              </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
     <div>
-      <%= if @current_user do %>
-        <p class="small">Signed in as <strong><%= @current_user.username %></strong></p>
-        <%= link "Sign Out", to: session_path(@conn, :delete, @current_user), method: "delete", class: "btn btn-sm btn-danger" %>
-      <% else %>
-        <%= link "Sign Up", to: user_path(@conn, :new), class: "btn btn-sm btn-success" %>
-        <%= link "Sign In", to: session_path(@conn, :new), class: "btn btn-sm btn-primary" %>
-      <% end %>
     </div>
 
     <%= render @view_module, @view_template, assigns %>
