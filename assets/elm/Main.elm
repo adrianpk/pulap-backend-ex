@@ -3,7 +3,7 @@ port module Main exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import RealEstateIndex exposing (..)
+import RealEstate exposing (..)
 import Navigation exposing (..)
 
 
@@ -12,13 +12,13 @@ import Navigation exposing (..)
 
 type alias Model =
     { page : Page
-    , realEstateIndex : RealEstateIndex.Model
+    , realEstate : RealEstate.Model
     }
 
 
 type Page
     = NotFound
-    | RealEstateIndexPage
+    | RealEstatePage
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
@@ -27,17 +27,17 @@ init location =
         page =
             hashToPage location.hash
 
-        ( realEstateIndexInitModel, realEstateIndexInitCmd ) =
-            RealEstateIndex.init
+        ( realEstateInitModel, realEstateInitCmd ) =
+            RealEstate.init
 
         initModel =
             { page = page
-            , realEstateIndex = realEstateIndexInitModel
+            , realEstate = realEstateInitModel
             }
 
         commands =
             Cmd.batch
-                [ Cmd.map RealEstateIndexMsg realEstateIndexInitCmd
+                [ Cmd.map RealEstateMsg realEstateInitCmd
                 ]
     in
         ( initModel, commands )
@@ -50,7 +50,7 @@ init location =
 type Msg
     = Navigate Page
     | ChangePage Page
-    | RealEstateIndexMsg RealEstateIndex.Msg
+    | RealEstateMsg RealEstate.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -62,13 +62,13 @@ update msg model =
         ChangePage page ->
             ( { model | page = page }, Cmd.none )
 
-        RealEstateIndexMsg msg ->
+        RealEstateMsg msg ->
             let
-                ( realEstateIndexModel, cmd ) =
-                    RealEstateIndex.update msg model.realEstateIndex
+                ( realEstateModel, cmd ) =
+                    RealEstate.update msg model.realEstate
             in
-                ( { model | realEstateIndex = realEstateIndexModel }
-                , Cmd.map RealEstateIndexMsg cmd
+                ( { model | realEstate = realEstateModel }
+                , Cmd.map RealEstateMsg cmd
                 )
 
 
@@ -79,11 +79,11 @@ update msg model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     let
-        realEstateIndexSub =
-            RealEstateIndex.subscriptions model.realEstateIndex
+        realEstateSub =
+            RealEstate.subscriptions model.realEstate
     in
         Sub.batch
-            [ Sub.map RealEstateIndexMsg realEstateIndexSub
+            [ Sub.map RealEstateMsg realEstateSub
             ]
 
 
@@ -91,10 +91,10 @@ hashToPage : String -> Page
 hashToPage hash =
     case hash of
         "#/" ->
-            RealEstateIndexPage
+            RealEstatePage
 
         "" ->
-            RealEstateIndexPage
+            RealEstatePage
 
         _ ->
             NotFound
@@ -109,9 +109,9 @@ view model =
     let
         page =
             case model.page of
-                RealEstateIndexPage ->
-                    Html.map RealEstateIndexMsg
-                        (RealEstateIndex.view model.realEstateIndex)
+                RealEstatePage ->
+                    Html.map RealEstateMsg
+                        (RealEstate.view model.realEstate)
 
                 NotFound ->
                     div [ class "main" ]
@@ -131,7 +131,7 @@ pageHeader model =
         [ ul
             []
             [ li [ class "is-active" ]
-                [ a [ onClick (Navigate RealEstateIndexPage) ] [ text "Real Estate" ]
+                [ a [ onClick (Navigate RealEstatePage) ] [ text "Real Estate" ]
                 ]
             , li [ class "is-active" ]
                 [ a [ href "#" ] [ text "Publications" ]
@@ -147,8 +147,8 @@ pageHeader model =
 pageToHash : Page -> String
 pageToHash page =
     case page of
-        RealEstateIndexPage ->
-            "#/"
+        RealEstatePage ->
+            "#/realestate"
 
         NotFound ->
             "#notfound"
