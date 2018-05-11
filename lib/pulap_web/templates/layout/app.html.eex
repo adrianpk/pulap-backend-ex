@@ -11,83 +11,34 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
-  <body>
-
-
-    <nav class="navbar is-transparent">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="/images/phoenix.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
-        </a>
-        <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <div id="navbarExampleTransparentExample" class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item" href="/">
-            Home
-          </a>
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link" href="/documentation/overview/start/">
-              Docs
-            </a>
-            <div class="navbar-dropdown is-boxed">
-              <a class="navbar-item" href="/documentation/overview/start/">
-                Overview
-              </a>
+  <body class="layout-default">
+    <div id="app">
+      <%= render PulapWeb.HTML.Shared, "navbar.html", assigns %>
+      <div class="section">
+        <div class="container">
+          <div class="tile is-ancestor">
+            <div class="tile is-parent is-hidden-mobile">
+              <div class="tile is-child green post">
+                [left]
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <%= if @current_user do %>
-              <a class="navbar-item" href="/">
-                <%= @current_user.username %>
-              </a>
-              <p class="control">
-                <a class="button" href="/signout">
-                  <span class="icon">
-                    <i class="fab"></i>
-                  </span>
-                  <span>
-                    Sign out
-                  </span>
-                </a>
-              </p>
-              <% else %>
-              <p class="control">
-                <a class="button is-primary" href="Signup">
-                  <span class="icon">
-                    <i class="fas"></i>
-                  </span>
-                  <span>Signup</span>
-                </a>
-              </p>
-              <p class="control">
-                <a class="button is-primary" href="/signin">
-                  <span class="icon">
-                    <i class="fas"></i>
-                  </span>
-                  <span>Signin</span>
-                </a>
-              </p>
-              <% end %>
+            <div class="tile is-6 is-parent is-mobile-flex">
+                <%= render @view_module, @view_template, assigns %>
+            </div>
+            <div class="tile is-vertical is-parent is-hidden-mobile">
+              <div class="tile is-child <blue></blue> post">
+                [right-top]
+              </div>
+              <div class="tile is-child gold post">
+                [right-bottom]
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </nav>
-
-    <div>
+      <%= render PulapWeb.HTML.Shared, "bottombar.html", assigns %>
+      <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     </div>
-
-    <%= render @view_module, @view_template, assigns %>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
