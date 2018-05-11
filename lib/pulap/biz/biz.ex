@@ -297,15 +297,15 @@ defmodule Pulap.Biz do
   alias Pulap.Biz.RealEstate
 
   @doc """
-  Returns the list of real_estates.
+  Returns the list of real_estate.
 
   ## Examples
 
-      iex> list_real_estates()
+      iex> list_real_estate()
       [%RealEstate{}, ...]
 
   """
-  def list_real_estates do
+  def list_real_estate do
     Repo.all(RealEstate)
   end
 
@@ -486,99 +486,99 @@ defmodule Pulap.Biz do
     Tenure.changeset(tenure, %{})
   end
 
-  alias Pulap.Biz.Administratorship
+  alias Pulap.Biz.Managership
 
   @doc """
-  Returns the list of administratorship.
+  Returns the list of managership.
 
   ## Examples
 
-      iex> list_administratorship()
-      [%Administratorship{}, ...]
+      iex> list_managership()
+      [%Managership{}, ...]
 
   """
-  def list_administratorship do
-    Repo.all(Administratorship)
+  def list_managership do
+    Repo.all(Managership)
   end
 
   @doc """
-  Gets a single administratorship.
+  Gets a single managership.
 
-  Raises `Ecto.NoResultsError` if the Administratorship does not exist.
+  Raises `Ecto.NoResultsError` if the Managership does not exist.
 
   ## Examples
 
-      iex> get_administratorship!(123)
-      %Administratorship{}
+      iex> get_managership!(123)
+      %Managership{}
 
-      iex> get_administratorship!(456)
+      iex> get_managership!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_administratorship!(id), do: Repo.get!(Administratorship, id)
+  def get_managership!(id), do: Repo.get!(Managership, id)
 
   @doc """
-  Creates a administratorship.
+  Creates a managership.
 
   ## Examples
 
-      iex> create_administratorship(%{field: value})
-      {:ok, %Administratorship{}}
+      iex> create_managership(%{field: value})
+      {:ok, %Managership{}}
 
-      iex> create_administratorship(%{field: bad_value})
+      iex> create_managership(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_administratorship(attrs \\ %{}) do
-    %Administratorship{}
-    |> Administratorship.changeset(attrs)
+  def create_managership(attrs \\ %{}) do
+    %Managership{}
+    |> Managership.changeset(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Updates a administratorship.
+  Updates a managership.
 
   ## Examples
 
-      iex> update_administratorship(administratorship, %{field: new_value})
-      {:ok, %Administratorship{}}
+      iex> update_managership(managership, %{field: new_value})
+      {:ok, %Managership{}}
 
-      iex> update_administratorship(administratorship, %{field: bad_value})
+      iex> update_managership(managership, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_administratorship(%Administratorship{} = administratorship, attrs) do
-    administratorship
-    |> Administratorship.changeset(attrs)
+  def update_managership(%Managership{} = managership, attrs) do
+    managership
+    |> Managership.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a Administratorship.
+  Deletes a Managership.
 
   ## Examples
 
-      iex> delete_administratorship(administratorship)
-      {:ok, %Administratorship{}}
+      iex> delete_managership(managership)
+      {:ok, %Managership{}}
 
-      iex> delete_administratorship(administratorship)
+      iex> delete_managership(managership)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_administratorship(%Administratorship{} = administratorship) do
-    Repo.delete(administratorship)
+  def delete_managership(%Managership{} = managership) do
+    Repo.delete(managership)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking administratorship changes.
+  Returns an `%Ecto.Changeset{}` for tracking managership changes.
 
   ## Examples
 
-      iex> change_administratorship(administratorship)
-      %Ecto.Changeset{source: %Administratorship{}}
+      iex> change_managership(managership)
+      %Ecto.Changeset{source: %Managership{}}
 
   """
-  def change_administratorship(%Administratorship{} = administratorship) do
-    Administratorship.changeset(administratorship, %{})
+  def change_managership(%Managership{} = managership) do
+    Managership.changeset(managership, %{})
   end
 end
