@@ -4,9 +4,9 @@ defmodule Pulap.Auth.UserRole do
   alias Pulap.Auth
   alias Pulap.Repo
   alias Pulap.Auth.UserRole
-  alias Pulap.Auth.Organization
-  alias Pulap.Auth.User
-  alias Pulap.Auth.Role
+  # alias Pulap.Auth.Organization
+  # alias Pulap.Auth.User
+  # alias Pulap.Auth.Role
 
   require Logger
   require IEx
@@ -16,8 +16,8 @@ defmodule Pulap.Auth.UserRole do
     field :is_active, :boolean, default: false
     field :is_logical_deleted, :boolean, default: false
     field :name, :string
-    field :user_id, Ecto.UUID
-    field :role_id, Ecto.UUID
+    # field :user_id, Ecto.UUID
+    # field :role_id, Ecto.UUID
     field :created_by_id, Ecto.UUID
     field :updated_by_id, Ecto.UUID
 
@@ -26,10 +26,10 @@ defmodule Pulap.Auth.UserRole do
     # Organization
     belongs_to :organization, Pulap.Auth.Organization
     # User
-    has_one :user, Pulap.Auth.User,
-      on_delete: :nothing
-    has_one :role, Pulap.Auth.Role,
-      on_delete: :nothing
+    belongs_to :user, Pulap.Auth.User
+      # on_delete: :nothing
+    belongs_to :role, Pulap.Auth.Role
+      # on_delete: :nothing
   end
 
   @doc false
