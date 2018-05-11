@@ -19,7 +19,7 @@ defmodule Pulap.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Pulap.Application, []},
+      mod: {Pulap.Application, [:corsica]},
       extra_applications: [
         :logger,
         :runtime_tools,
@@ -53,6 +53,7 @@ defmodule Pulap.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.0"},
       # {:map_diff, "~> 1.0"}
+      {:corsica, "~> 1.0"}
     ]
   end
 
