@@ -1,8 +1,8 @@
-defmodule Pulap.Repo.Migrations.CreateAdministratorships do
+defmodule Pulap.Repo.Migrations.CreateManagerships do
   use Ecto.Migration
 
   def change do
-    create table(:administratorships, primary_key: false) do
+    create table(:managerships, primary_key: false) do
       add :id, :uuid, primary_key: true
       add :started_at, :utc_datetime
       add :ends_at, :utc_datetime
@@ -17,10 +17,10 @@ defmodule Pulap.Repo.Migrations.CreateAdministratorships do
       timestamps()
     end
 
-    create index(:administratorships, [:user_id])
-    create index(:administratorships, [:organization_id])
-    create index(:administratorships, [:real_estate_id])
-    create index(:administratorships, [:created_by_id])
-    create index(:administratorships, [:updated_by_id])
+    create index(:managerships, [:user_id])
+    create index(:managerships, [:organization_id])
+    create index(:managerships, [:real_estate_id])
+    create index(:managerships, [:created_by_id])
+    create index(:managerships, [:updated_by_id])
   end
 end
