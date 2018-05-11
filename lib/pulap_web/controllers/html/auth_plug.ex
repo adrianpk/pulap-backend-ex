@@ -40,5 +40,4 @@ defmodule PulapWeb.HTML.AuthPlug do
   def sign_out(conn) do
     configure_session(conn, drop: true)
   end
-
 end
