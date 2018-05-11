@@ -11,8 +11,9 @@ defmodule PulapWeb.Router do
   end
 
   pipeline :api do
-    # plug :accepts, ["json"]
+    plug :accepts, ["json"]
     plug :put_format, :json
+    plug Corsica, origins: ["http://localhost:3449"], allow_headers: ["content-type"]
   end
 
   scope "/api", PulapWeb.API, as: :api do
@@ -76,7 +77,7 @@ defmodule PulapWeb.Router do
       resources "/tenures", TenureController do
         # nested resources
       end
-      resources "/administratorships", AdministratorshipController do
+      resources "/managerships", ManagershipController do
         # nested resources
       end
     end
@@ -84,19 +85,32 @@ defmodule PulapWeb.Router do
 
   scope "/", PulapWeb.HTML do
     pipe_through :browser # Use the default browser stack
-
+    # Page
     get "/", PageController, :index
+    # Signup
     get "/signup", UserController, :init_signup
     post "/signup", UserController, :signup
+    # Signin / Signout
     get "/signin", SessionController, :new
     post "/signin", SessionController, :create
     get "/signout", SessionController, :delete
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+    # Dashboard
+    get "/dashboard", DashboardController, :index
+    # Resources
     resources "/users", UserController do
       # get "/profile/edit", ProfileController, :edit
       # get "/profile", ProfileController, :show
       # patch "/profile", ProfileController, :update
       # put "/profile", ProfileController, :update
+    end
+    resources "/real-estate", RealEstateController do
+      # nested resource
+    end
+    scope "/managed", Managed do
+      resources "/real-estate", RealEstateController do
+        # nested resources
+      end
     end
   end
 

@@ -453,73 +453,73 @@ defmodule Pulap.BizTest do
     end
   end
 
-  describe "administratorship" do
-    alias Pulap.Biz.Administratorship
+  describe "managership" do
+    alias Pulap.Biz.Managership
 
     @valid_attrs %{default: "some default", ends_at: "2010-04-17 14:00:00.000000Z", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, started_at: "2010-04-17 14:00:00.000000Z"}
     @update_attrs %{default: "some updated default", ends_at: "2011-05-18 15:01:01.000000Z", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, started_at: "2011-05-18 15:01:01.000000Z"}
     @invalid_attrs %{default: nil, ends_at: nil, id: nil, is_active: nil, is_logical_deleted: nil, started_at: nil}
 
-    def administratorship_fixture(attrs \\ %{}) do
-      {:ok, administratorship} =
+    def managership_fixture(attrs \\ %{}) do
+      {:ok, managership} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Biz.create_administratorship()
+        |> Biz.create_managership()
 
-      administratorship
+      managership
     end
 
-    test "list_administratorship/0 returns all administratorship" do
-      administratorship = administratorship_fixture()
-      assert Biz.list_administratorship() == [administratorship]
+    test "list_managership/0 returns all managership" do
+      managership = managership_fixture()
+      assert Biz.list_managership() == [managership]
     end
 
-    test "get_administratorship!/1 returns the administratorship with given id" do
-      administratorship = administratorship_fixture()
-      assert Biz.get_administratorship!(administratorship.id) == administratorship
+    test "get_managership!/1 returns the managership with given id" do
+      managership = managership_fixture()
+      assert Biz.get_managership!(managership.id) == managership
     end
 
-    test "create_administratorship/1 with valid data creates a administratorship" do
-      assert {:ok, %Administratorship{} = administratorship} = Biz.create_administratorship(@valid_attrs)
-      assert administratorship.default == "some default"
-      assert administratorship.ends_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
-      assert administratorship.id == "7488a646-e31f-11e4-aace-600308960662"
-      assert administratorship.is_active == true
-      assert administratorship.is_logical_deleted == true
-      assert administratorship.started_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+    test "create_managership/1 with valid data creates a managership" do
+      assert {:ok, %Managership{} = managership} = Biz.create_managership(@valid_attrs)
+      assert managership.default == "some default"
+      assert managership.ends_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+      assert managership.id == "7488a646-e31f-11e4-aace-600308960662"
+      assert managership.is_active == true
+      assert managership.is_logical_deleted == true
+      assert managership.started_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
     end
 
-    test "create_administratorship/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Biz.create_administratorship(@invalid_attrs)
+    test "create_managership/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Biz.create_managership(@invalid_attrs)
     end
 
-    test "update_administratorship/2 with valid data updates the administratorship" do
-      administratorship = administratorship_fixture()
-      assert {:ok, administratorship} = Biz.update_administratorship(administratorship, @update_attrs)
-      assert %Administratorship{} = administratorship
-      assert administratorship.default == "some updated default"
-      assert administratorship.ends_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
-      assert administratorship.id == "7488a646-e31f-11e4-aace-600308960668"
-      assert administratorship.is_active == false
-      assert administratorship.is_logical_deleted == false
-      assert administratorship.started_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+    test "update_managership/2 with valid data updates the managership" do
+      managership = managership_fixture()
+      assert {:ok, managership} = Biz.update_managership(managership, @update_attrs)
+      assert %Managership{} = managership
+      assert managership.default == "some updated default"
+      assert managership.ends_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+      assert managership.id == "7488a646-e31f-11e4-aace-600308960668"
+      assert managership.is_active == false
+      assert managership.is_logical_deleted == false
+      assert managership.started_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
     end
 
-    test "update_administratorship/2 with invalid data returns error changeset" do
-      administratorship = administratorship_fixture()
-      assert {:error, %Ecto.Changeset{}} = Biz.update_administratorship(administratorship, @invalid_attrs)
-      assert administratorship == Biz.get_administratorship!(administratorship.id)
+    test "update_managership/2 with invalid data returns error changeset" do
+      managership = managership_fixture()
+      assert {:error, %Ecto.Changeset{}} = Biz.update_managership(managership, @invalid_attrs)
+      assert managership == Biz.get_managership!(managership.id)
     end
 
-    test "delete_administratorship/1 deletes the administratorship" do
-      administratorship = administratorship_fixture()
-      assert {:ok, %Administratorship{}} = Biz.delete_administratorship(administratorship)
-      assert_raise Ecto.NoResultsError, fn -> Biz.get_administratorship!(administratorship.id) end
+    test "delete_managership/1 deletes the managership" do
+      managership = managership_fixture()
+      assert {:ok, %Managership{}} = Biz.delete_managership(managership)
+      assert_raise Ecto.NoResultsError, fn -> Biz.get_managership!(managership.id) end
     end
 
-    test "change_administratorship/1 returns a administratorship changeset" do
-      administratorship = administratorship_fixture()
-      assert %Ecto.Changeset{} = Biz.change_administratorship(administratorship)
+    test "change_managership/1 returns a managership changeset" do
+      managership = managership_fixture()
+      assert %Ecto.Changeset{} = Biz.change_managership(managership)
     end
   end
 end
