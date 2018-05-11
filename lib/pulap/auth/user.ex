@@ -38,7 +38,7 @@ defmodule Pulap.Auth.User do
       on_delete: :nothing
     # # Profile
     # has_one :profile, Pulap.Auth.Profile,
-    #    on_replace: :update,
+    #   on_replace: :update,
     #   on_delete: :delete_all
     # # Organizations
     # has_many :organizations, Pulap.Auth.Organization,
@@ -50,9 +50,14 @@ defmodule Pulap.Auth.User do
     #   join_through: Pulap.Auth.Tenure,
     #   on_delete: :delete_all
     # # Real estates
-    # many_to_many :real_estates, Pulap.Biz.RealEstate,
-    #   join_through: Pulap.Biz.Administratorship,
-    #   on_delete: :delete_all
+    many_to_many :managed_real_estates, Pulap.Biz.RealEstate,
+      join_through: Pulap.Biz.Managership,
+      on_delete: :nothing
+    has_many :ownerships, Pulap.Biz.Ownership,
+      on_delete: :delete_all
+    many_to_many :owned_real_estate, Pulap.Biz.RealEstate,
+      join_through: Pulap.Biz.Ownership,
+      on_delete: :nothing
   end
 
   # @doc false
@@ -127,7 +132,7 @@ defmodule Pulap.Auth.User do
 
   def validate_domain_and_unique([email, _username, host], changeset) do
     # FIX: Commented only for development
-    # accepted_domains = Config.accepted_domains 
+    # accepted_domains = Config.accepted_domains
     accepted_domains = ~w(localhost.com gmail.com hotmail.com localhost)
     case host in accepted_domains do
       true ->
