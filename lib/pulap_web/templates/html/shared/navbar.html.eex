@@ -1,0 +1,92 @@
+<nav id="navbar" class="navbar has-shadow is-spaced is-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <%= render PulapWeb.HTML.Shared, "logo.html", assigns %>
+      </a>
+
+      <div id="navbarBurger" class="navbar-burger burger" data-target="navMenuIndex">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div id="navMenuIndex" class="navbar-menu">
+
+      <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-item bd-navbar-item-love">
+            <span class="icon has-text-info">
+              <i class="fas fa-building"></i>
+            </span>
+            <span>Admin</span>
+          </a>
+          <div id="moreDropdown" class="navbar-dropdown">
+            <a class="navbar-item " href="/real-estate">
+              <span>
+                <span class="icon has-text-primary">
+                  <i class="fas fa-home"></i>
+                </span>
+                <strong>Properties</strong>
+                <br> List, add, edit and delete properties
+              </span>
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item " href="/publications">
+              <span>
+                <span class="icon has-text-bootstrap">
+                  <i class="fas fa-newspaper"></i>
+                </span>
+                <strong>Publications</strong>
+                <br> List, publish, and edit your announcement
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-item bd-navbar-item-love">
+            <span class="icon has-text-info">
+              <i class="fas fa-user"></i>
+            </span>
+            <span>Account</span>
+          </a>
+          <div id="moreDropdown" class="navbar-dropdown">
+            <a class="navbar-item" href="/profile">
+              <span>
+                <span class="icon has-text-success">
+                  <i class="fas fa-id-card"></i>
+                </span>
+                <strong>Profile</strong>
+                <br> View and edit your profile
+              </span>
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item " href="/real-estate">
+              <span>
+                <span class="icon has-text-primary">
+                  <i class="fas fa-wrench"></i>
+                </span>
+                <strong>Settings</strong>
+                <br> List, add, edit and delete properties
+              </span>
+            </a>
+            <hr class="navbar-divider">
+            <div class="navbar-item">
+              <div class="field is-grouped is-grouped-multiline">
+                <p class="control">
+                  <a class="button is-primary" href="/signout">
+                    <strong>Signout</strong>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
