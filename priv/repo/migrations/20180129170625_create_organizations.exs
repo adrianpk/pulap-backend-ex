@@ -5,8 +5,8 @@ defmodule Pulap.Repo.Migrations.CreateOrganizations do
   def up do
     create table(:organizations, primary_key: false) do
       add :id, :uuid, primary_key: true
-      add :owner_username, :string, size: 32, null: false
       add :owner_id, references(:users, type: :uuid, on_delete: :delete_all)
+      add :owner_username, :string, size: 32, null: false
       add :name, :string, size: 32, null: false
       add :description, :string, size: 255
       add :card, :json
