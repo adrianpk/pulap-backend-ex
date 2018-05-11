@@ -3,7 +3,7 @@ defmodule PulapWeb.HTML.UserController do
 
   alias Pulap.Auth
   alias Pulap.Auth.User
-  alias PulapWeb.HTML.AuthPlug
+  # alias PulapWeb.HTML.AuthPlug
 
   require Logger
 
