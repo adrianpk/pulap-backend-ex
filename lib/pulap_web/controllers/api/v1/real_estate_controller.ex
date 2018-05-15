@@ -7,8 +7,8 @@ defmodule PulapWeb.API.V1.RealEstateController do
   action_fallback PulapWeb.API.FallbackController
 
   def index(conn, _params) do
-    real_estates = Biz.list_real_estates()
-    render(conn, "index.json", real_estates: real_estates)
+    real_estate = Biz.list_real_estate()
+    render(conn, "index.json", real_estate: real_estate)
   end
 
   require Logger

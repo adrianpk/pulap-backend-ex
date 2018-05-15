@@ -10,7 +10,6 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
     user = conn.assigns.current_user()
            |> Pulap.Repo.preload(:owned_real_estate)
     real_estate = user.owned_real_estate
-    # real_estate = Pulap.Biz.Managed.Reallib/pulap/biz/managed/real_estate.exEstate.list(user.id)
     render(conn, "index.html", real_estate: real_estate)
   end
 
