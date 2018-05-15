@@ -13,7 +13,7 @@ defmodule PulapWeb.HTML.RealEstateController do
     Logger.debug(user.id)
     # Buscar todos las propiedades del usuario
     # Ordenar cronologicamente
-    real_estate = Biz.list_real_estates()
+    real_estate = Biz.list_real_estate()
     render(conn, "index.html", real_estate: real_estate)
   end
 
