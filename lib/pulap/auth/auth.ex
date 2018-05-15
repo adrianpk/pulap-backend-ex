@@ -43,18 +43,18 @@ defmodule Pulap.Auth do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
-  Gets a single user by email.
+  Gets a single user by username.
 
   ## Examples
 
-  iex> get_user_by_email(user@mail.com)
+  iex> get_user_by_username(username)
   %User{}
 
-  iex> get_user_by_email(user@mail.com)
+  iex> get_user_by_username("")
   ** (Ecto.NoResultsError)
 
   """
-  def get_user_by_email(email), do: Repo.get_by(User, email: email)
+  def get_user_by_username!(username), do: Repo.get_by(User, [username: username])
 
   @doc """
   Gets a single user by email.
@@ -70,7 +70,7 @@ defmodule Pulap.Auth do
   ** (Ecto.NoResultsError)
 
   """
-  def get_user_by_email!(email), do: Repo.get_by!(User, email: email)
+  def get_user_by_email!(email), do: Repo.get_by!(User, [email: email])
 
   # import Ecto
 
@@ -160,6 +160,24 @@ defmodule Pulap.Auth do
   def update_user(%User{} = user, attrs) do
     user
     |> User.update_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates a user.
+
+  ## Examples
+
+  iex> update_user(user, %{field: new_value})
+  {:ok, %User{}}
+
+  iex> update_user(user, %{field: bad_value})
+  {:error, %Ecto.Changeset{}}
+
+  """
+  def update_user_context(%User{} = user, attrs) do
+    user
+    |> User.context_changeset(attrs)
     |> Repo.update()
   end
 

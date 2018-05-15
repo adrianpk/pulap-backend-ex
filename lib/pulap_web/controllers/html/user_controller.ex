@@ -3,7 +3,6 @@ defmodule PulapWeb.HTML.UserController do
 
   alias Pulap.Auth
   alias Pulap.Auth.User
-  # alias PulapWeb.HTML.AuthPlug
 
   require Logger
 
@@ -16,7 +15,7 @@ defmodule PulapWeb.HTML.UserController do
     case Auth.sign_up_user(user_params) do
       {:ok, user} ->
         conn
-        |> PulapWeb.HTML.AuthPlug.sign_in(user)
+        |> PulapWeb.Auth.Helpers.sign_in(user)
         |> put_flash(:info, "User signed up successfully.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -58,7 +57,6 @@ defmodule PulapWeb.HTML.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Auth.get_user!(id)
-
     case Auth.update_user(user, user_params) do
       {:ok, user} ->
         conn

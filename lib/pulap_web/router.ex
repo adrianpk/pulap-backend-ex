@@ -7,7 +7,10 @@ defmodule PulapWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug PulapWeb.HTML.AuthPlug, repo: Pulap.Repo
+  end
+
+  pipeline :authenticated do
+    plug PulapWeb.Auth.AuthPipeline #, repo: Pulap.Repo
   end
 
   pipeline :api do
@@ -84,17 +87,17 @@ defmodule PulapWeb.Router do
   end
 
   scope "/", PulapWeb.HTML do
-    pipe_through :browser # Use the default browser stack
-    # Page
-    get "/", PageController, :index
-    # Signup
-    get "/signup", UserController, :init_signup
-    post "/signup", UserController, :signup
-    # Signin / Signout
-    get "/signin", SessionController, :new
-    post "/signin", SessionController, :create
+    pipe_through [:browser, :authenticated]
+    # # Page
+    # get "/", PageController, :index
+    # # Signup
+    # get "/signup", UserController, :init_signup
+    # post "/signup", UserController, :signup
+    # # Signin / Signout
+    # get "/signin", SessionController, :new
+    # post "/signin", SessionController, :create
     get "/signout", SessionController, :delete
-    resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/sessions", SessionController, only: [:delete]
     # Dashboard
     get "/dashboard", DashboardController, :index
     # Resources
@@ -112,6 +115,19 @@ defmodule PulapWeb.Router do
         # nested resources
       end
     end
+  end
+
+  scope "/", PulapWeb.HTML do
+    pipe_through :browser
+    # Page
+    get "/", PageController, :index
+    # Signup
+    get "/signup", UserController, :init_signup
+    post "/signup", UserController, :signup
+    # Signin / Signout
+    get "/signin", SessionController, :new
+    post "/signin", SessionController, :create
+    resources "/sessions", SessionController, only: [:new, :create]
   end
 
 end

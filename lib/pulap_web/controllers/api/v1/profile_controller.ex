@@ -12,7 +12,7 @@ defmodule PulapWeb.API.V1.ProfileController do
   end
 
   def create(conn, %{"profile" => profile_params}) do
-    user = conn |> user_from_session(:include_profile)
+    user = conn |> PulapWeb.Auth.Helpers.user_from_session(:include_profile)
     with {:ok, %Profile{} = profile} <- Auth.create_profile(profile_params) do
       conn
       |> put_status(:created)

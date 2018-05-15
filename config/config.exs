@@ -24,6 +24,15 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Guardian
+config :pulap, PulapWeb.Auth.Guardian,
+  issuer: "pulap",
+  secret_key: "AXFFDuAZk/CSDwycPnmgpo6F44lmnCIdJZgg36fYsk0qrrRcXul8okH5dYyYZ5xm"
+
+config :pulap, PulapWeb.Auth.AuthPipeline,
+  module: PulapWeb.Auth.Guardian,
+  error_handler: PulapWeb.Auth.ErrorHandler
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

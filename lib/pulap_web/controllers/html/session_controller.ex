@@ -7,7 +7,7 @@ defmodule PulapWeb.HTML.SessionController do
   end
 
   def create(conn, %{"session" => %{"username" => username, "password" => password}}) do
-    case PulapWeb.HTML.AuthPlug.sign_in_with_username_and_password(conn, username, password, repo: Pulap.Repo) do
+    case PulapWeb.Auth.Helpers.sign_in_with_username_and_password(conn, username, password, repo: Pulap.Repo) do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "Welcome back!")
@@ -21,7 +21,7 @@ defmodule PulapWeb.HTML.SessionController do
 
   def delete(conn, _) do
     conn
-    |> PulapWeb.HTML.AuthPlug.sign_out()
+    |> PulapWeb.Auth.Helpers.sign_out()
     |> redirect(to: session_path(conn, :new))
   end
 end
