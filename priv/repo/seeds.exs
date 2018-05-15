@@ -76,7 +76,7 @@ user_role            = Repo.insert! changeset
 
 # Users --------------------------------------------------------------------------------------------------------------
 ## Superadmin
-data      = %{username: "superadmin", password: "password", email: "supearadmin@localhost.com", given_name: "Superadmin", middle_names: "Middle", family_name: "Family", active: true, is_logical_deleted: false}
+data      = %{username: "superadmin", password: "password", email: "supearadmin@localhost.com", given_name: "Superadmin", middle_names: "Middle", family_name: "Family", context_id: nil, active: true, is_logical_deleted: false}
 changeset       = User.signup_changeset(%User{}, data)
 # superadmin_user = Repo.insert! Helper.update_roles(changeset, [superadmin_role])
 superadmin_user = Repo.insert! changeset

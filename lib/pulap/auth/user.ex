@@ -13,6 +13,7 @@ defmodule Pulap.Auth.User do
     field :annotations, :string
     field :card, :string
     field :created_by_id, Ecto.UUID
+    field :context_id, Ecto.UUID
     field :email, :string
     field :family_name, :string
     field :geolocation, Geo.Point
@@ -53,6 +54,7 @@ defmodule Pulap.Auth.User do
     many_to_many :managed_real_estates, Pulap.Biz.RealEstate,
       join_through: Pulap.Biz.Managership,
       on_delete: :nothing
+
     has_many :ownerships, Pulap.Biz.Ownership,
       on_delete: :delete_all
     many_to_many :owned_real_estate, Pulap.Biz.RealEstate,
@@ -70,7 +72,7 @@ defmodule Pulap.Auth.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:username, :password, :email, :given_name, :middle_names, :family_name])
+    |> cast(attrs, [:username, :password, :email, :given_name, :middle_names, :family_name, :context_id])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
     |> validate_email(user)
@@ -102,6 +104,12 @@ defmodule Pulap.Auth.User do
     |> validate_password_change(user)
     |> validate_email(user)
     |> add_password_digest()
+  end
+
+  @doc false
+  def context_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:context_id])
   end
 
   def validate_email(changeset, user) do
@@ -148,7 +156,7 @@ defmodule Pulap.Auth.User do
   end
 
   def find_by_email(email) do
-    Pulap.Auth.get_user_by_email(email)
+    Pulap.Auth.get_user_by_email!(email)
   end
 
   defp add_password_digest(changeset) do
