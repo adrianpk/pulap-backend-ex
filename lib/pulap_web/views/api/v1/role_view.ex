@@ -11,11 +11,13 @@ defmodule PulapWeb.RoleView do
   end
 
   def render("role.json", %{role: role}) do
-    %{id: role.id,
+    %{
+      id: role.id,
       organization_name: role.organization_name,
       name: role.name,
       description: role.description,
       is_active: role.is_active,
-      is_logical_deleted: role.is_logical_deleted}
+      is_logical_deleted: role.is_logical_deleted
+    }
   end
 end

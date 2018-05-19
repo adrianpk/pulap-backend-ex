@@ -11,7 +11,8 @@ defmodule PulapWeb.API.V1.KeyValueView do
   end
 
   def render("key_value.json", %{key_value: key_value}) do
-    %{id: key_value.id,
+    %{
+      id: key_value.id,
       set: key_value.set,
       key: key_value.key,
       value: key_value.value,
@@ -20,6 +21,7 @@ defmodule PulapWeb.API.V1.KeyValueView do
       locale: key_value.locale,
       position: key_value.position,
       is_active: key_value.is_active,
-      is_logical_deleted: key_value.is_logical_deleted}
+      is_logical_deleted: key_value.is_logical_deleted
+    }
   end
 end

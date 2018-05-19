@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.ProfileController do
   alias Pulap.Auth
   alias Pulap.Auth.Profile
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     profiles = Auth.list_profiles()
@@ -13,6 +13,7 @@ defmodule PulapWeb.API.V1.ProfileController do
 
   def create(conn, %{"profile" => profile_params}) do
     user = conn |> PulapWeb.Auth.Helpers.user_from_session(:include_profile)
+
     with {:ok, %Profile{} = profile} <- Auth.create_profile(profile_params) do
       conn
       |> put_status(:created)
@@ -36,6 +37,7 @@ defmodule PulapWeb.API.V1.ProfileController do
 
   def delete(conn, %{"id" => id}) do
     profile = Auth.get_profile!(id)
+
     with {:ok, %Profile{}} <- Auth.delete_profile(profile) do
       send_resp(conn, :no_content, "")
     end

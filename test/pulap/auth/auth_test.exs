@@ -6,9 +6,51 @@ defmodule Pulap.AuthTest do
   describe "users" do
     alias Pulap.Auth.User
 
-    @valid_attrs %{annotations: "some annotations", card: "some card", email: "some email", family_name: "some family_name", geolocation: 42, given_name: "some given_name", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, middle_names: "some middle_names", password_hash: "some password_hash", started_at: "2010-04-17 14:00:00.000000Z", username: "some username"}
-    @update_attrs %{annotations: "some updated annotations", card: "some updated card", email: "some updated email", family_name: "some updated family_name", geolocation: 43, given_name: "some updated given_name", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, middle_names: "some updated middle_names", password_hash: "some updated password_hash", started_at: "2011-05-18 15:01:01.000000Z", username: "some updated username"}
-    @invalid_attrs %{annotations: nil, card: nil, email: nil, family_name: nil, geolocation: nil, given_name: nil, id: nil, is_active: nil, is_logical_deleted: nil, middle_names: nil, password_hash: nil, started_at: nil, username: nil}
+    @valid_attrs %{
+      annotations: "some annotations",
+      card: "some card",
+      email: "some email",
+      family_name: "some family_name",
+      geolocation: 42,
+      given_name: "some given_name",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      middle_names: "some middle_names",
+      password_hash: "some password_hash",
+      started_at: "2010-04-17 14:00:00.000000Z",
+      username: "some username"
+    }
+    @update_attrs %{
+      annotations: "some updated annotations",
+      card: "some updated card",
+      email: "some updated email",
+      family_name: "some updated family_name",
+      geolocation: 43,
+      given_name: "some updated given_name",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      middle_names: "some updated middle_names",
+      password_hash: "some updated password_hash",
+      started_at: "2011-05-18 15:01:01.000000Z",
+      username: "some updated username"
+    }
+    @invalid_attrs %{
+      annotations: nil,
+      card: nil,
+      email: nil,
+      family_name: nil,
+      geolocation: nil,
+      given_name: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      middle_names: nil,
+      password_hash: nil,
+      started_at: nil,
+      username: nil
+    }
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -90,9 +132,45 @@ defmodule Pulap.AuthTest do
   describe "organizations" do
     alias Pulap.Auth.Organization
 
-    @valid_attrs %{annotations: "some annotations", card: "some card", default: "some default", description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organizations: 42, owner_username: "some owner_username", started_at: "2010-04-17 14:00:00.000000Z"}
-    @update_attrs %{annotations: "some updated annotations", card: "some updated card", default: "some updated default", description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organizations: 43, owner_username: "some updated owner_username", started_at: "2011-05-18 15:01:01.000000Z"}
-    @invalid_attrs %{annotations: nil, card: nil, default: nil, description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organizations: nil, owner_username: nil, started_at: nil}
+    @valid_attrs %{
+      annotations: "some annotations",
+      card: "some card",
+      default: "some default",
+      description: "some description",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      organizations: 42,
+      owner_username: "some owner_username",
+      started_at: "2010-04-17 14:00:00.000000Z"
+    }
+    @update_attrs %{
+      annotations: "some updated annotations",
+      card: "some updated card",
+      default: "some updated default",
+      description: "some updated description",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      organizations: 43,
+      owner_username: "some updated owner_username",
+      started_at: "2011-05-18 15:01:01.000000Z"
+    }
+    @invalid_attrs %{
+      annotations: nil,
+      card: nil,
+      default: nil,
+      description: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      organizations: nil,
+      owner_username: nil,
+      started_at: nil
+    }
 
     def organization_fixture(attrs \\ %{}) do
       {:ok, organization} =
@@ -125,7 +203,9 @@ defmodule Pulap.AuthTest do
       assert organization.name == "some name"
       assert organization.organizations == 42
       assert organization.owner_username == "some owner_username"
-      assert organization.started_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
+      assert organization.started_at ==
+               DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
     end
 
     test "create_organization/1 with invalid data returns error changeset" do
@@ -146,7 +226,9 @@ defmodule Pulap.AuthTest do
       assert organization.name == "some updated name"
       assert organization.organizations == 43
       assert organization.owner_username == "some updated owner_username"
-      assert organization.started_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
+      assert organization.started_at ==
+               DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
     end
 
     test "update_organization/2 with invalid data returns error changeset" do
@@ -170,9 +252,66 @@ defmodule Pulap.AuthTest do
   describe "profiles" do
     alias Pulap.Auth.Profile
 
-    @valid_attrs %{anniversary_date: "some anniversary_date", annotations: "some annotations", avatar: "some avatar", avatar_path: "some avatar_path", bio: "some bio", cards: "some cards", description: "some description", email: "some email", geolocation: 42, header: "some header", header_path: "some header_path", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, moto: "some moto", name: "some name", property_set_name: "some property_set_name", website: "some website"}
-    @update_attrs %{anniversary_date: "some updated anniversary_date", annotations: "some updated annotations", avatar: "some updated avatar", avatar_path: "some updated avatar_path", bio: "some updated bio", cards: "some updated cards", description: "some updated description", email: "some updated email", geolocation: 43, header: "some updated header", header_path: "some updated header_path", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, moto: "some updated moto", name: "some updated name", property_set_name: "some updated property_set_name", website: "some updated website"}
-    @invalid_attrs %{anniversary_date: nil, annotations: nil, avatar: nil, avatar_path: nil, bio: nil, cards: nil, description: nil, email: nil, geolocation: nil, header: nil, header_path: nil, id: nil, is_active: nil, is_logical_deleted: nil, moto: nil, name: nil, property_set_name: nil, website: nil}
+    @valid_attrs %{
+      anniversary_date: "some anniversary_date",
+      annotations: "some annotations",
+      avatar: "some avatar",
+      avatar_path: "some avatar_path",
+      bio: "some bio",
+      cards: "some cards",
+      description: "some description",
+      email: "some email",
+      geolocation: 42,
+      header: "some header",
+      header_path: "some header_path",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      moto: "some moto",
+      name: "some name",
+      property_set_name: "some property_set_name",
+      website: "some website"
+    }
+    @update_attrs %{
+      anniversary_date: "some updated anniversary_date",
+      annotations: "some updated annotations",
+      avatar: "some updated avatar",
+      avatar_path: "some updated avatar_path",
+      bio: "some updated bio",
+      cards: "some updated cards",
+      description: "some updated description",
+      email: "some updated email",
+      geolocation: 43,
+      header: "some updated header",
+      header_path: "some updated header_path",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      moto: "some updated moto",
+      name: "some updated name",
+      property_set_name: "some updated property_set_name",
+      website: "some updated website"
+    }
+    @invalid_attrs %{
+      anniversary_date: nil,
+      annotations: nil,
+      avatar: nil,
+      avatar_path: nil,
+      bio: nil,
+      cards: nil,
+      description: nil,
+      email: nil,
+      geolocation: nil,
+      header: nil,
+      header_path: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      moto: nil,
+      name: nil,
+      property_set_name: nil,
+      website: nil
+    }
 
     def profile_fixture(attrs \\ %{}) do
       {:ok, profile} =
@@ -264,9 +403,30 @@ defmodule Pulap.AuthTest do
   describe "roles" do
     alias Pulap.Auth.Role
 
-    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name"}
-    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name"}
-    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil}
+    @valid_attrs %{
+      description: "some description",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      organization_name: "some organization_name"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      organization_name: "some updated organization_name"
+    }
+    @invalid_attrs %{
+      description: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      organization_name: nil
+    }
 
     def role_fixture(attrs \\ %{}) do
       {:ok, role} =
@@ -334,9 +494,30 @@ defmodule Pulap.AuthTest do
   describe "permissions" do
     alias Pulap.Auth.Permission
 
-    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name"}
-    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name"}
-    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil}
+    @valid_attrs %{
+      description: "some description",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      organization_name: "some organization_name"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      organization_name: "some updated organization_name"
+    }
+    @invalid_attrs %{
+      description: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      organization_name: nil
+    }
 
     def permission_fixture(attrs \\ %{}) do
       {:ok, permission} =
@@ -404,9 +585,33 @@ defmodule Pulap.AuthTest do
   describe "resources" do
     alias Pulap.Auth.Resource
 
-    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name", tag: "some tag"}
-    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name", tag: "some updated tag"}
-    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil, tag: nil}
+    @valid_attrs %{
+      description: "some description",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      organization_name: "some organization_name",
+      tag: "some tag"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      organization_name: "some updated organization_name",
+      tag: "some updated tag"
+    }
+    @invalid_attrs %{
+      description: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      organization_name: nil,
+      tag: nil
+    }
 
     def resource_fixture(attrs \\ %{}) do
       {:ok, resource} =
@@ -476,9 +681,33 @@ defmodule Pulap.AuthTest do
   describe "role_permissions" do
     alias Pulap.Auth.RolePermission
 
-    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name", tag: "some tag"}
-    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name", tag: "some updated tag"}
-    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil, tag: nil}
+    @valid_attrs %{
+      description: "some description",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      organization_name: "some organization_name",
+      tag: "some tag"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      organization_name: "some updated organization_name",
+      tag: "some updated tag"
+    }
+    @invalid_attrs %{
+      description: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      organization_name: nil,
+      tag: nil
+    }
 
     def role_permission_fixture(attrs \\ %{}) do
       {:ok, role_permission} =
@@ -500,7 +729,9 @@ defmodule Pulap.AuthTest do
     end
 
     test "create_role_permission/1 with valid data creates a role_permission" do
-      assert {:ok, %RolePermission{} = role_permission} = Auth.create_role_permission(@valid_attrs)
+      assert {:ok, %RolePermission{} = role_permission} =
+               Auth.create_role_permission(@valid_attrs)
+
       assert role_permission.description == "some description"
       assert role_permission.id == "7488a646-e31f-11e4-aace-600308960662"
       assert role_permission.is_active == true
@@ -529,7 +760,10 @@ defmodule Pulap.AuthTest do
 
     test "update_role_permission/2 with invalid data returns error changeset" do
       role_permission = role_permission_fixture()
-      assert {:error, %Ecto.Changeset{}} = Auth.update_role_permission(role_permission, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Auth.update_role_permission(role_permission, @invalid_attrs)
+
       assert role_permission == Auth.get_role_permission!(role_permission.id)
     end
 
@@ -548,9 +782,36 @@ defmodule Pulap.AuthTest do
   describe "resource_permissions" do
     alias Pulap.Auth.ResourcePermission
 
-    @valid_attrs %{"": "some ", description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name", tag: "some tag"}
-    @update_attrs %{"": "some updated ", description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name", tag: "some updated tag"}
-    @invalid_attrs %{"": nil, description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil, tag: nil}
+    @valid_attrs %{
+      "": "some ",
+      description: "some description",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      organization_name: "some organization_name",
+      tag: "some tag"
+    }
+    @update_attrs %{
+      "": "some updated ",
+      description: "some updated description",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      organization_name: "some updated organization_name",
+      tag: "some updated tag"
+    }
+    @invalid_attrs %{
+      "": nil,
+      description: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      organization_name: nil,
+      tag: nil
+    }
 
     def resource_permission_fixture(attrs \\ %{}) do
       {:ok, resource_permission} =
@@ -572,8 +833,10 @@ defmodule Pulap.AuthTest do
     end
 
     test "create_resource_permission/1 with valid data creates a resource_permission" do
-      assert {:ok, %ResourcePermission{} = resource_permission} = Auth.create_resource_permission(@valid_attrs)
-      assert resource_permission. == "some "
+      assert {:ok, %ResourcePermission{} = resource_permission} =
+               Auth.create_resource_permission(@valid_attrs)
+
+      assert resource_permission.==("some ")
       assert resource_permission.description == "some description"
       assert resource_permission.id == "7488a646-e31f-11e4-aace-600308960662"
       assert resource_permission.is_active == true
@@ -589,9 +852,12 @@ defmodule Pulap.AuthTest do
 
     test "update_resource_permission/2 with valid data updates the resource_permission" do
       resource_permission = resource_permission_fixture()
-      assert {:ok, resource_permission} = Auth.update_resource_permission(resource_permission, @update_attrs)
+
+      assert {:ok, resource_permission} =
+               Auth.update_resource_permission(resource_permission, @update_attrs)
+
       assert %ResourcePermission{} = resource_permission
-      assert resource_permission. == "some updated "
+      assert resource_permission.==("some updated ")
       assert resource_permission.description == "some updated description"
       assert resource_permission.id == "7488a646-e31f-11e4-aace-600308960668"
       assert resource_permission.is_active == false
@@ -603,14 +869,20 @@ defmodule Pulap.AuthTest do
 
     test "update_resource_permission/2 with invalid data returns error changeset" do
       resource_permission = resource_permission_fixture()
-      assert {:error, %Ecto.Changeset{}} = Auth.update_resource_permission(resource_permission, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Auth.update_resource_permission(resource_permission, @invalid_attrs)
+
       assert resource_permission == Auth.get_resource_permission!(resource_permission.id)
     end
 
     test "delete_resource_permission/1 deletes the resource_permission" do
       resource_permission = resource_permission_fixture()
       assert {:ok, %ResourcePermission{}} = Auth.delete_resource_permission(resource_permission)
-      assert_raise Ecto.NoResultsError, fn -> Auth.get_resource_permission!(resource_permission.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Auth.get_resource_permission!(resource_permission.id)
+      end
     end
 
     test "change_resource_permission/1 returns a resource_permission changeset" do
@@ -622,9 +894,30 @@ defmodule Pulap.AuthTest do
   describe "user_roles" do
     alias Pulap.Auth.UserRole
 
-    @valid_attrs %{description: "some description", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", organization_name: "some organization_name"}
-    @update_attrs %{description: "some updated description", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", organization_name: "some updated organization_name"}
-    @invalid_attrs %{description: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, organization_name: nil}
+    @valid_attrs %{
+      description: "some description",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      organization_name: "some organization_name"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      organization_name: "some updated organization_name"
+    }
+    @invalid_attrs %{
+      description: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      organization_name: nil
+    }
 
     def user_role_fixture(attrs \\ %{}) do
       {:ok, user_role} =

@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.UserController do
   alias Pulap.Auth
   alias Pulap.Auth.User
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     users = Auth.list_users()
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Auth.get_user!(id)
+
     with {:ok, %User{}} <- Auth.delete_user(user) do
       send_resp(conn, :no_content, "")
     end

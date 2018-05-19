@@ -3,14 +3,19 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
 
   alias Pulap.Biz
   alias Pulap.Biz.RealEstate
-
-  plug :authenticate when action in [:index]
+  alias PulapWeb.Auth.Helpers
 
   def index(conn, _params) do
-    user = conn.assigns.current_user()
-           |> Pulap.Repo.preload(:owned_real_estate)
-    real_estate = user.owned_real_estate
-    render(conn, "index.html", real_estate: real_estate)
+    context =
+      case Helpers.get_context(conn) do
+        %{user: user} ->
+          user |> Repo.preload(:managed_real_estate)
+
+        %{organization: organization} ->
+          organization |> Repo.preload(:managed_real_estate)
+      end
+
+    render(conn, "index.html", real_estate: context.managed_real_estate())
   end
 
   def new(conn, _params) do
@@ -24,6 +29,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         conn
         |> put_flash(:info, "Real estate created successfully.")
         |> redirect(to: real_estate_path(conn, :show, real_estate))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -48,6 +54,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         conn
         |> put_flash(:info, "Real estate updated successfully.")
         |> redirect(to: real_estate_path(conn, :show, real_estate))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", real_estate: real_estate, changeset: changeset)
     end
@@ -60,16 +67,5 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
     conn
     |> put_flash(:info, "Real estate deleted successfully.")
     |> redirect(to: real_estate_path(conn, :index))
-  end
-
-  defp authenticate(conn, _opts) do
-    if conn.assigns.current_user() do
-      conn
-    else
-      conn
-      |> put_flash(:error, "You must be signed in to access that page.")
-      |> redirect(to: session_path(conn, :new))
-      |> halt()
-    end
   end
 end

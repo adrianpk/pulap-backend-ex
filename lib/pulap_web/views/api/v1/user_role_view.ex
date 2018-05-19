@@ -11,11 +11,13 @@ defmodule PulapWeb.UserRoleView do
   end
 
   def render("user_role.json", %{user_role: user_role}) do
-    %{id: user_role.id,
+    %{
+      id: user_role.id,
       organization_name: user_role.organization_name,
       name: user_role.name,
       description: user_role.description,
       is_active: user_role.is_active,
-      is_logical_deleted: user_role.is_logical_deleted}
+      is_logical_deleted: user_role.is_logical_deleted
+    }
   end
 end

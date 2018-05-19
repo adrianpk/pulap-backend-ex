@@ -1,3 +1,5 @@
-Postgrex.Types.define(Pulap.PostgresTypes,
+Postgrex.Types.define(
+  Pulap.PostgresTypes,
   [Geo.PostGIS.Extension] ++ Ecto.Adapters.Postgres.extensions(),
-  json: Poison)
+  json: Poison
+)

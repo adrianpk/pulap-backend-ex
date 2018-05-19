@@ -12,24 +12,24 @@ defmodule Pulap.Auth.UserRole do
   require IEx
 
   schema "user_roles" do
-    field :description, :string
-    field :is_active, :boolean, default: false
-    field :is_logical_deleted, :boolean, default: false
-    field :name, :string
+    field(:description, :string)
+    field(:is_active, :boolean, default: false)
+    field(:is_logical_deleted, :boolean, default: false)
+    field(:name, :string)
     # field :user_id, Ecto.UUID
     # field :role_id, Ecto.UUID
-    field :created_by_id, Ecto.UUID
-    field :updated_by_id, Ecto.UUID
+    field(:created_by_id, Ecto.UUID)
+    field(:updated_by_id, Ecto.UUID)
 
     timestamps()
 
     # Organization
-    belongs_to :organization, Pulap.Auth.Organization
+    belongs_to(:organization, Pulap.Auth.Organization)
     # User
-    belongs_to :user, Pulap.Auth.User
-      # on_delete: :nothing
-    belongs_to :role, Pulap.Auth.Role
-      # on_delete: :nothing
+    belongs_to(:user, Pulap.Auth.User)
+    # on_delete: :nothing
+    belongs_to(:role, Pulap.Auth.Role)
+    # on_delete: :nothing
   end
 
   @doc false
@@ -55,12 +55,12 @@ defmodule Pulap.Auth.UserRole do
   end
 
   defp get_user_username(changes) do
-    user = changes.user_id |> Auth.get_user!
+    user = changes.user_id |> Auth.get_user!()
     user.username
   end
 
   defp get_role_name(changes) do
-    role = changes.role_id |> Auth.get_role!
+    role = changes.role_id |> Auth.get_role!()
     role.name
   end
 end

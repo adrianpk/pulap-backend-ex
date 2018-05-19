@@ -1,19 +1,31 @@
-<h2>Sign In</h2>
+<div class="section">
+  <h2 class="subtitle">
+    Sign In
+  </h2>
 
-<%= form_for @conn, session_path(@conn, :create), [as: :session], fn f -> %>
-<div class="form-group">
-    <%= label f, :username, "Username", class: "control-label" %>
-    <%= text_input f, :username, class: "form-control" %>
-    <%= error_tag f, :username %>
-</div>
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+        <%=form_for @conn, session_path(@conn, :create), [as: :session], fn f -> %>
+          <div class="field">
+            <%= label f, :username, "Username", class: "label" %>
+            <%= text_input f, :username, class: "input is-primary" %>
+            <%= error_tag f, :username %>
+          </div>
 
-<div class="form-group">
-    <%= label f, :password, "Password", class: "control-label" %>
-    <%= password_input f, :password, class: "form-control" %>
-    <%= error_tag f, :password %>
-</div>
+          <div class="field">
+            <%= label f, :password, "Password", class: "label" %>
+            <%= password_input f, :password, class: "input is-primary" %>
+            <%= error_tag f, :password %>
+          </div>
 
-<div class="form-group">
-    <%= submit "Sign In", class: "btn btn-primary" %>
+          <div class="field is-grouped">
+            <div class="control">
+              <%= submit "Sign In", class: "button is-link" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-<% end %>

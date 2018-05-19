@@ -18,6 +18,7 @@ defmodule PulapWeb.HTML.UserController do
         |> PulapWeb.Auth.Helpers.sign_in(user)
         |> put_flash(:info, "User signed up successfully.")
         |> redirect(to: user_path(conn, :show, user))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -39,6 +40,7 @@ defmodule PulapWeb.HTML.UserController do
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: user_path(conn, :show, user))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -57,11 +59,13 @@ defmodule PulapWeb.HTML.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Auth.get_user!(id)
+
     case Auth.update_user(user, user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
         |> redirect(to: user_path(conn, :show, user))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end

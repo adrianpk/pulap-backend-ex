@@ -1,14 +1,12 @@
 defmodule PulapWeb.HTML.DashboardController do
-
   use PulapWeb, :controller
   require IEx
 
   # plug :authenticate when action in [:index]
 
   def index(conn, _params) do
-    render conn, "index.html"
+    render(conn, "index.html")
   end
-
 
   # defp authenticate(conn, _opts) do
   #   a = PulapWeb.Auth.Helpers.user_from_session(conn)

@@ -1,4 +1,4 @@
-<h2>Edit Real estate</h2>
+<h1>Edit Real estate</h1>
 
 <%= render "form.html", Map.put(assigns, :action, real_estate_path(@conn, :update, @real_estate)) %>
 

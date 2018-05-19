@@ -11,6 +11,7 @@ defmodule PulapWeb.Auth.Guardian do
     user = to_string(user.id)
     {:ok, user}
   end
+
   # def subject_for_token(_, _) do
   #   {:error, :reason_for_error}
   # end
@@ -19,10 +20,13 @@ defmodule PulapWeb.Auth.Guardian do
     # Here we'll look up our resource from the claims, the subject can be
     # found in the `"sub"` key. In `above subject_for_token/2` we returned
     # the resource id so here we'll rely on that to look it up.
-    user = claims["sub"]
-           |> Auth.get_user!
+    user =
+      claims["sub"]
+      |> Auth.get_user!()
+
     {:ok, user}
   end
+
   # def resource_from_claims(_claims) do
   #   {:error, :reason_for_error}
   # end

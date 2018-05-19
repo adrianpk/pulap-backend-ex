@@ -4,14 +4,14 @@ defmodule Pulap.Auth.RolePermission do
   alias Pulap.Auth.RolePermission
 
   schema "role_permissions" do
-    field :description, :string
-    field :is_active, :boolean, default: false
-    field :is_logical_deleted, :boolean, default: false
-    field :name, :string
-    field :organization_id, Ecto.UUID
-    field :role_id, Ecto.UUID
-    field :permission_id, Ecto.UUID
-    field :created_by, Ecto.UUID
+    field(:description, :string)
+    field(:is_active, :boolean, default: false)
+    field(:is_logical_deleted, :boolean, default: false)
+    field(:name, :string)
+    field(:organization_id, Ecto.UUID)
+    field(:role_id, Ecto.UUID)
+    field(:permission_id, Ecto.UUID)
+    field(:created_by, Ecto.UUID)
 
     timestamps()
   end

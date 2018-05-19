@@ -3,17 +3,16 @@ defmodule Pulap.Auth.ResourcePermission do
   import Ecto.Changeset
   alias Pulap.Auth.ResourcePermission
 
-
   schema "resource_permissions" do
-    field :description, :string
-    field :is_active, :boolean, default: false
-    field :is_logical_deleted, :boolean, default: false
-    field :name, :string
-    field :started_at, :utc_datetime
-    field :organization_id, :id
-    field :resource_id, :id
-    field :permission_id, :id
-    field :created_by, :id
+    field(:description, :string)
+    field(:is_active, :boolean, default: false)
+    field(:is_logical_deleted, :boolean, default: false)
+    field(:name, :string)
+    field(:started_at, :utc_datetime)
+    field(:organization_id, :id)
+    field(:resource_id, :id)
+    field(:permission_id, :id)
+    field(:created_by, :id)
 
     timestamps()
   end

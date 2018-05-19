@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.RoleController do
   alias Pulap.Auth
   alias Pulap.Auth.Role
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     roles = Auth.list_roles()
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.RoleController do
 
   def delete(conn, %{"id" => id}) do
     role = Auth.get_role!(id)
+
     with {:ok, %Role{}} <- Auth.delete_role(role) do
       send_resp(conn, :no_content, "")
     end

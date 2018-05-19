@@ -3,15 +3,14 @@ defmodule Pulap.App.PropertySet do
   import Ecto.Changeset
   alias Pulap.App.PropertySet
 
-
   schema "property_sets" do
-    field :description, :string
-    field :holder_id, Ecto.UUID
-    field :is_active, :boolean, default: false
-    field :is_logical_deleted, :boolean, default: false
-    field :name, :string
-    field :created_by_id, :id
-    field :updated_by_id, :id
+    field(:description, :string)
+    field(:holder_id, Ecto.UUID)
+    field(:is_active, :boolean, default: false)
+    field(:is_logical_deleted, :boolean, default: false)
+    field(:name, :string)
+    field(:created_by_id, :id)
+    field(:updated_by_id, :id)
 
     timestamps()
   end

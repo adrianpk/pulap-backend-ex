@@ -11,7 +11,8 @@ defmodule PulapWeb.PropertyView do
   end
 
   def render("property.json", %{property: property}) do
-    %{id: property.id,
+    %{
+      id: property.id,
       property_set_name: property.property_set_name,
       name: property.name,
       description: property.description,
@@ -27,6 +28,7 @@ defmodule PulapWeb.PropertyView do
       time: property.time,
       uuid: property.uuid,
       is_active: property.is_active,
-      is_logical_deleted: property.is_logical_deleted}
+      is_logical_deleted: property.is_logical_deleted
+    }
   end
 end

@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.GeoAreaController do
   alias Pulap.Geo
   alias Pulap.Geo.GeoArea
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     geo_areas = Geo.list_geo_areas()
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.GeoAreaController do
 
   def delete(conn, %{"id" => id}) do
     geo_area = Geo.get_geo_area!(id)
+
     with {:ok, %GeoArea{}} <- Geo.delete_geo_area(geo_area) do
       send_resp(conn, :no_content, "")
     end

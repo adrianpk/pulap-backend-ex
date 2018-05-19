@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.TenureController do
   alias Pulap.Biz
   alias Pulap.Biz.Tenure
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     tenures = Biz.list_tenures()
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.TenureController do
 
   def delete(conn, %{"id" => id}) do
     tenure = Biz.get_tenure!(id)
+
     with {:ok, %Tenure{}} <- Biz.delete_tenure(tenure) do
       send_resp(conn, :no_content, "")
     end

@@ -196,72 +196,73 @@ defmodule PulapWeb.RealEstateControllerTest do
 
   describe "index" do
     test "lists all real_estates", %{conn: conn} do
-      conn = get conn, api_v1_real_estate_path(conn, :index)
+      conn = get(conn, api_v1_real_estate_path(conn, :index))
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create real_estate" do
     test "renders real_estate when data is valid", %{conn: conn} do
-      conn = post conn, api_v1_real_estate_path(conn, :create), real_estate: @create_attrs
+      conn = post(conn, api_v1_real_estate_path(conn, :create), real_estate: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get conn, api_v1_real_estate_path(conn, :show, id)
+      conn = get(conn, api_v1_real_estate_path(conn, :show, id))
+
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
-        "room_height_cm" => @create_attrs.room_height_cm,
-        "number_of_rooms" => @create_attrs.number_of_rooms,
-        "backyard" => @create_attrs.backyard,
-        "kitchen_type_val_en" => @create_attrs.kitchen_type_val_en,
-        "currency_code" => @create_attrs.currency_code,
-        "type_of_building_val_en" => @create_attrs.type_of_building_val_en,
-        "price" => @create_attrs.price,
-        "terrace" => @create_attrs.terrace,
-        "kitchen_type_val_loc" => @create_attrs.kitchen_type_val_loc,
-        "geolocation" => @create_attrs.geolocation,
-        "furniture_set" => @create_attrs.furniture_set,
-        "street_number" => @create_attrs.street_number,
-        "number_of_bathrooms" => @create_attrs.number_of_bathrooms,
-        "geo_area_canonical_name" => @create_attrs.geo_area_canonical_name,
-        "short_description" => @create_attrs.short_description,
-        "house_equipment_description" => @create_attrs.house_equipment_description,
-        "bathroom_area_m2" => @create_attrs.bathroom_area_m2,
-        "suggested_installment_loan" => @create_attrs.suggested_installment_loan,
-        "property_type_val_en" => @create_attrs.property_type_val_en,
-        "locale" => @create_attrs.locale,
-        "geo_area_name_loc" => @create_attrs.geo_area_name_loc,
-        "balcony" => @create_attrs.balcony,
-        "accessible_without_stairs" => @create_attrs.accessible_without_stairs,
-        "number_of_balconies" => @create_attrs.number_of_balconies,
-        "house_equipment" => @create_attrs.house_equipment,
-        "street" => @create_attrs.street,
-        "heating_type_val_en" => @create_attrs.heating_type_val_en,
-        "geo_area_name" => @create_attrs.geo_area_name,
-        "year_of_construction" => @create_attrs.year_of_construction,
-        "indoor_area_m2" => @create_attrs.indoor_area_m2,
-        "block" => @create_attrs.block,
-        "total_area_m2" => @create_attrs.total_area_m2,
-        "heating_type_val_loc" => @create_attrs.heating_type_val_loc,
-        "currency_symbol" => @create_attrs.currency_symbol,
-        "apartment" => @create_attrs.apartment,
-        "property_type_val_loc" => @create_attrs.property_type_val_loc,
-        "price_per_square_meter" => @create_attrs.price_per_square_meter,
-        "description" => @create_attrs.description,
-        "number_of_bedroms" => @create_attrs.number_of_bedroms,
-        "cards" => @create_attrs.cards,
-        "position" => @create_attrs.position,
-        "geo_area_canonical_name_loc" => @create_attrs.geo_area_canonical_name_loc,
-        "is_logical_deleted" => @create_attrs.is_logical_deleted,
-        "is_active" => @create_attrs.is_active,
-        "type_of_building_val_loc" => @create_attrs.type_of_building_val_loc,
-        "name" => @create_attrs.name,
-        "elevator" => @create_attrs.elevator,
-        "floor" => @create_attrs.floor
-      }
+               "id" => id,
+               "room_height_cm" => @create_attrs.room_height_cm,
+               "number_of_rooms" => @create_attrs.number_of_rooms,
+               "backyard" => @create_attrs.backyard,
+               "kitchen_type_val_en" => @create_attrs.kitchen_type_val_en,
+               "currency_code" => @create_attrs.currency_code,
+               "type_of_building_val_en" => @create_attrs.type_of_building_val_en,
+               "price" => @create_attrs.price,
+               "terrace" => @create_attrs.terrace,
+               "kitchen_type_val_loc" => @create_attrs.kitchen_type_val_loc,
+               "geolocation" => @create_attrs.geolocation,
+               "furniture_set" => @create_attrs.furniture_set,
+               "street_number" => @create_attrs.street_number,
+               "number_of_bathrooms" => @create_attrs.number_of_bathrooms,
+               "geo_area_canonical_name" => @create_attrs.geo_area_canonical_name,
+               "short_description" => @create_attrs.short_description,
+               "house_equipment_description" => @create_attrs.house_equipment_description,
+               "bathroom_area_m2" => @create_attrs.bathroom_area_m2,
+               "suggested_installment_loan" => @create_attrs.suggested_installment_loan,
+               "property_type_val_en" => @create_attrs.property_type_val_en,
+               "locale" => @create_attrs.locale,
+               "geo_area_name_loc" => @create_attrs.geo_area_name_loc,
+               "balcony" => @create_attrs.balcony,
+               "accessible_without_stairs" => @create_attrs.accessible_without_stairs,
+               "number_of_balconies" => @create_attrs.number_of_balconies,
+               "house_equipment" => @create_attrs.house_equipment,
+               "street" => @create_attrs.street,
+               "heating_type_val_en" => @create_attrs.heating_type_val_en,
+               "geo_area_name" => @create_attrs.geo_area_name,
+               "year_of_construction" => @create_attrs.year_of_construction,
+               "indoor_area_m2" => @create_attrs.indoor_area_m2,
+               "block" => @create_attrs.block,
+               "total_area_m2" => @create_attrs.total_area_m2,
+               "heating_type_val_loc" => @create_attrs.heating_type_val_loc,
+               "currency_symbol" => @create_attrs.currency_symbol,
+               "apartment" => @create_attrs.apartment,
+               "property_type_val_loc" => @create_attrs.property_type_val_loc,
+               "price_per_square_meter" => @create_attrs.price_per_square_meter,
+               "description" => @create_attrs.description,
+               "number_of_bedroms" => @create_attrs.number_of_bedroms,
+               "cards" => @create_attrs.cards,
+               "position" => @create_attrs.position,
+               "geo_area_canonical_name_loc" => @create_attrs.geo_area_canonical_name_loc,
+               "is_logical_deleted" => @create_attrs.is_logical_deleted,
+               "is_active" => @create_attrs.is_active,
+               "type_of_building_val_loc" => @create_attrs.type_of_building_val_loc,
+               "name" => @create_attrs.name,
+               "elevator" => @create_attrs.elevator,
+               "floor" => @create_attrs.floor
+             }
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, api_v1_real_estate_path(conn, :create), real_estate: @invalid_attrs
+      conn = post(conn, api_v1_real_estate_path(conn, :create), real_estate: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -269,66 +270,78 @@ defmodule PulapWeb.RealEstateControllerTest do
   describe "update real_estate" do
     setup [:create_real_estate]
 
-    test "renders real_estate when data is valid", %{conn: conn, real_estate: %RealEstate{id: id} = real_estate} do
-      conn = put conn, api_v1_real_estate_path(conn, :update, real_estate), real_estate: @update_attrs
+    test "renders real_estate when data is valid", %{
+      conn: conn,
+      real_estate: %RealEstate{id: id} = real_estate
+    } do
+      conn =
+        put(conn, api_v1_real_estate_path(conn, :update, real_estate), real_estate: @update_attrs)
+
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, api_v1_real_estate_path(conn, :show, id)
+      conn = get(conn, api_v1_real_estate_path(conn, :show, id))
+
       assert json_response(conn, 200)["data"] == %{
-        "id" => id,
-        "room_height_cm" => @update_attrs.room_height_cm,
-        "number_of_rooms" => @update_attrs.number_of_rooms,
-        "backyard" => @update_attrs.backyard,
-        "kitchen_type_val_en" => @update_attrs.kitchen_type_val_en,
-        "currency_code" => @update_attrs.currency_code,
-        "type_of_building_val_en" => @update_attrs.type_of_building_val_en,
-        "price" => @update_attrs.price,
-        "terrace" => @update_attrs.terrace,
-        "kitchen_type_val_loc" => @update_attrs.kitchen_type_val_loc,
-        "geolocation" => @update_attrs.geolocation,
-        "furniture_set" => @update_attrs.furniture_set,
-        "street_number" => @update_attrs.street_number,
-        "number_of_bathrooms" => @update_attrs.number_of_bathrooms,
-        "geo_area_canonical_name" => @update_attrs.geo_area_canonical_name,
-        "short_description" => @update_attrs.short_description,
-        "house_equipment_description" => @update_attrs.house_equipment_description,
-        "bathroom_area_m2" => @update_attrs.bathroom_area_m2,
-        "suggested_installment_loan" => @update_attrs.suggested_installment_loan,
-        "property_type_val_en" => @update_attrs.property_type_val_en,
-        "locale" => @update_attrs.locale,
-        "geo_area_name_loc" => @update_attrs.geo_area_name_loc,
-        "balcony" => @update_attrs.balcony,
-        "accessible_without_stairs" => @update_attrs.accessible_without_stairs,
-        "number_of_balconies" => @update_attrs.number_of_balconies,
-        "house_equipment" => @update_attrs.house_equipment,
-        "street" => @update_attrs.street,
-        "heating_type_val_en" => @update_attrs.heating_type_val_en,
-        "geo_area_name" => @update_attrs.geo_area_name,
-        "year_of_construction" => @update_attrs.year_of_construction,
-        "indoor_area_m2" => @update_attrs.indoor_area_m2,
-        "block" => @update_attrs.block,
-        "total_area_m2" => @update_attrs.total_area_m2,
-        "heating_type_val_loc" => @update_attrs.heating_type_val_loc,
-        "currency_symbol" => @update_attrs.currency_symbol,
-        "apartment" => @update_attrs.apartment,
-        "property_type_val_loc" => @update_attrs.property_type_val_en,
-        "price_per_square_meter" => @update_attrs.price_per_square_meter,
-        "description" => @update_attrs.description,
-        "number_of_bedroms" => @update_attrs.number_of_bedroms,
-        "cards" => @update_attrs.cards,
-        "position" => @update_attrs.position,
-        "geo_area_canonical_name_loc" => @update_attrs.geo_area_canonical_name_loc,
-        "is_logical_deleted" => @update_attrs.is_logical_deleted,
-        "is_active" => @update_attrs.is_active,
-        "type_of_building_val_loc" => @update_attrs.type_of_building_val_loc,
-        "name" => @update_attrs.name,
-        "elevator" => @update_attrs.elevator,
-        "floor" => @update_attrs.floor
-      }
+               "id" => id,
+               "room_height_cm" => @update_attrs.room_height_cm,
+               "number_of_rooms" => @update_attrs.number_of_rooms,
+               "backyard" => @update_attrs.backyard,
+               "kitchen_type_val_en" => @update_attrs.kitchen_type_val_en,
+               "currency_code" => @update_attrs.currency_code,
+               "type_of_building_val_en" => @update_attrs.type_of_building_val_en,
+               "price" => @update_attrs.price,
+               "terrace" => @update_attrs.terrace,
+               "kitchen_type_val_loc" => @update_attrs.kitchen_type_val_loc,
+               "geolocation" => @update_attrs.geolocation,
+               "furniture_set" => @update_attrs.furniture_set,
+               "street_number" => @update_attrs.street_number,
+               "number_of_bathrooms" => @update_attrs.number_of_bathrooms,
+               "geo_area_canonical_name" => @update_attrs.geo_area_canonical_name,
+               "short_description" => @update_attrs.short_description,
+               "house_equipment_description" => @update_attrs.house_equipment_description,
+               "bathroom_area_m2" => @update_attrs.bathroom_area_m2,
+               "suggested_installment_loan" => @update_attrs.suggested_installment_loan,
+               "property_type_val_en" => @update_attrs.property_type_val_en,
+               "locale" => @update_attrs.locale,
+               "geo_area_name_loc" => @update_attrs.geo_area_name_loc,
+               "balcony" => @update_attrs.balcony,
+               "accessible_without_stairs" => @update_attrs.accessible_without_stairs,
+               "number_of_balconies" => @update_attrs.number_of_balconies,
+               "house_equipment" => @update_attrs.house_equipment,
+               "street" => @update_attrs.street,
+               "heating_type_val_en" => @update_attrs.heating_type_val_en,
+               "geo_area_name" => @update_attrs.geo_area_name,
+               "year_of_construction" => @update_attrs.year_of_construction,
+               "indoor_area_m2" => @update_attrs.indoor_area_m2,
+               "block" => @update_attrs.block,
+               "total_area_m2" => @update_attrs.total_area_m2,
+               "heating_type_val_loc" => @update_attrs.heating_type_val_loc,
+               "currency_symbol" => @update_attrs.currency_symbol,
+               "apartment" => @update_attrs.apartment,
+               "property_type_val_loc" => @update_attrs.property_type_val_en,
+               "price_per_square_meter" => @update_attrs.price_per_square_meter,
+               "description" => @update_attrs.description,
+               "number_of_bedroms" => @update_attrs.number_of_bedroms,
+               "cards" => @update_attrs.cards,
+               "position" => @update_attrs.position,
+               "geo_area_canonical_name_loc" => @update_attrs.geo_area_canonical_name_loc,
+               "is_logical_deleted" => @update_attrs.is_logical_deleted,
+               "is_active" => @update_attrs.is_active,
+               "type_of_building_val_loc" => @update_attrs.type_of_building_val_loc,
+               "name" => @update_attrs.name,
+               "elevator" => @update_attrs.elevator,
+               "floor" => @update_attrs.floor
+             }
     end
 
     test "renders errors when data is invalid", %{conn: conn, real_estate: real_estate} do
-      conn = put conn, api_v1_real_estate_path(conn, :update, real_estate), real_estate: @invalid_attrs
+      conn =
+        put(
+          conn,
+          api_v1_real_estate_path(conn, :update, real_estate),
+          real_estate: @invalid_attrs
+        )
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -337,11 +350,12 @@ defmodule PulapWeb.RealEstateControllerTest do
     setup [:create_real_estate]
 
     test "deletes chosen real_estate", %{conn: conn, real_estate: real_estate} do
-      conn = delete conn, api_v1_real_estate_path(conn, :delete, real_estate)
+      conn = delete(conn, api_v1_real_estate_path(conn, :delete, real_estate))
       assert response(conn, 204)
-      assert_error_sent 404, fn ->
-        get conn, api_v1_real_estate_path(conn, :show, real_estate)
-      end
+
+      assert_error_sent(404, fn ->
+        get(conn, api_v1_real_estate_path(conn, :show, real_estate))
+      end)
     end
   end
 

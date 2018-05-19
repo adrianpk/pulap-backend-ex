@@ -1,317 +1,438 @@
-<%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<div class="">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+      <%= form_for @changeset, @action, fn f -> %>
+        <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Check following errors, please.</p>
+        </div>
+        <% end %>
+
+        <div class="field">
+          <%= label f, :name, "Name", class: "label" %>
+          <%= text_input f, :name, class: "input is-primary" %>
+          <%= error_tag f, :name %>
+        </div>
+
+        <div class="field">
+          <%= label f, :description, "Description", class: "label" %>
+          <%= textarea f, :description, class: "textarea is-primary", rows: "5" %>
+          <%= error_tag f, :description %>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <label class="label" for="autocomplete">Address</label>
+          <input id="autocomplete" class="input is-primary" placeholder="Enter your address" onFocus="geolocate()" type="text"></input>
+        </div>
+
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <div class="field">
+              <%= label f, :street, class: "label" %>
+              <%= text_input f, :street, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :street %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :street_number, class: "label" %>
+              <%= text_input f, :street_number, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :street_number %>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <%= label f, :administrative_area_level_4, class: "label" %>
+              <%= text_input f, :administrative_area_level_4, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_4 %>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :administrative_area_level_3, class: "label" %>
+              <%= text_input f, :administrative_area_level_3, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_3 %>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :administrative_area_level_2, class: "label" %>
+              <%= text_input f, :administrative_area_level_2, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_2 %>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <div class="field">
+              <%= label f, :administrative_area_level_1, class: "label" %>
+              <%= text_input f, :administrative_area_level_1, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_1 %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :postal_code, class: "label" %>
+              <%= text_input f, :postal_code, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :postal_code %>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <%= label f, :postal_code_suffix, class: "label" %>
+              <%= text_input f, :postal_code_suffix, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :postal_code_suffix %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label f, :country, class: "label" %>
+          <%= text_input f, :country, class: "input is-primary", disabled: true %>
+          <%= error_tag f, :country %>
+        </div>
+
+        <div class="columns">
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :block, class: "label" %>
+              <%= text_input f, :block, class: "input is-primary" %>
+              <%= error_tag f, :block %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :floor, class: "label" %>
+              <%= text_input f, :floor, class: "input is-primary" %>
+              <%= error_tag f, :floor %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :apartment, class: "label" %>
+              <%= text_input f, :apartment, class: "input is-primary" %>
+              <%= error_tag f, :apartment%>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <%= label f, :property_type_val_en, class: "label" %>
+          <%= text_input f, :property_type_val_en, class: "input is-primary" %>
+          <%= error_tag f, :property_type_val_en %>
+        </div>
+
+        <div class="field">
+          <%= label f, :property_type_val_loc, class: "label" %>
+          <%= text_input f, :property_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :property_type_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :total_area_m2, class: "label" %>
+          <%= number_input f, :total_area_m2, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :total_area_m2 %>
+        </div>
+
+        <div class="field">
+          <%= label f, :indoor_area_m2, class: "label" %>
+          <%= number_input f, :indoor_area_m2, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :indoor_area_m2 %>
+        </div>
+
+        <div class="field">
+          <%= label f, :price, class: "label" %>
+          <%= number_input f, :price, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :price %>
+        </div>
+
+        <div class="field">
+          <%= label f, :price_per_square_meter, class: "label" %>
+          <%= number_input f, :price_per_square_meter, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :price_per_square_meter %>
+        </div>
+
+        <div class="field">
+          <%= label f, :suggested_installment_loan, class: "label" %>
+          <%= number_input f, :suggested_installment_loan, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :suggested_installment_loan %>
+        </div>
+
+        <div class="field">
+          <%= label f, :type_of_building_val_en, class: "label" %>
+          <%= text_input f, :type_of_building_val_en, class: "input is-primary" %>
+          <%= error_tag f, :type_of_building_val_en %>
+        </div>
+
+        <div class="field">
+          <%= label f, :type_of_building_val_loc, class: "label" %>
+          <%= text_input f, :type_of_building_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :type_of_building_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :year_of_construction, class: "label" %>
+          <%= number_input f, :year_of_construction, class: "input is-primary" %>
+          <%= error_tag f, :year_of_construction %>
+        </div>
+
+        <div class="field">
+          <%= label f, :room_height_cm, class: "label" %>
+          <%= number_input f, :room_height_cm, class: "input is-primary" %>
+          <%= error_tag f, :room_height_cm %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_rooms, class: "label" %>
+          <%= number_input f, :number_of_rooms, class: "input is-primary" %>
+          <%= error_tag f, :number_of_rooms %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_bedroms, class: "label" %>
+          <%= number_input f, :number_of_bedroms, class: "input is-primary" %>
+          <%= error_tag f, :number_of_bedroms %>
+        </div>
+
+        <div class="field">
+          <%= label f, :kitchen_type_val_en, class: "label" %>
+          <%= text_input f, :kitchen_type_val_en, class: "input is-primary" %>
+          <%= error_tag f, :kitchen_type_val_en %>
+        </div>
+
+        <div class="field">
+          <%= label f, :kitchen_type_val_loc, class: "label" %>
+          <%= text_input f, :kitchen_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :kitchen_type_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_bathrooms, class: "label" %>
+          <%= number_input f, :number_of_bathrooms, class: "input is-primary" %>
+          <%= error_tag f, :number_of_bathrooms %>
+        </div>
+
+        <div class="field">
+          <%= label f, :bathroom_area_m2, class: "label" %>
+          <%= number_input f, :bathroom_area_m2, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :bathroom_area_m2 %>
+        </div>
+
+        <div class="field">
+          <%= label f, :heating_type_val_en, class: "label" %>
+          <%= text_input f, :heating_type_val_en, class: "input is-primary" %>
+          <%= error_tag f, :heating_type_val_en %>
+        </div>
+
+        <div class="field">
+          <%= label f, :heating_type_val_loc, class: "label" %>
+          <%= text_input f, :heating_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :heating_type_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :accessible_without_stairs, class: "label" %>
+          <%= checkbox f, :accessible_without_stairs, class: "checkbox" %>
+          <%= error_tag f, :accessible_without_stairs %>
+        </div>
+
+        <div class="field">
+          <%= label f, :elevator, class: "label" %>
+          <%= checkbox f, :elevator, class: "checkbox" %>
+          <%= error_tag f, :elevator %>
+        </div>
+
+        <div class="field">
+          <%= label f, :terrace, class: "label" %>
+          <%= checkbox f, :terrace, class: "checkbox" %>
+          <%= error_tag f, :terrace %>
+        </div>
+
+        <div class="field">
+          <%= label f, :backyard, class: "label" %>
+          <%= checkbox f, :backyard, class: "checkbox" %>
+          <%= error_tag f, :backyard %>
+        </div>
+
+        <div class="field">
+          <%= label f, :balcony, class: "label" %>
+          <%= checkbox f, :balcony, class: "checkbox" %>
+          <%= error_tag f, :balcony %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_balconies, class: "label" %>
+          <%= number_input f, :number_of_balconies, class: "input is-primary" %>
+          <%= error_tag f, :number_of_balconies %>
+        </div>
+
+        <div class="field">
+          <%= label f, :furniture_set, class: "label" %>
+          <%= checkbox f, :furniture_set, class: "checkbox" %>
+          <%= error_tag f, :furniture_set %>
+        </div>
+
+        <div class="field">
+          <%= label f, :house_equipment, class: "label" %>
+          <%= checkbox f, :house_equipment, class: "checkbox" %>
+          <%= error_tag f, :house_equipment %>
+        </div>
+
+        <div class="field">
+          <%= label f, :house_equipment_description, class: "label" %>
+          <%= textarea f, :house_equipment_description, class: "input is-primary" %>
+          <%= error_tag f, :house_equipment_description %>
+        </div>
+
+        <div class="field">
+          <%= label f, :currency_code, class: "label" %>
+          <%= text_input f, :currency_code, class: "input is-primary" %>
+          <%= error_tag f, :currency_code %>
+        </div>
+
+        <div class="field">
+          <%= label f, :currency_symbol, class: "label" %>
+          <%= text_input f, :currency_symbol, class: "input is-primary" %>
+          <%= error_tag f, :currency_symbol %>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit "Sign In", class: "button is-link" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= label f, :id, class: "control-label" %>
-    <%= text_input f, :id, class: "form-control" %>
-    <%= error_tag f, :id %>
   </div>
+</div>
 
-  <div class="form-group">
-    <%= label f, :name, class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
-    <%= error_tag f, :name %>
-  </div>
+<script>
+ /* addressType: real_estate_street_number
+  * addressType: real_estate_route
+  * addressType: real_estate_locality
+  * addressType: real_estate_administrative_area_level_2
+  * addressType: real_estate_administrative_area_level_1
+  * val: Buenos Aires
+  * addressType: real_estate_country
+  * val: Argentina
+  * addressType: real_estate_postal_code
+  * val: B1642
+  */
 
-  <div class="form-group">
-    <%= label f, :short_description, class: "control-label" %>
-    <%= text_input f, :short_description, class: "form-control" %>
-    <%= error_tag f, :short_description %>
-  </div>
+ // This example displays an address form, using the autocomplete feature
+ // of the Google Places API to help users fill in the information.
 
-  <div class="form-group">
-    <%= label f, :description, class: "control-label" %>
-    <%= text_input f, :description, class: "form-control" %>
-    <%= error_tag f, :description %>
-  </div>
+ // This example requires the Places library. Include the libraries=places
+ // parameter when you first load the API. For example:
+ // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-  <div class="form-group">
-    <%= label f, :geo_area_name, class: "control-label" %>
-    <%= text_input f, :geo_area_name, class: "form-control" %>
-    <%= error_tag f, :geo_area_name %>
-  </div>
+ var translator = [];
+ translator["administrative_area_level_1"] = "administrative_area_level_1";
+ translator["administrative_area_level_2"] = "administrative_area_level_2";
+ translator["country"] = "country";
+ translator["locality"] = "administrative_area_level_3";
+ translator["postal_code"] = "postal_code";
+ translator["postal_code_suffix"] = "postal_code_suffix";
+ translator["route"] = "street";
+ translator["street_number"] = "street_number";
+ translator["sublocality"] = "administrative_area_level_4";
 
-  <div class="form-group">
-    <%= label f, :geo_area_name_loc, class: "control-label" %>
-    <%= text_input f, :geo_area_name_loc, class: "form-control" %>
-    <%= error_tag f, :geo_area_name_loc %>
-  </div>
+ var placeSearch, autocomplete;
+ var componentForm = {
+   administrative_area_level_1: 'short_name',
+   administrative_area_level_2: 'short_name',
+   country: 'long_name',
+   locality: 'long_name',
+   postal_code: 'short_name',
+   postal_code_suffix: 'short_name',
+   route: 'long_name',
+   street_number: 'long_name',
+   sublocality: 'long_name',
+ };
 
-  <div class="form-group">
-    <%= label f, :geo_area_canonical_name, class: "control-label" %>
-    <%= text_input f, :geo_area_canonical_name, class: "form-control" %>
-    <%= error_tag f, :geo_area_canonical_name %>
-  </div>
+ function initAutocomplete() {
+   // Create the autocomplete object, restricting the search to geographical
+   // location types.
+   autocomplete = new google.maps.places.Autocomplete(
+     /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+     {types: ['geocode']});
 
-  <div class="form-group">
-    <%= label f, :geo_area_canonical_name_loc, class: "control-label" %>
-    <%= text_input f, :geo_area_canonical_name_loc, class: "form-control" %>
-    <%= error_tag f, :geo_area_canonical_name_loc %>
-  </div>
+   // When the user selects an address from the dropdown, populate the address
+   // fields in the form.
+   autocomplete.addListener('place_changed', fillInAddress);
+ }
 
-  <div class="form-group">
-    <%= label f, :street, class: "control-label" %>
-    <%= text_input f, :street, class: "form-control" %>
-    <%= error_tag f, :street %>
-  </div>
+ function fillInAddress() {
+   // Get the place details from the autocomplete object.
+   //var place = autocomplete.getPlace();
+   // Just for development to avoid some API calls.
+   var place = {"address_components":[{"long_name":"890","short_name":"890","types":["street_number"]},{"long_name":"25 de Mayo","short_name":"25 de Mayo","types":["route"]},{"long_name":"Acassuso","short_name":"Acassuso","types":["locality","political"]},{"long_name":"San Isidro","short_name":"San Isidro","types":["administrative_area_level_2","political"]},{"long_name":"Buenos Aires","short_name":"Buenos Aires","types":["administrative_area_level_1","political"]},{"long_name":"Argentina","short_name":"AR","types":["country","political"]},{"long_name":"B1642","short_name":"B1642","types":["postal_code"]},{"long_name":"CKN","short_name":"CKN","types":["postal_code_suffix"]}],"adr_address":"<span class=\"street-address\">25 de Mayo 890</span>, <span class=\"postal-code\">B1642CKN</span> <span class=\"locality\">Acassuso</span>, <span class=\"region\">Buenos Aires</span>, <span class=\"country-name\">Argentina</span>","formatted_address":"25 de Mayo 890, B1642CKN Acassuso, Buenos Aires, Argentina","geometry":{"location":{"lat":-34.47082909999999,"lng":-58.52867149999999},"viewport":{"south":-34.4708297697085,"west":-58.52867141970847,"north":-34.4708290999999,"east":-58.52867149999999}},"icon":"https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png","id":"160ec45226d0c1f7a0d0ecbcf72966b2607c6e9e","name":"25 de Mayo 890","place_id":"ChIJ4xwoUf3HvJURLfp8MbAP0kk","reference":"CmRbAAAAWDofKRCUVFopqjRTJ2UuOn1ztFiLYTU2WPKsEdFqK1F9Imt-2JGLMvlpXDDyXPq9I1w9EMwgBPSEkN8oKQF2xxi3PbVLt4BEGYE8U90cJjLIFZY8KH8qzrJcaZ8YT83AEhDg4hLFZJGu9hPBGuv5k4YLGhTmTKdJaACRZyOgQXJNNm5kEjyp4w","scope":"GOOGLE","types":["street_address"],"url":"https://www.google.com/maps/place/San+Isidro,+Buenos+Aires+Province/@-34.470511,-58.5233106,15.79z/data=!4m5!3m4!1s0x95bcb03cd891437f:0xab3b49e671350275!8m2!3d-34.470829!4d-58.5286102","utc_offset":-180,"vicinity":"Acassuso","html_attributions":[]}
+   //console.log("Place: " + JSON.stringify(place))
 
-  <div class="form-group">
-    <%= label f, :street_number, class: "control-label" %>
-    <%= text_input f, :street_number, class: "form-control" %>
-    <%= error_tag f, :street_number %>
-  </div>
+   for (var component in componentForm) {
+     elementName = "real_estate_" + translator[component]
+     //console.log("* Element name: " + elementName + " - addressType " + component)
+     document.getElementById(elementName).value = '';
+     //document.getElementById(component).disabled = false;
+   }
 
-  <div class="form-group">
-    <%= label f, :block, class: "control-label" %>
-    <%= text_input f, :block, class: "form-control" %>
-    <%= error_tag f, :block %>
-  </div>
+   // Get each component of the address from the place details
+   // and fill the corresponding field on the form.
+   for (var i = 0; i < place.address_components.length; i++) {
+     var addressType = place.address_components[i].types[0];
+     console.log("Address component: " + addressType)
+     translatedAddressType = translator[addressType]
+     console.log("+ addressType: " + translatedAddressType)
 
-  <div class="form-group">
-    <%= label f, :floor, class: "control-label" %>
-    <%= text_input f, :floor, class: "form-control" %>
-    <%= error_tag f, :floor %>
-  </div>
+     if (componentForm[addressType]) {
+       var val = place.address_components[i][componentForm[addressType]];
+       elementName = "real_estate_" + translatedAddressType
+       console.log("Element name: " + elementName + " with value " + val)
+       document.getElementById(elementName).value = val;
+     }
+   }
+ }
 
-  <div class="form-group">
-    <%= label f, :apartment, class: "control-label" %>
-    <%= text_input f, :apartment, class: "form-control" %>
-    <%= error_tag f, :apartment %>
-  </div>
+ // Bias the autocomplete object to the user's geographical location,
+ // as supplied by the browser's 'navigator.geolocation' object.
+ function geolocate() {
+   if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(function(position) {
+       var geolocation = {
+         lat: position.coords.latitude,
+         lng: position.coords.longitude
+       };
+       var circle = new google.maps.Circle({
+         center: geolocation,
+         radius: position.coords.accuracy
+       });
+       autocomplete.setBounds(circle.getBounds());
+     });
+   }
+ }
+</script>
 
-  <div class="form-group">
-    <%= label f, :property_type_val_en, class: "control-label" %>
-    <%= text_input f, :property_type_val_en, class: "form-control" %>
-    <%= error_tag f, :property_type_val_en %>
-  </div>
 
-  <div class="form-group">
-    <%= label f, :property_type_val_loc, class: "control-label" %>
-    <%= text_input f, :property_type_val_loc, class: "form-control" %>
-    <%= error_tag f, :property_type_val_loc %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :total_area_m2, class: "control-label" %>
-    <%= number_input f, :total_area_m2, step: "any", class: "form-control" %>
-    <%= error_tag f, :total_area_m2 %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :indoor_area_m2, class: "control-label" %>
-    <%= number_input f, :indoor_area_m2, step: "any", class: "form-control" %>
-    <%= error_tag f, :indoor_area_m2 %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :price, class: "control-label" %>
-    <%= number_input f, :price, step: "any", class: "form-control" %>
-    <%= error_tag f, :price %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :price_per_square_meter, class: "control-label" %>
-    <%= number_input f, :price_per_square_meter, step: "any", class: "form-control" %>
-    <%= error_tag f, :price_per_square_meter %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :suggested_installment_loan, class: "control-label" %>
-    <%= number_input f, :suggested_installment_loan, step: "any", class: "form-control" %>
-    <%= error_tag f, :suggested_installment_loan %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :type_of_building_val_en, class: "control-label" %>
-    <%= text_input f, :type_of_building_val_en, class: "form-control" %>
-    <%= error_tag f, :type_of_building_val_en %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :type_of_building_val_loc, class: "control-label" %>
-    <%= text_input f, :type_of_building_val_loc, class: "form-control" %>
-    <%= error_tag f, :type_of_building_val_loc %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :year_of_construction, class: "control-label" %>
-    <%= number_input f, :year_of_construction, class: "form-control" %>
-    <%= error_tag f, :year_of_construction %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :room_height_cm, class: "control-label" %>
-    <%= number_input f, :room_height_cm, class: "form-control" %>
-    <%= error_tag f, :room_height_cm %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :number_of_rooms, class: "control-label" %>
-    <%= number_input f, :number_of_rooms, class: "form-control" %>
-    <%= error_tag f, :number_of_rooms %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :number_of_bedroms, class: "control-label" %>
-    <%= number_input f, :number_of_bedroms, class: "form-control" %>
-    <%= error_tag f, :number_of_bedroms %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :kitchen_type_val_en, class: "control-label" %>
-    <%= text_input f, :kitchen_type_val_en, class: "form-control" %>
-    <%= error_tag f, :kitchen_type_val_en %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :kitchen_type_val_loc, class: "control-label" %>
-    <%= text_input f, :kitchen_type_val_loc, class: "form-control" %>
-    <%= error_tag f, :kitchen_type_val_loc %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :number_of_bathrooms, class: "control-label" %>
-    <%= number_input f, :number_of_bathrooms, class: "form-control" %>
-    <%= error_tag f, :number_of_bathrooms %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :bathroom_area_m2, class: "control-label" %>
-    <%= number_input f, :bathroom_area_m2, step: "any", class: "form-control" %>
-    <%= error_tag f, :bathroom_area_m2 %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :heating_type_val_en, class: "control-label" %>
-    <%= text_input f, :heating_type_val_en, class: "form-control" %>
-    <%= error_tag f, :heating_type_val_en %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :heating_type_val_loc, class: "control-label" %>
-    <%= text_input f, :heating_type_val_loc, class: "form-control" %>
-    <%= error_tag f, :heating_type_val_loc %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :accessible_without_stairs, class: "control-label" %>
-    <%= checkbox f, :accessible_without_stairs, class: "checkbox" %>
-    <%= error_tag f, :accessible_without_stairs %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :elevator, class: "control-label" %>
-    <%= checkbox f, :elevator, class: "checkbox" %>
-    <%= error_tag f, :elevator %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :terrace, class: "control-label" %>
-    <%= checkbox f, :terrace, class: "checkbox" %>
-    <%= error_tag f, :terrace %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :backyard, class: "control-label" %>
-    <%= checkbox f, :backyard, class: "checkbox" %>
-    <%= error_tag f, :backyard %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :balcony, class: "control-label" %>
-    <%= checkbox f, :balcony, class: "checkbox" %>
-    <%= error_tag f, :balcony %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :number_of_balconies, class: "control-label" %>
-    <%= number_input f, :number_of_balconies, class: "form-control" %>
-    <%= error_tag f, :number_of_balconies %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :furniture_set, class: "control-label" %>
-    <%= checkbox f, :furniture_set, class: "checkbox" %>
-    <%= error_tag f, :furniture_set %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :house_equipment, class: "control-label" %>
-    <%= checkbox f, :house_equipment, class: "checkbox" %>
-    <%= error_tag f, :house_equipment %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :house_equipment_description, class: "control-label" %>
-    <%= textarea f, :house_equipment_description, class: "form-control" %>
-    <%= error_tag f, :house_equipment_description %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :active, class: "control-label" %>
-    <%= checkbox f, :active, class: "checkbox" %>
-    <%= error_tag f, :active %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :logical_deleted, class: "control-label" %>
-    <%= checkbox f, :logical_deleted, class: "checkbox" %>
-    <%= error_tag f, :logical_deleted %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :cards, class: "control-label" %>
-    <%= text_input f, :cards, class: "form-control" %>
-    <%= error_tag f, :cards %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :geolocation, class: "control-label" %>
-    <%= number_input f, :geolocation, step: "any", class: "form-control" %>
-    <%= error_tag f, :geolocation %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :locale, class: "control-label" %>
-    <%= text_input f, :locale, class: "form-control" %>
-    <%= error_tag f, :locale %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :position, class: "control-label" %>
-    <%= number_input f, :position, class: "form-control" %>
-    <%= error_tag f, :position %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :is_active, class: "control-label" %>
-    <%= checkbox f, :is_active, class: "checkbox" %>
-    <%= error_tag f, :is_active %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :is_logical_deleted, class: "control-label" %>
-    <%= checkbox f, :is_logical_deleted, class: "checkbox" %>
-    <%= error_tag f, :is_logical_deleted %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :currency_code, class: "control-label" %>
-    <%= text_input f, :currency_code, class: "form-control" %>
-    <%= error_tag f, :currency_code %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :currency_symbol, class: "control-label" %>
-    <%= text_input f, :currency_symbol, class: "form-control" %>
-    <%= error_tag f, :currency_symbol %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
-<% end %>

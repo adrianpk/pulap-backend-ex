@@ -3,15 +3,14 @@ defmodule Pulap.Auth.Role do
   import Ecto.Changeset
   alias Pulap.Auth.Role
 
-
   schema "roles" do
-    field :description, :string
-    field :is_active, :boolean, default: false
-    field :is_logical_deleted, :boolean, default: false
-    field :name, :string
-    field :organization_id, Ecto.UUID
-    field :created_by_id, Ecto.UUID
-    field :updated_by_id, :id
+    field(:description, :string)
+    field(:is_active, :boolean, default: false)
+    field(:is_logical_deleted, :boolean, default: false)
+    field(:name, :string)
+    field(:organization_id, Ecto.UUID)
+    field(:created_by_id, Ecto.UUID)
+    field(:updated_by_id, :id)
 
     timestamps()
   end
