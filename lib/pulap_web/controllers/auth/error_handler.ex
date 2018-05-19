@@ -1,10 +1,11 @@
 defmodule PulapWeb.Auth.ErrorHandler do
   import Plug.Conn
+  import PulapWeb.Router.Helpers, only: [page_path: 2]
 
   def auth_error(conn, {type, _reason}, _opts) do
     body = to_string(type)
+
     conn
-    |> put_resp_content_type("text/plain")
-    |> send_resp(401, body)
+    |> Phoenix.Controller.redirect(to: PulapWeb.Router.Helpers.session_path(conn, :new))
   end
 end
