@@ -11,7 +11,8 @@ defmodule PulapWeb.API.V1.RealEstateView do
   end
 
   def render("real_estate.json", %{real_estate: real_estate}) do
-    %{id: real_estate.id,
+    %{
+      id: real_estate.id,
       name: real_estate.name,
       short_description: real_estate.short_description,
       description: real_estate.description,
@@ -59,6 +60,7 @@ defmodule PulapWeb.API.V1.RealEstateView do
       is_active: real_estate.is_active,
       is_logical_deleted: real_estate.is_logical_deleted,
       currency_code: real_estate.currency_code,
-      currency_symbol: real_estate.currency_symbol}
+      currency_symbol: real_estate.currency_symbol
+    }
   end
 end

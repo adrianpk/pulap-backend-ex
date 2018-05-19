@@ -11,12 +11,14 @@ defmodule PulapWeb.PlanView do
   end
 
   def render("plan.json", %{plan: plan}) do
-    %{id: plan.id,
+    %{
+      id: plan.id,
       name: plan.name,
       description: plan.description,
       started_at: plan.started_at,
       ends_at: plan.ends_at,
       is_active: plan.is_active,
-      is_logical_deleted: plan.is_logical_deleted}
+      is_logical_deleted: plan.is_logical_deleted
+    }
   end
 end

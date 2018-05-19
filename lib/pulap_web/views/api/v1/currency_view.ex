@@ -11,13 +11,15 @@ defmodule PulapWeb.API.V1.CurrencyView do
   end
 
   def render("currency.json", %{currency: currency}) do
-    %{id: currency.id,
+    %{
+      id: currency.id,
       code: currency.code,
       num_code: currency.num_code,
       minor_unit: currency.minor_unit,
       name: currency.name,
       icon: currency.icon,
       is_active: currency.is_active,
-      is_logical_deleted: currency.is_logical_deleted}
+      is_logical_deleted: currency.is_logical_deleted
+    }
   end
 end

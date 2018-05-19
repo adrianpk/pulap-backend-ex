@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.PlanController do
   alias Pulap.Biz
   alias Pulap.Biz.Plan
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     plans = Biz.list_plans()
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.PlanController do
 
   def delete(conn, %{"id" => id}) do
     plan = Biz.get_plan!(id)
+
     with {:ok, %Plan{}} <- Biz.delete_plan(plan) do
       send_resp(conn, :no_content, "")
     end

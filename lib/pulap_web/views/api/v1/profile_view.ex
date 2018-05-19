@@ -11,7 +11,8 @@ defmodule PulapWeb.ProfileView do
   end
 
   def render("profile.json", %{profile: profile}) do
-    %{id: profile.id,
+    %{
+      id: profile.id,
       property_set_name: profile.property_set_name,
       name: profile.name,
       email: profile.email,
@@ -28,6 +29,7 @@ defmodule PulapWeb.ProfileView do
       annotations: profile.annotations,
       geolocation: profile.geolocation,
       is_active: profile.is_active,
-      is_logical_deleted: profile.is_logical_deleted}
+      is_logical_deleted: profile.is_logical_deleted
+    }
   end
 end

@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.ResourceController do
   alias Pulap.Auth
   alias Pulap.Auth.Resource
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     resources = Auth.list_resources()
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.ResourceController do
 
   def delete(conn, %{"id" => id}) do
     resource = Auth.get_resource!(id)
+
     with {:ok, %Resource{}} <- Auth.delete_resource(resource) do
       send_resp(conn, :no_content, "")
     end

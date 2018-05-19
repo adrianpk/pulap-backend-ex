@@ -4,17 +4,32 @@ defmodule Pulap.Repo.Migrations.CreateGeoAreas do
   def up do
     create table(:geo_areas, primary_key: false) do
       add :id, :uuid, primary_key: true
-      add :adm_level, :string, size: 8, null: false
-      add :adm_level_type, :string, size: 16, null: false
       add :name, :string, size: 64, null: false
       add :name_loc, :string, size: 64
       add :alternative_name, :string, size: 64
       add :alternative_name_loc, :string, size: 64
+      add :colloquial_area_name, :string, size: 64
       add :canonical_name, :string, size: 255, null: false
       add :canonical_name_loc, :string, size: 255, null: false
       add :normalized_name, :string, size: 64
+      add :administrative_level, :string, size: 8, null: false
+      add :administrative_level_type, :string, size: 16, null: false
+      # locality
+      # ward
+      # sublocality
+      # neighborhood
+      # premise
+      # subpremise
+      # natural_feature
+      # airport
+      # park
+      # point_of_interest
       add :dialing_code, :string
-      add :zip_code, :string
+      add :postal_code, :string
+      # place_id - Google unique identifier for this place
+      # location_type - ROOFTOP / RANGE_INTERPOLATED / GEOMETRIC_CENTER / APPROXIMATE
+      # viewport - recommended viewport for the returned result.
+      # bounds - stores the LatLngBounds which can fully contain the returned result.
       add :is_main, :boolean, default: false, null: false
       add :cards, :jsonb
     end

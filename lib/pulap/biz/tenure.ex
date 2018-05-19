@@ -3,18 +3,17 @@ defmodule Pulap.Biz.Tenure do
   import Ecto.Changeset
   alias Pulap.Biz.Tenure
 
-
   schema "tenures" do
-    field :ends_at, :utc_datetime
-    field :is_active, :boolean, default: false
-    field :is_logical_deleted, :boolean, default: false
-    field :job_description, :string
-    field :job_title, :string
-    field :started_at, :utc_datetime
-    field :organization_id, :id
-    field :user_id, :id
-    field :created_by_id, :id
-    field :updated_by_id, :id
+    field(:ends_at, :utc_datetime)
+    field(:is_active, :boolean, default: false)
+    field(:is_logical_deleted, :boolean, default: false)
+    field(:job_description, :string)
+    field(:job_title, :string)
+    field(:started_at, :utc_datetime)
+    field(:organization_id, :id)
+    field(:user_id, :id)
+    field(:created_by_id, :id)
+    field(:updated_by_id, :id)
 
     timestamps()
   end
@@ -22,7 +21,23 @@ defmodule Pulap.Biz.Tenure do
   @doc false
   def changeset(%Tenure{} = tenure, attrs) do
     tenure
-    |> cast(attrs, [:id, :job_title, :job_description, :started_at, :ends_at, :is_active, :is_logical_deleted])
-    |> validate_required([:id, :job_title, :job_description, :started_at, :ends_at, :is_active, :is_logical_deleted])
+    |> cast(attrs, [
+      :id,
+      :job_title,
+      :job_description,
+      :started_at,
+      :ends_at,
+      :is_active,
+      :is_logical_deleted
+    ])
+    |> validate_required([
+      :id,
+      :job_title,
+      :job_description,
+      :started_at,
+      :ends_at,
+      :is_active,
+      :is_logical_deleted
+    ])
   end
 end

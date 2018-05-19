@@ -11,11 +11,13 @@ defmodule PulapWeb.API.V1.ManagershipView do
   end
 
   def render("managership.json", %{managership: managership}) do
-    %{id: managership.id,
+    %{
+      id: managership.id,
       started_at: managership.started_at,
       ends_at: managership.ends_at,
       is_active: managership.is_active,
       default: managership.default,
-      is_logical_deleted: managership.is_logical_deleted}
+      is_logical_deleted: managership.is_logical_deleted
+    }
   end
 end

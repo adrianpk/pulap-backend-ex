@@ -26,12 +26,14 @@ defmodule PulapWeb do
       # Custom
       alias Pulap.Repo
       import PulapWeb.Auth.AuthPlug
+      import PulapWeb.Auth.Helpers
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/pulap_web/templates",
+      use Phoenix.View,
+        root: "lib/pulap_web/templates",
         namespace: PulapWeb
 
       # Import convenience functions from controllers

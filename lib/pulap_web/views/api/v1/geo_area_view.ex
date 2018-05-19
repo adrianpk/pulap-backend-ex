@@ -11,7 +11,8 @@ defmodule PulapWeb.API.V1.GeoAreaView do
   end
 
   def render("geo_area.json", %{geo_area: geo_area}) do
-    %{id: geo_area.id,
+    %{
+      id: geo_area.id,
       adm_level: geo_area.adm_level,
       adm_level_type: geo_area.adm_level_type,
       name: geo_area.name,
@@ -29,6 +30,7 @@ defmodule PulapWeb.API.V1.GeoAreaView do
       locale: geo_area.locale,
       position: geo_area.position,
       is_active: geo_area.is_active,
-      is_logical_deleted: geo_area.is_logical_deleted}
+      is_logical_deleted: geo_area.is_logical_deleted
+    }
   end
 end

@@ -11,11 +11,13 @@ defmodule PulapWeb.API.V1.PermissionView do
   end
 
   def render("permission.json", %{permission: permission}) do
-    %{id: permission.id,
+    %{
+      id: permission.id,
       organization_name: permission.organization_name,
       name: permission.name,
       description: permission.description,
       is_active: permission.is_active,
-      is_logical_deleted: permission.is_logical_deleted}
+      is_logical_deleted: permission.is_logical_deleted
+    }
   end
 end

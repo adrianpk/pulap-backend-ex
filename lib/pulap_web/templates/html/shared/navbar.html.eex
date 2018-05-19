@@ -23,23 +23,42 @@
             <span>Admin</span>
           </a>
           <div id="moreDropdown" class="navbar-dropdown">
+            <a class="navbar-item has-background-grey-lighter" href="/real-estate">
+              <span>
+                <strong>Real Estate</strong>
+              </span>
+            </a>
             <a class="navbar-item " href="/real-estate">
               <span>
                 <span class="icon has-text-primary">
-                  <i class="fas fa-home"></i>
+                  <i class="fas fa-list"></i>
                 </span>
-                <strong>Properties</strong>
-                <br> List, add, edit and delete properties
+                <strong>Portfolio</strong>
+                <br> View your current Real Estate Portfolio
+              </span>
+            </a>
+            <a class="navbar-item" href="/managed/real-estate/new">
+              <span>
+                <span class="icon has-text-primary">
+                  <i class="fas fa-plus"></i>
+                </span>
+                <strong>Add Real Estate</strong>
+                <br> Add a new Property 
               </span>
             </a>
             <hr class="navbar-divider">
+            <a class="navbar-item has-background-grey-lighter">
+              <span>
+                <strong>Publications</strong>
+              </span>
+            </a>
             <a class="navbar-item " href="/publications">
               <span>
                 <span class="icon has-text-bootstrap">
                   <i class="fas fa-newspaper"></i>
                 </span>
-                <strong>Publications</strong>
-                <br> List, publish, and edit your announcement
+                <strong>Manage</strong>
+                <br> Your active Advertisements.
               </span>
             </a>
           </div>

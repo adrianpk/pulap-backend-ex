@@ -11,12 +11,14 @@ defmodule PulapWeb.ResourceView do
   end
 
   def render("resource.json", %{resource: resource}) do
-    %{id: resource.id,
+    %{
+      id: resource.id,
       organization_name: resource.organization_name,
       name: resource.name,
       description: resource.description,
       tag: resource.tag,
       is_active: resource.is_active,
-      is_logical_deleted: resource.is_logical_deleted}
+      is_logical_deleted: resource.is_logical_deleted
+    }
   end
 end

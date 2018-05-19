@@ -6,9 +6,30 @@ defmodule Pulap.AppTest do
   describe "property_sets" do
     alias Pulap.App.PropertySet
 
-    @valid_attrs %{description: "some description", holder_id: "7488a646-e31f-11e4-aace-600308960662", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: "some is_logical_deleted", name: "some name"}
-    @update_attrs %{description: "some updated description", holder_id: "7488a646-e31f-11e4-aace-600308960668", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: "some updated is_logical_deleted", name: "some updated name"}
-    @invalid_attrs %{description: nil, holder_id: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil}
+    @valid_attrs %{
+      description: "some description",
+      holder_id: "7488a646-e31f-11e4-aace-600308960662",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: "some is_logical_deleted",
+      name: "some name"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      holder_id: "7488a646-e31f-11e4-aace-600308960668",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: "some updated is_logical_deleted",
+      name: "some updated name"
+    }
+    @invalid_attrs %{
+      description: nil,
+      holder_id: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil
+    }
 
     def property_set_fixture(attrs \\ %{}) do
       {:ok, property_set} =
@@ -76,9 +97,63 @@ defmodule Pulap.AppTest do
   describe "properties" do
     alias Pulap.App.Property
 
-    @valid_attrs %{boolean: true, date: ~D[2010-04-17], datetime: ~N[2010-04-17 14:00:00.000000], decimal: "120.5", description: "some description", float: 120.5, geolocation: 120.5, id: "7488a646-e31f-11e4-aace-600308960662", integer: 42, is_active: true, is_logical_deleted: true, name: "some name", property_data_type: "some property_data_type", property_set_name: "some property_set_name", string: "some string", time: ~T[14:00:00.000000], uuid: "7488a646-e31f-11e4-aace-600308960662"}
-    @update_attrs %{boolean: false, date: ~D[2011-05-18], datetime: ~N[2011-05-18 15:01:01.000000], decimal: "456.7", description: "some updated description", float: 456.7, geolocation: 456.7, id: "7488a646-e31f-11e4-aace-600308960668", integer: 43, is_active: false, is_logical_deleted: false, name: "some updated name", property_data_type: "some updated property_data_type", property_set_name: "some updated property_set_name", string: "some updated string", time: ~T[15:01:01.000000], uuid: "7488a646-e31f-11e4-aace-600308960668"}
-    @invalid_attrs %{boolean: nil, date: nil, datetime: nil, decimal: nil, description: nil, float: nil, geolocation: nil, id: nil, integer: nil, is_active: nil, is_logical_deleted: nil, name: nil, property_data_type: nil, property_set_name: nil, string: nil, time: nil, uuid: nil}
+    @valid_attrs %{
+      boolean: true,
+      date: ~D[2010-04-17],
+      datetime: ~N[2010-04-17 14:00:00.000000],
+      decimal: "120.5",
+      description: "some description",
+      float: 120.5,
+      geolocation: 120.5,
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      integer: 42,
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      property_data_type: "some property_data_type",
+      property_set_name: "some property_set_name",
+      string: "some string",
+      time: ~T[14:00:00.000000],
+      uuid: "7488a646-e31f-11e4-aace-600308960662"
+    }
+    @update_attrs %{
+      boolean: false,
+      date: ~D[2011-05-18],
+      datetime: ~N[2011-05-18 15:01:01.000000],
+      decimal: "456.7",
+      description: "some updated description",
+      float: 456.7,
+      geolocation: 456.7,
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      integer: 43,
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      property_data_type: "some updated property_data_type",
+      property_set_name: "some updated property_set_name",
+      string: "some updated string",
+      time: ~T[15:01:01.000000],
+      uuid: "7488a646-e31f-11e4-aace-600308960668"
+    }
+    @invalid_attrs %{
+      boolean: nil,
+      date: nil,
+      datetime: nil,
+      decimal: nil,
+      description: nil,
+      float: nil,
+      geolocation: nil,
+      id: nil,
+      integer: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      property_data_type: nil,
+      property_set_name: nil,
+      string: nil,
+      time: nil,
+      uuid: nil
+    }
 
     def property_fixture(attrs \\ %{}) do
       {:ok, property} =
@@ -168,9 +243,42 @@ defmodule Pulap.AppTest do
   describe "key_values" do
     alias Pulap.App.KeyValue
 
-    @valid_attrs %{id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, key: "some key", key_group: "some key_group", key_subgroup: "some key_subgroup", locale: "some locale", position: 42, set: "some set", value: "some value"}
-    @update_attrs %{id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, key: "some updated key", key_group: "some updated key_group", key_subgroup: "some updated key_subgroup", locale: "some updated locale", position: 43, set: "some updated set", value: "some updated value"}
-    @invalid_attrs %{id: nil, is_active: nil, is_logical_deleted: nil, key: nil, key_group: nil, key_subgroup: nil, locale: nil, position: nil, set: nil, value: nil}
+    @valid_attrs %{
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      key: "some key",
+      key_group: "some key_group",
+      key_subgroup: "some key_subgroup",
+      locale: "some locale",
+      position: 42,
+      set: "some set",
+      value: "some value"
+    }
+    @update_attrs %{
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      key: "some updated key",
+      key_group: "some updated key_group",
+      key_subgroup: "some updated key_subgroup",
+      locale: "some updated locale",
+      position: 43,
+      set: "some updated set",
+      value: "some updated value"
+    }
+    @invalid_attrs %{
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      key: nil,
+      key_group: nil,
+      key_subgroup: nil,
+      locale: nil,
+      position: nil,
+      set: nil,
+      value: nil
+    }
 
     def key_value_fixture(attrs \\ %{}) do
       {:ok, key_value} =

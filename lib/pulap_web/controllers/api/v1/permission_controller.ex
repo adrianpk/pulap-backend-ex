@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.PermissionController do
   alias Pulap.Auth
   alias Pulap.Auth.Permission
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     permissions = Auth.list_permissions()
@@ -28,13 +28,15 @@ defmodule PulapWeb.API.V1.PermissionController do
   def update(conn, %{"id" => id, "permission" => permission_params}) do
     permission = Auth.get_permission!(id)
 
-    with {:ok, %Permission{} = permission} <- Auth.update_permission(permission, permission_params) do
+    with {:ok, %Permission{} = permission} <-
+           Auth.update_permission(permission, permission_params) do
       render(conn, "show.json", permission: permission)
     end
   end
 
   def delete(conn, %{"id" => id}) do
     permission = Auth.get_permission!(id)
+
     with {:ok, %Permission{}} <- Auth.delete_permission(permission) do
       send_resp(conn, :no_content, "")
     end

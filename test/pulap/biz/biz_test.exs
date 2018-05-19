@@ -6,9 +6,33 @@ defmodule Pulap.BizTest do
   describe "plans" do
     alias Pulap.Biz.Plan
 
-    @valid_attrs %{description: "some description", ends_at: "2010-04-17 14:00:00.000000Z", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", started_at: "2010-04-17 14:00:00.000000Z"}
-    @update_attrs %{description: "some updated description", ends_at: "2011-05-18 15:01:01.000000Z", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", started_at: "2011-05-18 15:01:01.000000Z"}
-    @invalid_attrs %{description: nil, ends_at: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, started_at: nil}
+    @valid_attrs %{
+      description: "some description",
+      ends_at: "2010-04-17 14:00:00.000000Z",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      started_at: "2010-04-17 14:00:00.000000Z"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      ends_at: "2011-05-18 15:01:01.000000Z",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      started_at: "2011-05-18 15:01:01.000000Z"
+    }
+    @invalid_attrs %{
+      description: nil,
+      ends_at: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      started_at: nil
+    }
 
     def plan_fixture(attrs \\ %{}) do
       {:ok, plan} =
@@ -78,9 +102,33 @@ defmodule Pulap.BizTest do
   describe "plan_subscriptions" do
     alias Pulap.Biz.PlanSubscription
 
-    @valid_attrs %{description: "some description", ends_at: "2010-04-17 14:00:00.000000Z", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, name: "some name", started_at: "2010-04-17 14:00:00.000000Z"}
-    @update_attrs %{description: "some updated description", ends_at: "2011-05-18 15:01:01.000000Z", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, name: "some updated name", started_at: "2011-05-18 15:01:01.000000Z"}
-    @invalid_attrs %{description: nil, ends_at: nil, id: nil, is_active: nil, is_logical_deleted: nil, name: nil, started_at: nil}
+    @valid_attrs %{
+      description: "some description",
+      ends_at: "2010-04-17 14:00:00.000000Z",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      name: "some name",
+      started_at: "2010-04-17 14:00:00.000000Z"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      ends_at: "2011-05-18 15:01:01.000000Z",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      name: "some updated name",
+      started_at: "2011-05-18 15:01:01.000000Z"
+    }
+    @invalid_attrs %{
+      description: nil,
+      ends_at: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      name: nil,
+      started_at: nil
+    }
 
     def plan_subscription_fixture(attrs \\ %{}) do
       {:ok, plan_subscription} =
@@ -102,14 +150,21 @@ defmodule Pulap.BizTest do
     end
 
     test "create_plan_subscription/1 with valid data creates a plan_subscription" do
-      assert {:ok, %PlanSubscription{} = plan_subscription} = Biz.create_plan_subscription(@valid_attrs)
+      assert {:ok, %PlanSubscription{} = plan_subscription} =
+               Biz.create_plan_subscription(@valid_attrs)
+
       assert plan_subscription.description == "some description"
-      assert plan_subscription.ends_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
+      assert plan_subscription.ends_at ==
+               DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
       assert plan_subscription.id == "7488a646-e31f-11e4-aace-600308960662"
       assert plan_subscription.is_active == true
       assert plan_subscription.is_logical_deleted == true
       assert plan_subscription.name == "some name"
-      assert plan_subscription.started_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
+      assert plan_subscription.started_at ==
+               DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
     end
 
     test "create_plan_subscription/1 with invalid data returns error changeset" do
@@ -118,20 +173,31 @@ defmodule Pulap.BizTest do
 
     test "update_plan_subscription/2 with valid data updates the plan_subscription" do
       plan_subscription = plan_subscription_fixture()
-      assert {:ok, plan_subscription} = Biz.update_plan_subscription(plan_subscription, @update_attrs)
+
+      assert {:ok, plan_subscription} =
+               Biz.update_plan_subscription(plan_subscription, @update_attrs)
+
       assert %PlanSubscription{} = plan_subscription
       assert plan_subscription.description == "some updated description"
-      assert plan_subscription.ends_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
+      assert plan_subscription.ends_at ==
+               DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
       assert plan_subscription.id == "7488a646-e31f-11e4-aace-600308960668"
       assert plan_subscription.is_active == false
       assert plan_subscription.is_logical_deleted == false
       assert plan_subscription.name == "some updated name"
-      assert plan_subscription.started_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
+      assert plan_subscription.started_at ==
+               DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
     end
 
     test "update_plan_subscription/2 with invalid data returns error changeset" do
       plan_subscription = plan_subscription_fixture()
-      assert {:error, %Ecto.Changeset{}} = Biz.update_plan_subscription(plan_subscription, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Biz.update_plan_subscription(plan_subscription, @invalid_attrs)
+
       assert plan_subscription == Biz.get_plan_subscription!(plan_subscription.id)
     end
 
@@ -150,9 +216,36 @@ defmodule Pulap.BizTest do
   describe "currencies" do
     alias Pulap.Biz.Currency
 
-    @valid_attrs %{code: "some code", icon: "some icon", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, minor_unit: "some minor_unit", name: "some name", num_code: "some num_code"}
-    @update_attrs %{code: "some updated code", icon: "some updated icon", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, minor_unit: "some updated minor_unit", name: "some updated name", num_code: "some updated num_code"}
-    @invalid_attrs %{code: nil, icon: nil, id: nil, is_active: nil, is_logical_deleted: nil, minor_unit: nil, name: nil, num_code: nil}
+    @valid_attrs %{
+      code: "some code",
+      icon: "some icon",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      minor_unit: "some minor_unit",
+      name: "some name",
+      num_code: "some num_code"
+    }
+    @update_attrs %{
+      code: "some updated code",
+      icon: "some updated icon",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      minor_unit: "some updated minor_unit",
+      name: "some updated name",
+      num_code: "some updated num_code"
+    }
+    @invalid_attrs %{
+      code: nil,
+      icon: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      minor_unit: nil,
+      name: nil,
+      num_code: nil
+    }
 
     def currency_fixture(attrs \\ %{}) do
       {:ok, currency} =
@@ -224,9 +317,162 @@ defmodule Pulap.BizTest do
   describe "real_estate" do
     alias Pulap.Biz.RealEstate
 
-    @valid_attrs %{room_height_cm: 42, number_of_rooms: 42, backyard: true, kitchen_type_val_en: "some kitchen_type_val_en", currency_code: "some currency_code", type_of_building_val_en: "some type_of_building_val_en", id: "7488a646-e31f-11e4-aace-600308960662", price: 120.5, terrace: true, kitchen_type_val_loc: "some kitchen_type_val_loc", geolocation: 120.5, furniture_set: true, street_number: "some street_number", number_of_bathrooms: 42, geo_area_canonical_name: "some geo_area_canonical_name", short_description: "some short_description", house_equipment_description: "some house_equipment_description", bathroom_area_m2: 120.5, suggested_installment_loan: 120.5, property_type_val_en: "some property_type_val_en", locale: "some locale", geo_area_name_loc: "some geo_area_name_loc", balcony: true, accessible_without_stairs: true, number_of_balconies: 42, house_equipment: true, street: "some street", heating_type_val_en: "some heating_type_val_en", geo_area_name: "some geo_area_name", year_of_construction: 42, indoor_area_m2: 120.5, block: "some block", total_area_m2: 120.5, heating_type_val_loc: "some heating_type_val_loc", currency_symbol: "some currency_symbol", apartment: "some apartment", property_type_val_loc: "some property_type_val_loc", price_per_square_meter: 120.5, description: "some description", active: true, number_of_bedroms: 42, cards: "some cards", position: 42, geo_area_canonical_name_loc: "some geo_area_canonical_name_loc", is_logical_deleted: true, is_active: true, type_of_building_val_loc: "some type_of_building_val_loc", name: "some name", logical_deleted: true, elevator: true}
-    @update_attrs %{room_height_cm: 43, number_of_rooms: 43, backyard: false, kitchen_type_val_en: "some updated kitchen_type_val_en", currency_code: "some updated currency_code", type_of_building_val_en: "some updated type_of_building_val_en", id: "7488a646-e31f-11e4-aace-600308960668", price: 456.7, terrace: false, kitchen_type_val_loc: "some updated kitchen_type_val_loc", geolocation: 456.7, furniture_set: false, street_number: "some updated street_number", number_of_bathrooms: 43, geo_area_canonical_name: "some updated geo_area_canonical_name", short_description: "some updated short_description", house_equipment_description: "some updated house_equipment_description", bathroom_area_m2: 456.7, suggested_installment_loan: 456.7, property_type_val_en: "some updated property_type_val_en", locale: "some updated locale", geo_area_name_loc: "some updated geo_area_name_loc", balcony: false, accessible_without_stairs: false, number_of_balconies: 43, house_equipment: false, street: "some updated street", heating_type_val_en: "some updated heating_type_val_en", geo_area_name: "some updated geo_area_name", year_of_construction: 43, indoor_area_m2: 456.7, block: "some updated block", total_area_m2: 456.7, heating_type_val_loc: "some updated heating_type_val_loc", currency_symbol: "some updated currency_symbol", apartment: "some updated apartment", property_type_val_loc: "some updated property_type_val_loc", price_per_square_meter: 456.7, description: "some updated description", active: false, number_of_bedroms: 43, cards: "some updated cards", position: 43, geo_area_canonical_name_loc: "some updated geo_area_canonical_name_loc", is_logical_deleted: false, is_active: false, type_of_building_val_loc: "some updated type_of_building_val_loc", name: "some updated name", logical_deleted: false, elevator: false}
-    @invalid_attrs %{room_height_cm: nil, number_of_rooms: nil, backyard: nil, kitchen_type_val_en: nil, currency_code: nil, type_of_building_val_en: nil, id: nil, price: nil, terrace: nil, kitchen_type_val_loc: nil, geolocation: nil, furniture_set: nil, street_number: nil, number_of_bathrooms: nil, geo_area_canonical_name: nil, short_description: nil, house_equipment_description: nil, bathroom_area_m2: nil, suggested_installment_loan: nil, property_type_val_en: nil, locale: nil, geo_area_name_loc: nil, balcony: nil, accessible_without_stairs: nil, number_of_balconies: nil, house_equipment: nil, street: nil, heating_type_val_en: nil, geo_area_name: nil, year_of_construction: nil, indoor_area_m2: nil, block: nil, total_area_m2: nil, heating_type_val_loc: nil, currency_symbol: nil, apartment: nil, property_type_val_loc: nil, price_per_square_meter: nil, description: nil, active: nil, number_of_bedroms: nil, cards: nil, position: nil, geo_area_canonical_name_loc: nil, is_logical_deleted: nil, is_active: nil, type_of_building_val_loc: nil, name: nil, logical_deleted: nil, elevator: nil}
+    @valid_attrs %{
+      room_height_cm: 42,
+      number_of_rooms: 42,
+      backyard: true,
+      kitchen_type_val_en: "some kitchen_type_val_en",
+      currency_code: "some currency_code",
+      type_of_building_val_en: "some type_of_building_val_en",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      price: 120.5,
+      terrace: true,
+      kitchen_type_val_loc: "some kitchen_type_val_loc",
+      geolocation: 120.5,
+      furniture_set: true,
+      street_number: "some street_number",
+      number_of_bathrooms: 42,
+      geo_area_canonical_name: "some geo_area_canonical_name",
+      short_description: "some short_description",
+      house_equipment_description: "some house_equipment_description",
+      bathroom_area_m2: 120.5,
+      suggested_installment_loan: 120.5,
+      property_type_val_en: "some property_type_val_en",
+      locale: "some locale",
+      geo_area_name_loc: "some geo_area_name_loc",
+      balcony: true,
+      accessible_without_stairs: true,
+      number_of_balconies: 42,
+      house_equipment: true,
+      street: "some street",
+      heating_type_val_en: "some heating_type_val_en",
+      geo_area_name: "some geo_area_name",
+      year_of_construction: 42,
+      indoor_area_m2: 120.5,
+      block: "some block",
+      total_area_m2: 120.5,
+      heating_type_val_loc: "some heating_type_val_loc",
+      currency_symbol: "some currency_symbol",
+      apartment: "some apartment",
+      property_type_val_loc: "some property_type_val_loc",
+      price_per_square_meter: 120.5,
+      description: "some description",
+      active: true,
+      number_of_bedroms: 42,
+      cards: "some cards",
+      position: 42,
+      geo_area_canonical_name_loc: "some geo_area_canonical_name_loc",
+      is_logical_deleted: true,
+      is_active: true,
+      type_of_building_val_loc: "some type_of_building_val_loc",
+      name: "some name",
+      logical_deleted: true,
+      elevator: true
+    }
+    @update_attrs %{
+      room_height_cm: 43,
+      number_of_rooms: 43,
+      backyard: false,
+      kitchen_type_val_en: "some updated kitchen_type_val_en",
+      currency_code: "some updated currency_code",
+      type_of_building_val_en: "some updated type_of_building_val_en",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      price: 456.7,
+      terrace: false,
+      kitchen_type_val_loc: "some updated kitchen_type_val_loc",
+      geolocation: 456.7,
+      furniture_set: false,
+      street_number: "some updated street_number",
+      number_of_bathrooms: 43,
+      geo_area_canonical_name: "some updated geo_area_canonical_name",
+      short_description: "some updated short_description",
+      house_equipment_description: "some updated house_equipment_description",
+      bathroom_area_m2: 456.7,
+      suggested_installment_loan: 456.7,
+      property_type_val_en: "some updated property_type_val_en",
+      locale: "some updated locale",
+      geo_area_name_loc: "some updated geo_area_name_loc",
+      balcony: false,
+      accessible_without_stairs: false,
+      number_of_balconies: 43,
+      house_equipment: false,
+      street: "some updated street",
+      heating_type_val_en: "some updated heating_type_val_en",
+      geo_area_name: "some updated geo_area_name",
+      year_of_construction: 43,
+      indoor_area_m2: 456.7,
+      block: "some updated block",
+      total_area_m2: 456.7,
+      heating_type_val_loc: "some updated heating_type_val_loc",
+      currency_symbol: "some updated currency_symbol",
+      apartment: "some updated apartment",
+      property_type_val_loc: "some updated property_type_val_loc",
+      price_per_square_meter: 456.7,
+      description: "some updated description",
+      active: false,
+      number_of_bedroms: 43,
+      cards: "some updated cards",
+      position: 43,
+      geo_area_canonical_name_loc: "some updated geo_area_canonical_name_loc",
+      is_logical_deleted: false,
+      is_active: false,
+      type_of_building_val_loc: "some updated type_of_building_val_loc",
+      name: "some updated name",
+      logical_deleted: false,
+      elevator: false
+    }
+    @invalid_attrs %{
+      room_height_cm: nil,
+      number_of_rooms: nil,
+      backyard: nil,
+      kitchen_type_val_en: nil,
+      currency_code: nil,
+      type_of_building_val_en: nil,
+      id: nil,
+      price: nil,
+      terrace: nil,
+      kitchen_type_val_loc: nil,
+      geolocation: nil,
+      furniture_set: nil,
+      street_number: nil,
+      number_of_bathrooms: nil,
+      geo_area_canonical_name: nil,
+      short_description: nil,
+      house_equipment_description: nil,
+      bathroom_area_m2: nil,
+      suggested_installment_loan: nil,
+      property_type_val_en: nil,
+      locale: nil,
+      geo_area_name_loc: nil,
+      balcony: nil,
+      accessible_without_stairs: nil,
+      number_of_balconies: nil,
+      house_equipment: nil,
+      street: nil,
+      heating_type_val_en: nil,
+      geo_area_name: nil,
+      year_of_construction: nil,
+      indoor_area_m2: nil,
+      block: nil,
+      total_area_m2: nil,
+      heating_type_val_loc: nil,
+      currency_symbol: nil,
+      apartment: nil,
+      property_type_val_loc: nil,
+      price_per_square_meter: nil,
+      description: nil,
+      active: nil,
+      number_of_bedroms: nil,
+      cards: nil,
+      position: nil,
+      geo_area_canonical_name_loc: nil,
+      is_logical_deleted: nil,
+      is_active: nil,
+      type_of_building_val_loc: nil,
+      name: nil,
+      logical_deleted: nil,
+      elevator: nil
+    }
 
     def real_estate_fixture(attrs \\ %{}) do
       {:ok, real_estate} =
@@ -384,9 +630,33 @@ defmodule Pulap.BizTest do
   describe "tenures" do
     alias Pulap.Biz.Tenure
 
-    @valid_attrs %{ends_at: "2010-04-17 14:00:00.000000Z", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, job_description: "some job_description", job_title: "some job_title", started_at: "2010-04-17 14:00:00.000000Z"}
-    @update_attrs %{ends_at: "2011-05-18 15:01:01.000000Z", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, job_description: "some updated job_description", job_title: "some updated job_title", started_at: "2011-05-18 15:01:01.000000Z"}
-    @invalid_attrs %{ends_at: nil, id: nil, is_active: nil, is_logical_deleted: nil, job_description: nil, job_title: nil, started_at: nil}
+    @valid_attrs %{
+      ends_at: "2010-04-17 14:00:00.000000Z",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      job_description: "some job_description",
+      job_title: "some job_title",
+      started_at: "2010-04-17 14:00:00.000000Z"
+    }
+    @update_attrs %{
+      ends_at: "2011-05-18 15:01:01.000000Z",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      job_description: "some updated job_description",
+      job_title: "some updated job_title",
+      started_at: "2011-05-18 15:01:01.000000Z"
+    }
+    @invalid_attrs %{
+      ends_at: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      job_description: nil,
+      job_title: nil,
+      started_at: nil
+    }
 
     def tenure_fixture(attrs \\ %{}) do
       {:ok, tenure} =
@@ -456,9 +726,30 @@ defmodule Pulap.BizTest do
   describe "managership" do
     alias Pulap.Biz.Managership
 
-    @valid_attrs %{default: "some default", ends_at: "2010-04-17 14:00:00.000000Z", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, started_at: "2010-04-17 14:00:00.000000Z"}
-    @update_attrs %{default: "some updated default", ends_at: "2011-05-18 15:01:01.000000Z", id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, started_at: "2011-05-18 15:01:01.000000Z"}
-    @invalid_attrs %{default: nil, ends_at: nil, id: nil, is_active: nil, is_logical_deleted: nil, started_at: nil}
+    @valid_attrs %{
+      default: "some default",
+      ends_at: "2010-04-17 14:00:00.000000Z",
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      started_at: "2010-04-17 14:00:00.000000Z"
+    }
+    @update_attrs %{
+      default: "some updated default",
+      ends_at: "2011-05-18 15:01:01.000000Z",
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      started_at: "2011-05-18 15:01:01.000000Z"
+    }
+    @invalid_attrs %{
+      default: nil,
+      ends_at: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      started_at: nil
+    }
 
     def managership_fixture(attrs \\ %{}) do
       {:ok, managership} =
@@ -482,11 +773,16 @@ defmodule Pulap.BizTest do
     test "create_managership/1 with valid data creates a managership" do
       assert {:ok, %Managership{} = managership} = Biz.create_managership(@valid_attrs)
       assert managership.default == "some default"
-      assert managership.ends_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
+      assert managership.ends_at ==
+               DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
       assert managership.id == "7488a646-e31f-11e4-aace-600308960662"
       assert managership.is_active == true
       assert managership.is_logical_deleted == true
-      assert managership.started_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+
+      assert managership.started_at ==
+               DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
     end
 
     test "create_managership/1 with invalid data returns error changeset" do
@@ -498,11 +794,16 @@ defmodule Pulap.BizTest do
       assert {:ok, managership} = Biz.update_managership(managership, @update_attrs)
       assert %Managership{} = managership
       assert managership.default == "some updated default"
-      assert managership.ends_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
+      assert managership.ends_at ==
+               DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
       assert managership.id == "7488a646-e31f-11e4-aace-600308960668"
       assert managership.is_active == false
       assert managership.is_logical_deleted == false
-      assert managership.started_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+
+      assert managership.started_at ==
+               DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
     end
 
     test "update_managership/2 with invalid data returns error changeset" do

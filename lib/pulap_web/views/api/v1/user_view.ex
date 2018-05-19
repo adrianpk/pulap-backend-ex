@@ -11,7 +11,8 @@ defmodule PulapWeb.API.V1.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id,
+    %{
+      id: user.id,
       username: user.username,
       password_hash: user.password_hash,
       email: user.email,
@@ -23,6 +24,7 @@ defmodule PulapWeb.API.V1.UserView do
       geolocation: user.geolocation,
       started_at: user.started_at,
       is_active: user.is_active,
-      is_logical_deleted: user.is_logical_deleted}
+      is_logical_deleted: user.is_logical_deleted
+    }
   end
 end

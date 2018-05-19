@@ -4,20 +4,26 @@ defmodule PulapWeb.ControllersHelpers do
   alias Pulap.Auth.Organization
 
   def update_organization(user_roles_changeset, organization \\ %Organization{}) do
-    changeset = user_roles_changeset
-                |> Ecto.Changeset.put_assoc(:organization, to_changeset(organization))
+    changeset =
+      user_roles_changeset
+      |> Ecto.Changeset.put_assoc(:organization, to_changeset(organization))
+
     changeset
   end
 
   def update_user(user_roles_changeset, user \\ %User{}) do
-    changeset = user_roles_changeset
-                |> Ecto.Changeset.put_assoc(:user, to_changeset(user))
+    changeset =
+      user_roles_changeset
+      |> Ecto.Changeset.put_assoc(:user, to_changeset(user))
+
     changeset
   end
 
   def update_role(user_roles_changeset, role \\ %Role{}) do
-    changeset = user_roles_changeset
-                |> Ecto.Changeset.put_assoc(:role, to_changeset(role))
+    changeset =
+      user_roles_changeset
+      |> Ecto.Changeset.put_assoc(:role, to_changeset(role))
+
     changeset
   end
 

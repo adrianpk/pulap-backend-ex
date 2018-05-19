@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.KeyValueController do
   alias Pulap.App
   alias Pulap.App.KeyValue
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     key_values = App.list_key_values()
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.KeyValueController do
 
   def delete(conn, %{"id" => id}) do
     key_value = App.get_key_value!(id)
+
     with {:ok, %KeyValue{}} <- App.delete_key_value(key_value) do
       send_resp(conn, :no_content, "")
     end

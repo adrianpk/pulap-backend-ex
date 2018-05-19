@@ -22,7 +22,6 @@ import "phoenix_html"
 
 // Navbar related
 document.addEventListener('DOMContentLoaded', function () {
-
     // Get all "navbar-burger" elements
     var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
@@ -46,3 +45,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+// Action button related
+// var fab1 = document.getElementById('fab1');
+// var innerFabs = document.getElementsByClassName('inner-fabs')[0];
+
+// fab1.addEventListener('click', function () {
+// 	  innerFabs.classList.toggle('show');
+// });
+
+// document.addEventListener('click', function (e) {
+// 	  switch (e.target.id) {
+// 		case "fab1":
+// 		case "fab2":
+// 		case "fab3":
+// 		case "fab4":
+// 		case "fabIcon":
+// 			  break;
+// 		default:
+// 			  innerFabs.classList.remove('show');
+// 			  break;
+// 	  }
+// });
+

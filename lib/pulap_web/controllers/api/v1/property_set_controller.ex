@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.PropertySetController do
   alias Pulap.App
   alias Pulap.App.PropertySet
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     property_sets = App.list_property_sets()
@@ -28,13 +28,15 @@ defmodule PulapWeb.API.V1.PropertySetController do
   def update(conn, %{"id" => id, "property_set" => property_set_params}) do
     property_set = App.get_property_set!(id)
 
-    with {:ok, %PropertySet{} = property_set} <- App.update_property_set(property_set, property_set_params) do
+    with {:ok, %PropertySet{} = property_set} <-
+           App.update_property_set(property_set, property_set_params) do
       render(conn, "show.json", property_set: property_set)
     end
   end
 
   def delete(conn, %{"id" => id}) do
     property_set = App.get_property_set!(id)
+
     with {:ok, %PropertySet{}} <- App.delete_property_set(property_set) do
       send_resp(conn, :no_content, "")
     end

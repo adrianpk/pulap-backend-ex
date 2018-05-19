@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.OrganizationController do
   alias Pulap.Auth
   alias Pulap.Auth.Organization
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     organizations = Auth.list_organizations()
@@ -28,13 +28,15 @@ defmodule PulapWeb.API.V1.OrganizationController do
   def update(conn, %{"id" => id, "organization" => organization_params}) do
     organization = Auth.get_organization!(id)
 
-    with {:ok, %Organization{} = organization} <- Auth.update_organization(organization, organization_params) do
+    with {:ok, %Organization{} = organization} <-
+           Auth.update_organization(organization, organization_params) do
       render(conn, "show.json", organization: organization)
     end
   end
 
   def delete(conn, %{"id" => id}) do
     organization = Auth.get_organization!(id)
+
     with {:ok, %Organization{}} <- Auth.delete_organization(organization) do
       send_resp(conn, :no_content, "")
     end

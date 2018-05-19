@@ -5,12 +5,12 @@ defmodule Pulap.Util.Time do
   def from_timestamp(timestamp) do
     timestamp
     |> Kernel.+(@epoch)
-    |> :calendar.gregorian_seconds_to_datetime
+    |> :calendar.gregorian_seconds_to_datetime()
   end
 
   def to_timestamp(datetime) do
     datetime
-    |> :calendar.datetime_to_gregorian_seconds
+    |> :calendar.datetime_to_gregorian_seconds()
     |> Kernel.-(@epoch)
   end
 
@@ -19,6 +19,6 @@ defmodule Pulap.Util.Time do
   end
 
   def sample_date_timestamp() do
-    {{2099, 12, 21}, {23, 59, 0}} |> Ecto.DateTime.from_erl
+    {{2099, 12, 21}, {23, 59, 0}} |> Ecto.DateTime.from_erl()
   end
 end

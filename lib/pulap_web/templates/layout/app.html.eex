@@ -9,6 +9,7 @@
 
     <title>Pulap</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   </head>
 
   <body class="layout-default">
@@ -19,18 +20,24 @@
           <div class="tile is-ancestor">
             <div class="tile is-parent is-hidden-mobile">
               <div class="tile is-child green post">
-                [left]
+                <div class="section">
+                  [left]
+                </div>
               </div>
             </div>
-            <div class="tile is-6 is-parent is-mobile-flex">
+            <div class="tile is-9 is-parent is-block">
                 <%= render @view_module, @view_template, assigns %>
             </div>
             <div class="tile is-vertical is-parent is-hidden-mobile">
               <div class="tile is-child <blue></blue> post">
-                [right-top]
+                <div class="section">
+                  [right-top]
+                </div>
               </div>
               <div class="tile is-child gold post">
-                [right-bottom]
+                <div class="section">
+                  [right-bottom]
+                </div>
               </div>
             </div>
           </div>
@@ -39,6 +46,7 @@
       <%= render PulapWeb.HTML.Shared, "bottombar.html", assigns %>
       <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
       <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDao8xWgEajAXZAXqnR4yNi7J8zZRwiQhg&libraries=places&callback=initAutocomplete" async defer></script>
     </div>
   </body>
 </html>

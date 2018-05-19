@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.PropertyController do
   alias Pulap.App
   alias Pulap.App.Property
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     properties = App.list_properties()
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.PropertyController do
 
   def delete(conn, %{"id" => id}) do
     property = App.get_property!(id)
+
     with {:ok, %Property{}} <- App.delete_property(property) do
       send_resp(conn, :no_content, "")
     end

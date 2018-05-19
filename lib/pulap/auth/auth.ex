@@ -1,5 +1,4 @@
 defmodule Pulap.Auth do
-
   require Logger
   require IEx
 
@@ -51,26 +50,24 @@ defmodule Pulap.Auth do
   %User{}
 
   iex> get_user_by_username("")
-  ** (Ecto.NoResultsError)
+  ** nil
 
   """
-  def get_user_by_username!(username), do: Repo.get_by(User, [username: username])
+  def get_user_by_username(username), do: Repo.get_by(User, username: username)
 
   @doc """
   Gets a single user by email.
 
-  Raises `Ecto.NoResultsError` if the User does not exist.
-
   ## Examples
 
-  iex> get_user_by_email!(user@mail.com)
+  iex> get_user_by_email(user@mail.com)
   %User{}
 
-  iex> get_user_by_email!(user@mail.com)
-  ** (Ecto.NoResultsError)
+  iex> get_user_by_email(user@mail.com)
+  ** nil
 
   """
-  def get_user_by_email!(email), do: Repo.get_by!(User, [email: email])
+  def get_user_by_email(email), do: Repo.get_by(User, email: email)
 
   # import Ecto
 
@@ -87,15 +84,17 @@ defmodule Pulap.Auth do
 
   """
   def sign_up_user(attrs \\ %{}) do
-    Repo.transaction fn ->
-      user = %User{}
-             |> User.signup_changeset(attrs)
-             |> Repo.insert!
+    Repo.transaction(fn ->
+      user =
+        %User{}
+        |> User.signup_changeset(attrs)
+        |> Repo.insert!()
+
       # user
       # #|> Ecto.build_assoc(:profile, %Profile{email: user.email})
       # |> Repo.insert()
       user
-    end
+    end)
   end
 
   @doc """
@@ -113,7 +112,8 @@ defmodule Pulap.Auth do
   alias Comeonin.Bcrypt
 
   def authenticate_user(username, supplied_password) do
-    query = from u in User, where: u.username == ^username
+    query = from(u in User, where: u.username == ^username)
+
     Repo.one(query)
     |> check_password(supplied_password)
   end
@@ -210,7 +210,7 @@ defmodule Pulap.Auth do
     User.changeset(user, %{})
   end
 
-  #alias Pulap.Auth.Organization
+  # alias Pulap.Auth.Organization
 
   # @doc """
   # Returns the list of organizations.

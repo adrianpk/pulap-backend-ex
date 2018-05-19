@@ -11,11 +11,13 @@ defmodule PulapWeb.PropertySetView do
   end
 
   def render("property_set.json", %{property_set: property_set}) do
-    %{id: property_set.id,
+    %{
+      id: property_set.id,
       name: property_set.name,
       description: property_set.description,
       holder_id: property_set.holder_id,
       is_active: property_set.is_active,
-      is_logical_deleted: property_set.is_logical_deleted}
+      is_logical_deleted: property_set.is_logical_deleted
+    }
   end
 end

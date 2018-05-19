@@ -4,7 +4,7 @@ defmodule PulapWeb.API.V1.CurrencyController do
   alias Pulap.Biz
   alias Pulap.Biz.Currency
 
-  action_fallback PulapWeb.API.FallbackController
+  action_fallback(PulapWeb.API.FallbackController)
 
   def index(conn, _params) do
     currencies = Biz.list_currencies()
@@ -15,7 +15,7 @@ defmodule PulapWeb.API.V1.CurrencyController do
     with {:ok, %Currency{} = currency} <- Biz.create_currency(currency_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location",api_v1_currency_path(conn, :show, currency))
+      |> put_resp_header("location", api_v1_currency_path(conn, :show, currency))
       |> render("show.json", currency: currency)
     end
   end
@@ -35,6 +35,7 @@ defmodule PulapWeb.API.V1.CurrencyController do
 
   def delete(conn, %{"id" => id}) do
     currency = Biz.get_currency!(id)
+
     with {:ok, %Currency{}} <- Biz.delete_currency(currency) do
       send_resp(conn, :no_content, "")
     end

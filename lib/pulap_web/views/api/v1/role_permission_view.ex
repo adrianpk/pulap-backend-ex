@@ -11,12 +11,14 @@ defmodule PulapWeb.RolePermissionView do
   end
 
   def render("role_permission.json", %{role_permission: role_permission}) do
-    %{id: role_permission.id,
+    %{
+      id: role_permission.id,
       organization_name: role_permission.organization_name,
       name: role_permission.name,
       description: role_permission.description,
       tag: role_permission.tag,
       is_active: role_permission.is_active,
-      is_logical_deleted: role_permission.is_logical_deleted}
+      is_logical_deleted: role_permission.is_logical_deleted
+    }
   end
 end

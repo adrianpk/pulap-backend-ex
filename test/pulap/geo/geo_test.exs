@@ -6,9 +6,69 @@ defmodule Pulap.GeoTest do
   describe "geo_areas" do
     alias Pulap.Geo.GeoArea
 
-    @valid_attrs %{adm_level: "some adm_level", adm_level_type: "some adm_level_type", alternative_name: "some alternative_name", alternative_name_loc: "some alternative_name_loc", canonical_name: "some canonical_name", canonical_name_loc: "some canonical_name_loc", cards: "some cards", dialing_code: "some dialing_code", geo_areas: 42, id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, is_main: true, locale: "some locale", name: "some name", name_loc: "some name_loc", normalized_name: "some normalized_name", position: 42, zip_code: "some zip_code"}
-    @update_attrs %{adm_level: "some updated adm_level", adm_level_type: "some updated adm_level_type", alternative_name: "some updated alternative_name", alternative_name_loc: "some updated alternative_name_loc", canonical_name: "some updated canonical_name", canonical_name_loc: "some updated canonical_name_loc", cards: "some updated cards", dialing_code: "some updated dialing_code", geo_areas: 43, id: "7488a646-e31f-11e4-aace-600308960668", is_active: false, is_logical_deleted: false, is_main: false, locale: "some updated locale", name: "some updated name", name_loc: "some updated name_loc", normalized_name: "some updated normalized_name", position: 43, zip_code: "some updated zip_code"}
-    @invalid_attrs %{adm_level: nil, adm_level_type: nil, alternative_name: nil, alternative_name_loc: nil, canonical_name: nil, canonical_name_loc: nil, cards: nil, dialing_code: nil, geo_areas: nil, id: nil, is_active: nil, is_logical_deleted: nil, is_main: nil, locale: nil, name: nil, name_loc: nil, normalized_name: nil, position: nil, zip_code: nil}
+    @valid_attrs %{
+      adm_level: "some adm_level",
+      adm_level_type: "some adm_level_type",
+      alternative_name: "some alternative_name",
+      alternative_name_loc: "some alternative_name_loc",
+      canonical_name: "some canonical_name",
+      canonical_name_loc: "some canonical_name_loc",
+      cards: "some cards",
+      dialing_code: "some dialing_code",
+      geo_areas: 42,
+      id: "7488a646-e31f-11e4-aace-600308960662",
+      is_active: true,
+      is_logical_deleted: true,
+      is_main: true,
+      locale: "some locale",
+      name: "some name",
+      name_loc: "some name_loc",
+      normalized_name: "some normalized_name",
+      position: 42,
+      zip_code: "some zip_code"
+    }
+    @update_attrs %{
+      adm_level: "some updated adm_level",
+      adm_level_type: "some updated adm_level_type",
+      alternative_name: "some updated alternative_name",
+      alternative_name_loc: "some updated alternative_name_loc",
+      canonical_name: "some updated canonical_name",
+      canonical_name_loc: "some updated canonical_name_loc",
+      cards: "some updated cards",
+      dialing_code: "some updated dialing_code",
+      geo_areas: 43,
+      id: "7488a646-e31f-11e4-aace-600308960668",
+      is_active: false,
+      is_logical_deleted: false,
+      is_main: false,
+      locale: "some updated locale",
+      name: "some updated name",
+      name_loc: "some updated name_loc",
+      normalized_name: "some updated normalized_name",
+      position: 43,
+      zip_code: "some updated zip_code"
+    }
+    @invalid_attrs %{
+      adm_level: nil,
+      adm_level_type: nil,
+      alternative_name: nil,
+      alternative_name_loc: nil,
+      canonical_name: nil,
+      canonical_name_loc: nil,
+      cards: nil,
+      dialing_code: nil,
+      geo_areas: nil,
+      id: nil,
+      is_active: nil,
+      is_logical_deleted: nil,
+      is_main: nil,
+      locale: nil,
+      name: nil,
+      name_loc: nil,
+      normalized_name: nil,
+      position: nil,
+      zip_code: nil
+    }
 
     def geo_area_fixture(attrs \\ %{}) do
       {:ok, geo_area} =
