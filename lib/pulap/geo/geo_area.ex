@@ -5,17 +5,15 @@ defmodule Pulap.Geo.GeoArea do
 
   schema "geo_areas" do
 
-    # place_id
-
+    # place_id - Google unique identifier for this place
     field(:alternative_name, :string)
     field(:canonical_name, :string)
     field(:canonical_name_loc, :string)
-    field(:cards, :string)
-    field(:dialing_code, :string)
-
-    #postal_code
-
     field(:geolocation, :float)
+    field(:dialing_code, :string)
+    #postal_code
+    #location_type - ROOFTOP / RANGE_INTERPOLATED / GEOMETRIC_CENTER / APPROXIMATE
+    field(:cards, :string)
     field(:is_active, :boolean, default: false)
     field(:is_logical_deleted, :boolean, default: false)
     field(:is_main, :boolean, default: false)

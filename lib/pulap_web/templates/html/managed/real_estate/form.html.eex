@@ -47,6 +47,32 @@
         </div>
 
         <div class="columns">
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :block, class: "label" %>
+              <%= text_input f, :block, class: "input is-primary" %>
+              <%= error_tag f, :block %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :floor, class: "label" %>
+              <%= text_input f, :floor, class: "input is-primary" %>
+              <%= error_tag f, :floor %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :apartment, class: "label" %>
+              <%= text_input f, :apartment, class: "input is-primary" %>
+              <%= error_tag f, :apartment%>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
           <div class="column">
             <div class="field">
               <%= label f, :administrative_area_level_4, class: "label" %>
@@ -108,32 +134,6 @@
           <%= label f, :country, class: "label" %>
           <%= text_input f, :country, class: "input is-primary", disabled: true %>
           <%= error_tag f, :country %>
-        </div>
-
-        <div class="columns">
-          <div class="column is-one-third">
-            <div class="field">
-              <%= label f, :block, class: "label" %>
-              <%= text_input f, :block, class: "input is-primary" %>
-              <%= error_tag f, :block %>
-            </div>
-          </div>
-
-          <div class="column is-one-third">
-            <div class="field">
-              <%= label f, :floor, class: "label" %>
-              <%= text_input f, :floor, class: "input is-primary" %>
-              <%= error_tag f, :floor %>
-            </div>
-          </div>
-
-          <div class="column is-one-third">
-            <div class="field">
-              <%= label f, :apartment, class: "label" %>
-              <%= text_input f, :apartment, class: "input is-primary" %>
-              <%= error_tag f, :apartment%>
-            </div>
-          </div>
         </div>
 
         <hr>
@@ -387,9 +387,7 @@
 
  function fillInAddress() {
    // Get the place details from the autocomplete object.
-   //var place = autocomplete.getPlace();
-   // Just for development to avoid some API calls.
-   var place = {"address_components":[{"long_name":"890","short_name":"890","types":["street_number"]},{"long_name":"25 de Mayo","short_name":"25 de Mayo","types":["route"]},{"long_name":"Acassuso","short_name":"Acassuso","types":["locality","political"]},{"long_name":"San Isidro","short_name":"San Isidro","types":["administrative_area_level_2","political"]},{"long_name":"Buenos Aires","short_name":"Buenos Aires","types":["administrative_area_level_1","political"]},{"long_name":"Argentina","short_name":"AR","types":["country","political"]},{"long_name":"B1642","short_name":"B1642","types":["postal_code"]},{"long_name":"CKN","short_name":"CKN","types":["postal_code_suffix"]}],"adr_address":"<span class=\"street-address\">25 de Mayo 890</span>, <span class=\"postal-code\">B1642CKN</span> <span class=\"locality\">Acassuso</span>, <span class=\"region\">Buenos Aires</span>, <span class=\"country-name\">Argentina</span>","formatted_address":"25 de Mayo 890, B1642CKN Acassuso, Buenos Aires, Argentina","geometry":{"location":{"lat":-34.47082909999999,"lng":-58.52867149999999},"viewport":{"south":-34.4708297697085,"west":-58.52867141970847,"north":-34.4708290999999,"east":-58.52867149999999}},"icon":"https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png","id":"160ec45226d0c1f7a0d0ecbcf72966b2607c6e9e","name":"25 de Mayo 890","place_id":"ChIJ4xwoUf3HvJURLfp8MbAP0kk","reference":"CmRbAAAAWDofKRCUVFopqjRTJ2UuOn1ztFiLYTU2WPKsEdFqK1F9Imt-2JGLMvlpXDDyXPq9I1w9EMwgBPSEkN8oKQF2xxi3PbVLt4BEGYE8U90cJjLIFZY8KH8qzrJcaZ8YT83AEhDg4hLFZJGu9hPBGuv5k4YLGhTmTKdJaACRZyOgQXJNNm5kEjyp4w","scope":"GOOGLE","types":["street_address"],"url":"https://www.google.com/maps/place/San+Isidro,+Buenos+Aires+Province/@-34.470511,-58.5233106,15.79z/data=!4m5!3m4!1s0x95bcb03cd891437f:0xab3b49e671350275!8m2!3d-34.470829!4d-58.5286102","utc_offset":-180,"vicinity":"Acassuso","html_attributions":[]}
+   var place = autocomplete.getPlace();
    //console.log("Place: " + JSON.stringify(place))
 
    for (var component in componentForm) {
@@ -403,14 +401,14 @@
    // and fill the corresponding field on the form.
    for (var i = 0; i < place.address_components.length; i++) {
      var addressType = place.address_components[i].types[0];
-     console.log("Address component: " + addressType)
+     // console.log("Address component: " + addressType)
      translatedAddressType = translator[addressType]
-     console.log("+ addressType: " + translatedAddressType)
+     // console.log("+ addressType: " + translatedAddressType)
 
      if (componentForm[addressType]) {
        var val = place.address_components[i][componentForm[addressType]];
        elementName = "real_estate_" + translatedAddressType
-       console.log("Element name: " + elementName + " with value " + val)
+       // console.log("Element name: " + elementName + " with value " + val)
        document.getElementById(elementName).value = val;
      }
    }
