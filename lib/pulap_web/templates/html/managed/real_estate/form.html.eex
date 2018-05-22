@@ -24,8 +24,8 @@
         <hr>
 
         <div class="field">
-          <label class="label" for="autocomplete">Address</label>
-          <input id="autocomplete" class="input is-primary" placeholder="Enter your address" onFocus="geolocate()" type="text"></input>
+          <label class="label" for="address-autocomplete">Address</label>
+          <input type="search" id="address-autocomplete" class="input is-primary" placeholder="Enter address"></input>
         </div>
 
         <div class="columns">
@@ -115,17 +115,6 @@
               <%= label f, :postal_code, class: "label" %>
               <%= text_input f, :postal_code, class: "input is-primary", disabled: true %>
               <%= error_tag f, :postal_code %>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="columns">
-          <div class="column">
-            <div class="field">
-              <%= label f, :postal_code_suffix, class: "label" %>
-              <%= text_input f, :postal_code_suffix, class: "input is-primary", disabled: true %>
-              <%= error_tag f, :postal_code_suffix %>
             </div>
           </div>
         </div>
@@ -328,109 +317,4 @@
     </div>
   </div>
 </div>
-
-<script>
- /* addressType: real_estate_street_number
-  * addressType: real_estate_route
-  * addressType: real_estate_locality
-  * addressType: real_estate_administrative_area_level_2
-  * addressType: real_estate_administrative_area_level_1
-  * val: Buenos Aires
-  * addressType: real_estate_country
-  * val: Argentina
-  * addressType: real_estate_postal_code
-  * val: B1642
-  */
-
- // This example displays an address form, using the autocomplete feature
- // of the Google Places API to help users fill in the information.
-
- // This example requires the Places library. Include the libraries=places
- // parameter when you first load the API. For example:
- // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
- var translator = [];
- translator["administrative_area_level_1"] = "administrative_area_level_1";
- translator["administrative_area_level_2"] = "administrative_area_level_2";
- translator["country"] = "country";
- translator["locality"] = "administrative_area_level_3";
- translator["postal_code"] = "postal_code";
- translator["postal_code_suffix"] = "postal_code_suffix";
- translator["route"] = "street";
- translator["street_number"] = "street_number";
- translator["sublocality"] = "administrative_area_level_4";
-
- var placeSearch, autocomplete;
- var componentForm = {
-   administrative_area_level_1: 'short_name',
-   administrative_area_level_2: 'short_name',
-   country: 'long_name',
-   locality: 'long_name',
-   postal_code: 'short_name',
-   postal_code_suffix: 'short_name',
-   route: 'long_name',
-   street_number: 'long_name',
-   sublocality: 'long_name',
- };
-
- function initAutocomplete() {
-   // Create the autocomplete object, restricting the search to geographical
-   // location types.
-   autocomplete = new google.maps.places.Autocomplete(
-     /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-     {types: ['geocode']});
-
-   // When the user selects an address from the dropdown, populate the address
-   // fields in the form.
-   autocomplete.addListener('place_changed', fillInAddress);
- }
-
- function fillInAddress() {
-   // Get the place details from the autocomplete object.
-   var place = autocomplete.getPlace();
-   //console.log("Place: " + JSON.stringify(place))
-
-   for (var component in componentForm) {
-     elementName = "real_estate_" + translator[component]
-     //console.log("* Element name: " + elementName + " - addressType " + component)
-     document.getElementById(elementName).value = '';
-     //document.getElementById(component).disabled = false;
-   }
-
-   // Get each component of the address from the place details
-   // and fill the corresponding field on the form.
-   for (var i = 0; i < place.address_components.length; i++) {
-     var addressType = place.address_components[i].types[0];
-     // console.log("Address component: " + addressType)
-     translatedAddressType = translator[addressType]
-     // console.log("+ addressType: " + translatedAddressType)
-
-     if (componentForm[addressType]) {
-       var val = place.address_components[i][componentForm[addressType]];
-       elementName = "real_estate_" + translatedAddressType
-       // console.log("Element name: " + elementName + " with value " + val)
-       document.getElementById(elementName).value = val;
-     }
-   }
- }
-
- // Bias the autocomplete object to the user's geographical location,
- // as supplied by the browser's 'navigator.geolocation' object.
- function geolocate() {
-   if (navigator.geolocation) {
-     navigator.geolocation.getCurrentPosition(function(position) {
-       var geolocation = {
-         lat: position.coords.latitude,
-         lng: position.coords.longitude
-       };
-       var circle = new google.maps.Circle({
-         center: geolocation,
-         radius: position.coords.accuracy
-       });
-       autocomplete.setBounds(circle.getBounds());
-     });
-   }
- }
-</script>
-
 
