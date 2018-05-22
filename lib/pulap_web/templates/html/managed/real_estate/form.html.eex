@@ -317,4 +317,4 @@
     </div>
   </div>
 </div>
-
+<%= render PulapWeb.HTML.Shared, "places_pl.html", assigns %>
