@@ -40,7 +40,8 @@ exports.config = {
   // Phoenix paths configuration
   paths: {
     // Dependencies and current project directories to watch
-      watched: ["static", "css", "js", "vendor", "elm"],
+    watched: ["static", "css", "js", "vendor"], //, "elm"
+
     // Where to compile files to
     public: "../priv/static"
   },
@@ -51,11 +52,12 @@ exports.config = {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
     },
-    elmBrunch: {
-      mainModules: ["elm/Main.elm"],
-      makeParameters: ["--debug"],
-      outputFolder: "../assets/js"
-    },
+    // Standaby: Maybe will used in future admin app
+    // elmBrunch: {
+    //   mainModules: ["elm/Main.elm"],
+    //   makeParameters: ["--debug"],
+    //   outputFolder: "../assets/js"
+    // },
     sass: {
       options: {
         includePaths: ["node_modules/bulma/sass"], // Tell sass-brunch where to look for files to @import
