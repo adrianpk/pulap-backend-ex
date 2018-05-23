@@ -1,4 +1,6 @@
 defmodule PulapWeb.Auth.ErrorHandler do
+  @moduledoc false
+
   import Plug.Conn
   import PulapWeb.Router.Helpers, only: [page_path: 2]
 

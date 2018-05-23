@@ -1,4 +1,8 @@
 defmodule Pulap.Util.Time do
+  @moduledoc """
+  ## Time and date utilities.
+  """
+
   epoch = {{1970, 1, 1}, {0, 0, 0}}
   @epoch :calendar.datetime_to_gregorian_seconds(epoch)
 

@@ -1,4 +1,6 @@
 defmodule Pulap.Biz.Ownership do
+  @moduledoc false
+
   use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Biz.Ownership

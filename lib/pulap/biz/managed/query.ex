@@ -1,4 +1,6 @@
 defmodule Pulap.Biz.Managed.Query do
+  @moduledoc false
+
   import Ecto.Query
 
   def where_owner(queryable, owner_id) do

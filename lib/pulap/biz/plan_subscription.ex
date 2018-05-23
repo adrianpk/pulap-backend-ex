@@ -1,4 +1,6 @@
 defmodule Pulap.Biz.PlanSubscription do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
   alias Pulap.Biz.PlanSubscription

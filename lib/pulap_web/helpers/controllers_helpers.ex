@@ -1,4 +1,14 @@
 defmodule PulapWeb.ControllersHelpers do
+  @moduledoc """
+  Provides helper functions to some recurring tasks in controllers.
+
+  ## Examples
+
+  iex> PulapWeb.ControllersHelpers.update_user(user_roles_changeset, user)
+  %Pulap.Auth.User{}
+
+  """
+
   alias Pulap.Auth.User
   alias Pulap.Auth.Role
   alias Pulap.Auth.Organization

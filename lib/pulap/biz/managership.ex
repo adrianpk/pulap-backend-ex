@@ -1,4 +1,5 @@
 defmodule Pulap.Biz.Managership do
+  @moduledoc false
   use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Biz.Managership
