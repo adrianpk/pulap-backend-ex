@@ -11,7 +11,7 @@ defmodule PulapWeb.Auth.AuthPlug do
     # Keyword.fetch!(opts, :repo)
   end
 
-  def call(conn, repo) do
+  def call(conn, _repo) do
     # user_id = get_session(conn, :user_id)
     user_id = PulapWeb.Auth.Guardian.Plug.current_resource(conn)
     user = user_id && Auth.get_user!(user_id)
