@@ -1,4 +1,6 @@
 defmodule Pulap.Biz.Currency do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
   alias Pulap.Biz.Currency

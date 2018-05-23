@@ -1,4 +1,6 @@
 defmodule Pulap.Auth.Guardian do
+  @moduledoc false
+
   use Guardian, otp_app: :pulap
   alias Pulap.Auth
 

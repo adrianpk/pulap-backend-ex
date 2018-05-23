@@ -1,4 +1,6 @@
 defmodule Pulap.Biz.RealEstate do
+  @moduledoc false
+
   use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Biz.RealEstate

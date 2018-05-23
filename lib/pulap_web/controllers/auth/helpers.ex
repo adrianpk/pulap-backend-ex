@@ -1,4 +1,14 @@
 defmodule PulapWeb.Auth.Helpers do
+  @moduledoc """
+  Signin, signout and context related functions.
+
+  ## Examples
+
+  iex> PulapWeb.Auth.Helpers.set_context(conn, user, supplied_context_id)
+  "44edcec8-25a8-49b5-a789-ec90883884ac"
+
+  """
+
   import Plug.Conn
   alias Pulap.Auth
   alias Pulap.Repo
@@ -57,12 +67,12 @@ defmodule PulapWeb.Auth.Helpers do
     # - Work as Personal account. No organization
     # - Remove organization from session and connection
     context_id =
-      cond do
-        user.id == supplied_context_id ->
+      case user.id == supplied_context_id do
+          true ->
           # Do nothing, org is nil
           user.id
 
-        user.id != supplied_context_id ->
+          false ->
           # - Search in user_role with:
           # - user_id = user.id, organization_id = supplied_context_id
           case user.has_role_in_organization(supplied_context_id) do

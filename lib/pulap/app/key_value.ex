@@ -1,4 +1,6 @@
 defmodule Pulap.App.KeyValue do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
   alias Pulap.App.KeyValue

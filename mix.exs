@@ -53,7 +53,8 @@ defmodule Pulap.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.0"},
       # {:map_diff, "~> 1.0"}
-      {:corsica, "~> 1.0"}
+      {:corsica, "~> 1.0"},
+      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false}
     ]
   end
 

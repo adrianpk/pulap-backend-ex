@@ -1,4 +1,8 @@
 defmodule Pulap.Schema do
+  @moduledoc """
+  Customized Schema for easy use of UUID type IDs.
+  """
+
   defmacro __using__(_) do
     quote do
       use Ecto.Schema

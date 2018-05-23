@@ -1,5 +1,7 @@
 defmodule Pulap.Geo.GeoArea do
-  use Ecto.Schema
+  @moduledoc false
+
+  use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Geo.GeoArea
 

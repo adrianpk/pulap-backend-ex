@@ -1,4 +1,6 @@
 defmodule Pulap.App.Property do
+  @moduledoc false
+
   use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.App.Property

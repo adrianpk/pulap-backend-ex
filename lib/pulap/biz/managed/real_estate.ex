@@ -1,4 +1,6 @@
 defmodule Pulap.Biz.Managed.RealEstate do
+  @moduledoc false
+
   alias Pulap.Repo
   alias Pulap.Biz.RealEstate
   alias Pulap.Biz.Managed.Query

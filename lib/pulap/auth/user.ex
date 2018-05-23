@@ -1,4 +1,6 @@
 defmodule Pulap.Auth.User do
+  @moduledoc false
+
   # , only: [checkpw: 2, dummy_checkpw: 0]
   import Comeonin.Bcrypt
 
@@ -142,7 +144,8 @@ defmodule Pulap.Auth.User do
 
           [email] ->
             try do
-              Regex.run(~r/(\w+)@([\w.]+)/, email) |> validate_domain_and_unique(changeset)
+              regex_run = Regex.run(~r/(\w+)@([\w.]+)/, email) 
+              validate_domain_and_unique(regex_run, changeset)
               changeset
             rescue
               RuntimeError ->
@@ -223,33 +226,33 @@ defmodule Pulap.Auth.User do
   defp verify_user(changeset, user) do
     user = Auth.get_user!(user.id)
 
-    cond do
-      user ->
+    case user do
+      true ->
         changeset
 
-      true ->
+      false ->
         changeset
         |> add_error(:username, "invalid user")
     end
   end
 
   defp verify_current_password(changeset, user) do
-    cond do
-      checkpw(changeset.changes.given_password, user.password_hash) ->
+    case checkpw(changeset.changes.given_password, user.password_hash) do
+      true ->
         changeset
 
-      true ->
+      false ->
         changeset
         |> add_error(:given_password, "does not much with current password")
     end
   end
 
   defp verify_password_confirmation(changeset) do
-    cond do
-      changeset.changes.password == changeset.changes.password_confirmation ->
+    case changeset.changes.password == changeset.changes.password_confirmation do
+      true ->
         changeset
 
-      true ->
+      false ->
         changeset
         |> add_error(:password_confirmation, "does not match with password")
     end

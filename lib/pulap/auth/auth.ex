@@ -114,8 +114,8 @@ defmodule Pulap.Auth do
   def authenticate_user(username, supplied_password) do
     query = from(u in User, where: u.username == ^username)
 
-    Repo.one(query)
-    |> check_password(supplied_password)
+    user = Repo.one(query)
+    user |> check_password(supplied_password)
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect username or password"}
