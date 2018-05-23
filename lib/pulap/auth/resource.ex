@@ -1,6 +1,6 @@
 defmodule Pulap.Auth.Resource do
   @moduledoc false
-  º
+
   use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Auth.Resource
