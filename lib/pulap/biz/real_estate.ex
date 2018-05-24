@@ -17,15 +17,16 @@ defmodule Pulap.Biz.RealEstate do
     field(:currency_code, :string)
     field(:currency_id, :id)
     field(:currency_symbol, :string)
+    field(:daily_rent_price, :float)
     field(:description, :string)
     field(:elevator, :boolean, default: false)
     field(:floor, :string)
     field(:furniture_set, :boolean, default: false)
-    field(:geo_area_name, :string)
-    field(:geo_area_name_loc, :string)
     field(:geo_area_canonical_name, :string)
     field(:geo_area_canonical_name_loc, :string)
     field(:geo_area_id, :id)
+    field(:geo_area_name, :string)
+    field(:geo_area_name_loc, :string)
     field(:geolocation, Geo.Point)
     field(:heating_type_id, :id)
     field(:heating_type_val_en, :string)
@@ -39,18 +40,19 @@ defmodule Pulap.Biz.RealEstate do
     field(:kitchen_type_val_en, :string)
     field(:kitchen_type_val_loc, :string)
     field(:locale, :string)
+    field(:long_term_rent_monthly_price, :float)
     field(:name, :string)
     field(:number_of_balconies, :integer)
     field(:number_of_bathrooms, :integer)
     field(:number_of_bedroms, :integer)
     field(:number_of_rooms, :integer)
     field(:position, :integer)
-    field(:price, :float)
-    field(:price_per_square_meter, :float)
     field(:property_type_id, :id)
     field(:property_type_val_en, :string)
     field(:property_type_val_loc, :string)
     field(:room_height_cm, :integer)
+    field(:sale_price, :float)
+    field(:sale_price_per_square_meter, :float)
     field(:short_description, :string)
     field(:street, :string)
     field(:street_number, :string)
@@ -70,66 +72,68 @@ defmodule Pulap.Biz.RealEstate do
   def changeset(%RealEstate{} = real_estate, attrs) do
     real_estate
     |> cast(attrs, [
-      :name,
-      :short_description,
-      :description,
-      :geo_area_name,
-      :geo_area_name_loc,
-      :geo_area_canonical_name,
-      :geo_area_canonical_name_loc,
-      :street,
-      :street_number,
-      :block,
-      :floor,
+      :accessible_without_stairs,
       :apartment,
-      :property_type_val_en,
-      :property_type_val_loc,
-      :total_area_m2,
-      :indoor_area_m2,
-      :price,
-      :price_per_square_meter,
-      :suggested_installment_loan,
+      :backyard,
+      :balcony,
+      :bathroom_area_m2,
+      :block,
+      :cards,
       :currency_code,
       :currency_symbol,
-      :type_of_building_val_en,
-      :type_of_building_val_loc,
-      :year_of_construction,
-      :room_height_cm,
-      :number_of_rooms,
-      :number_of_bedroms,
-      :kitchen_type_val_en,
-      :kitchen_type_val_loc,
-      :number_of_bathrooms,
-      :bathroom_area_m2,
+      :description,
+      :elevator,
+      :floor,
+      :furniture_set,
+      :geo_area_canonical_name,
+      :geo_area_canonical_name_loc,
+      :geo_area_name,
+      :geo_area_name_loc,
+      :geolocation,
       :heating_type_val_en,
       :heating_type_val_loc,
-      :accessible_without_stairs,
-      :elevator,
-      :terrace,
-      :backyard,
-      :balcony,
-      :number_of_balconies,
-      :furniture_set,
       :house_equipment,
       :house_equipment_description,
-      :cards,
-      :geolocation,
-      :locale,
-      :position,
+      :indoor_area_m2,
       :is_active,
-      :is_logical_deleted
+      :is_logical_deleted,
+      :kitchen_type_val_en,
+      :kitchen_type_val_loc,
+      :locale,
+      :long_term_rent_monthly_price,
+      :daily_rent_price,
+      :name,
+      :number_of_balconies,
+      :number_of_bathrooms,
+      :number_of_bedroms,
+      :number_of_rooms,
+      :position,
+      :sale_price,
+      :sale_price_per_square_meter,
+      :property_type_val_en,
+      :property_type_val_loc,
+      :room_height_cm,
+      :short_description,
+      :street,
+      :street_number,
+      :suggested_installment_loan,
+      :terrace,
+      :total_area_m2,
+      :type_of_building_val_en,
+      :type_of_building_val_loc,
+      :year_of_construction
     ])
     |> validate_required([
-      :name,
       :accessible_without_stairs,
-      :elevator,
-      :terrace,
       :backyard,
       :balcony,
+      :elevator,
       :furniture_set,
       :house_equipment,
       :is_active,
-      :is_logical_deleted
+      :is_logical_deleted,
+      :name,
+      :terrace
     ])
   end
 end

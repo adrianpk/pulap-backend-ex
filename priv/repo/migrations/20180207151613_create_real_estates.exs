@@ -33,9 +33,11 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :property_type_val_loc, :string, size: 16
       add :total_area_m2, :float
       add :indoor_area_m2, :float
-      add :price, :float
-      add :price_per_square_meter, :float
-      add :suggested_installment_loan, :float
+      add :sale_price, :integer
+      add :sale_price_per_square_meter, :integer
+      add :long_term_rent_monthly_price, :integer
+      add :daily_rent_price, :integer
+      add :suggested_installment_loan, :integer
       add :currency_code, :string, size: 4
       add :currency_symbol, :string, size: 4
       add :type_of_building_val_en, :string, size: 16
@@ -50,15 +52,29 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :bathroom_area_m2, :float
       add :heating_type_val_en, :string, size: 16
       add :heating_type_val_loc, :string, size: 16
+      add :air_conditioning, :boolean, default: false, null: false
       add :accessible_without_stairs, :boolean, default: false, null: false
       add :elevator, :boolean, default: false, null: false
       add :terrace, :boolean, default: false, null: false
       add :backyard, :boolean, default: false, null: false
+      add :frontyard, :boolean, default: false, null: false
       add :balcony, :boolean, default: false, null: false
       add :number_of_balconies, :integer
       add :furniture_set, :boolean, default: false, null: false
+      add :furniture_set_description, :text
       add :house_equipment, :boolean, default: false, null: false
       add :house_equipment_description, :text
+      add :dishwasher, :boolean, default: false, null: false
+      add :washing_machine, :boolean, default: false, null: false
+      add :clothes_dryer, :boolean, default: false, null: false
+      add :tv_set_type_eng, :string, size: 16
+      add :tv_set_type_loc, :string, size: 16
+      add :internet, :boolean, default: false, null: false
+      add :cable_television, :boolean, default: false, null: false
+      add :satellite_television, :boolean, default: false, null: false
+      add :internet_television, :boolean, default: false, null: false
+      add :free_to_air_television, :boolean, default: false, null: false
+      add :telephone_line, :boolean, default: false, null: false
       add :cards, :jsonb
       add :geolocation, :float
       add :locale, :string

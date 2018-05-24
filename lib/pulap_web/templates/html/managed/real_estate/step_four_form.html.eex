@@ -1,0 +1,85 @@
+<div class="">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+      <%= form_for @changeset, @action, fn f -> %>
+        <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Check following errors, please.</p>
+        </div>
+        <% end %>
+
+        <div class="field">
+          <%= label f, :name, "Name", class: "label" %>
+          <%= text_input f, :name, class: "input is-primary" %>
+          <%= error_tag f, :name %>
+        </div>
+
+        <hr>
+
+        <div class="columns">
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :dishwasher, class: "label" %>
+              <%= text_input f, :dishwasher, class: "input is-primary" %>
+              <%= error_tag f, :dishwasher %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :washing_machine, class: "label" %>
+              <%= text_input f, :washing_machine, class: "input is-primary" %>
+              <%= error_tag f, :washing_machine %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :clothes_dryer, class: "label" %>
+              <%= text_input f, :clothes_dryer, class: "input is-primary" %>
+              <%= error_tag f, :clothes_dryer %>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <div class="field">
+            <%= label f, :furniture_set, class: "label" %>
+            <%= text_input f, :furniture_set, class: "input is-primary" %>
+            <%= error_tag f, :furniture_set %>
+          </div>
+
+          <div class="field">
+            <%= label f, :furniture_set_description, class: "label" %>
+            <%= textarea f, :furniture_set_description, class: "textarea is-primary", rows: "5" %>
+            <%= error_tag f, :furniture_set_description %>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field">
+            <%= label f, :house_equipment, class: "label" %>
+            <%= text_input f, :house_equipment, class: "input is-primary" %>
+            <%= error_tag f, :houser_equipment %>
+          </div>
+
+          <div class="field">
+            <%= label f, :house_equipment_description, class: "label" %>
+            <%= textarea f, :house_equipment_description, class: "textarea is-primary", rows: "5" %>
+            <%= error_tag f, :house_equipment_description %>
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit "Update", class: "button is-link" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

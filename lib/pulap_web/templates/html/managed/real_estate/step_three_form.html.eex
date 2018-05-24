@@ -1,0 +1,108 @@
+<div class="">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+      <%= form_for @changeset, @action, fn f -> %>
+        <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Check following errors, please.</p>
+        </div>
+        <% end %>
+
+        <div class="field">
+          <%= label f, :name, "Name", class: "label" %>
+          <%= text_input f, :name, class: "input is-primary" %>
+          <%= error_tag f, :name %>
+        </div>
+
+        <hr>
+
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <div class="field">
+              <%= label f, :heating_type_val_en, class: "label" %>
+              <%= text_input f, :heating_type_val_en, class: "input is-primary" %>
+              <%= error_tag f, :heating_type_val_en %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :air_conditioning, class: "label" %>
+              <%= text_input f, :air_conditioning, class: "input is-primary" %>
+              <%= error_tag f, :air_conditioning %>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :internet, class: "label" %>
+              <%= text_input f, :internet, class: "input is-primary" %>
+              <%= error_tag f, :internet %>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :telephone_line, class: "label" %>
+              <%= text_input f, :telephone_line, class: "input is-primary" %>
+              <%= error_tag f, :telephone_line %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label f, :tv_set_type_loc, class: "label" %>
+          <%= text_input f, :tv_set_type_loc, class: "input is-primary" %>
+          <%= error_tag f, :tv_set_type_loc %>
+        </div>
+
+
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :cable_television, class: "label" %>
+              <%= text_input f, :cable_television, class: "input is-primary" %>
+              <%= error_tag f, :cable_television %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :satellite_television, class: "label" %>
+              <%= text_input f, :satellite_television, class: "input is-primary" %>
+              <%= error_tag f, :satellite_television %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :internet_television, class: "label" %>
+              <%= text_input f, :internet_television, class: "input is-primary" %>
+              <%= error_tag f, :internet_television %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :free_to_air_television, class: "label" %>
+              <%= text_input f, :free_to_air_television, class: "input is-primary" %>
+              <%= error_tag f, :free_to_air_television %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit "Update", class: "button is-link" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

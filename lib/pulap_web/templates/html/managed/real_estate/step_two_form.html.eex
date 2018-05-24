@@ -1,0 +1,161 @@
+<div class="">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+      <%= form_for @changeset, @action, fn f -> %>
+        <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Check following errors, please.</p>
+        </div>
+        <% end %>
+
+        <div class="field">
+          <%= label f, :name, "Name", class: "label" %>
+          <%= text_input f, :name, class: "input is-primary" %>
+          <%= error_tag f, :name %>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <%# Has english name %>
+          <%= label f, :property_type_val_loc, class: "label" %>
+          <%= text_input f, :property_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :property_type_val_loc %>
+        </div>
+
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :total_area_m2, class: "label" %>
+              <%= number_input f, :total_area_m2, step: "any", class: "input is-primary" %>
+              <%= error_tag f, :total_area_m2 %>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :indoor_area_m2, class: "label" %>
+              <%= number_input f, :indoor_area_m2, step: "any", class: "input is-primary" %>
+              <%= error_tag f, :indoor_area_m2 %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <%# Has english name %>
+          <%= label f, :type_of_building_val_loc, class: "label" %>
+          <%= text_input f, :type_of_building_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :type_of_building_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :year_of_construction, class: "label" %>
+          <%= number_input f, :year_of_construction, class: "input is-primary" %>
+          <%= error_tag f, :year_of_construction %>
+        </div>
+
+        <div class="field">
+          <%= label f, :room_height_cm, class: "label" %>
+          <%= number_input f, :room_height_cm, class: "input is-primary" %>
+          <%= error_tag f, :room_height_cm %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_rooms, class: "label" %>
+          <%= number_input f, :number_of_rooms, class: "input is-primary" %>
+          <%= error_tag f, :number_of_rooms %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_bedroms, class: "label" %>
+          <%= number_input f, :number_of_bedroms, class: "input is-primary" %>
+          <%= error_tag f, :number_of_bedroms %>
+        </div>
+
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :number_of_bathrooms, class: "label" %>
+              <%= number_input f, :number_of_bathrooms, class: "input is-primary" %>
+              <%= error_tag f, :number_of_bathrooms %>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :bathroom_area_m2, class: "label" %>
+              <%= number_input f, :bathroom_area_m2, step: "any", class: "input is-primary" %>
+              <%= error_tag f, :bathroom_area_m2 %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <%# Has english name %>
+          <%= label f, :kitchen_type_val_loc, class: "label" %>
+          <%= text_input f, :kitchen_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :kitchen_type_val_loc %>
+        </div>
+
+        <div class="columns">
+          <div class="column is-third">
+            <div class="field">
+              <%= label f, :backyard, class: "label" %>
+              <%= checkbox f, :backyard, class: "checkbox" %>
+              <%= error_tag f, :backyard %>
+            </div>
+          </div>
+
+          <div class="column is-third">
+            <div class="field">
+              <%= label f, :frontyard, class: "label" %>
+              <%= checkbox f, :frontyard, class: "checkbox" %>
+              <%= error_tag f, :frontyard %>
+            </div>
+          </div>
+
+          <div class="column is-third">
+            <div class="field">
+              <%= label f, :terrace, class: "label" %>
+              <%= checkbox f, :terrace, class: "checkbox" %>
+              <%= error_tag f, :terrace %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_balconies, class: "label" %>
+          <%= number_input f, :number_of_balconies, class: "input is-primary" %>
+          <%= error_tag f, :number_of_balconies %>
+        </div>
+
+
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :accessible_without_stairs, class: "label" %>
+              <%= text_input f, :accessible_without_stairs, class: "input is-primary" %>
+              <%= error_tag f, :accessible_without_stairs %>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :elevator, class: "label" %>
+              <%= text_input f, :elevator, class: "input is-primary" %>
+              <%= error_tag f, :elevator %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit "Update", class: "button is-link" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
