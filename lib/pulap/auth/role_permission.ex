@@ -1,6 +1,6 @@
 defmodule Pulap.Auth.RolePermission do
   @moduledoc false
- 
+
   use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Auth.RolePermission

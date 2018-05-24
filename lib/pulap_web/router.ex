@@ -136,12 +136,18 @@ defmodule PulapWeb.Router do
       post("/real-estate", RealEstateController, :create)
       patch("/real-estate/:id", RealEstateController, :update)
       put("/real-estate/:id", RealEstateController, :update)
-      get("/real-estate/step-two", RealEstateController, :edit_step_two)
+      get("/real-estate/:id/step-two", RealEstateController, :edit_step_two)
       patch("/real-estate/:id/step-two", RealEstateController, :update_step_two)
       put("/real-estate/:id/step-two", RealEstateController, :update_step_two)
-      get("/real-estate/step-three", RealEstateController, :edit_step_three)
+      get("/real-estate/:id/step-three", RealEstateController, :edit_step_three)
       patch("/real-estate/:id/step-three", RealEstateController, :update_step_three)
       put("/real-estate/:id/step-three", RealEstateController, :update_step_three)
+      get("/real-estate/:id/step-four", RealEstateController, :edit_step_four)
+      patch("/real-estate/:id/step-four", RealEstateController, :update_step_four)
+      put("/real-estate/:id/step-four", RealEstateController, :update_step_four)
+      get("/real-estate/:id/step-five", RealEstateController, :edit_step_five)
+      patch("/real-estate/:id/step-five", RealEstateController, :update_step_five)
+      put("/real-estate/:id/step-five", RealEstateController, :update_step_five)
       # resources "/real-estate", RealEstateController do
       # end
     end
