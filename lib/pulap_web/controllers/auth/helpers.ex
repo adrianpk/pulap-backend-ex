@@ -68,11 +68,11 @@ defmodule PulapWeb.Auth.Helpers do
     # - Remove organization from session and connection
     context_id =
       case user.id == supplied_context_id do
-          true ->
+        true ->
           # Do nothing, org is nil
           user.id
 
-          false ->
+        false ->
           # - Search in user_role with:
           # - user_id = user.id, organization_id = supplied_context_id
           case user.has_role_in_organization(supplied_context_id) do

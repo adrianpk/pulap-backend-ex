@@ -144,7 +144,7 @@ defmodule Pulap.Auth.User do
 
           [email] ->
             try do
-              regex_run = Regex.run(~r/(\w+)@([\w.]+)/, email) 
+              regex_run = Regex.run(~r/(\w+)@([\w.]+)/, email)
               validate_domain_and_unique(regex_run, changeset)
               changeset
             rescue
