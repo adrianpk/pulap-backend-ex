@@ -69,7 +69,6 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
     |> redirect(to: real_estate_path(conn, :index))
   end
 
-
   def edit_step_two(conn, %{"id" => id}) do
     real_estate = Biz.get_real_estate!(id)
     changeset = Biz.change_real_estate(real_estate)
@@ -89,7 +88,6 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         render(conn, "edit_step_two.html", real_estate: real_estate, changeset: changeset)
     end
   end
-
 
   def edit_step_three(conn, %{"id" => id}) do
     real_estate = Biz.get_real_estate!(id)
@@ -111,4 +109,43 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
     end
   end
 
+  def edit_step_four(conn, %{"id" => id}) do
+    real_estate = Biz.get_real_estate!(id)
+    changeset = Biz.change_real_estate(real_estate)
+    render(conn, "edit_step_four.html", real_estate: real_estate, changeset: changeset)
+  end
+
+  def update_step_four(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    real_estate = Biz.get_real_estate!(id)
+
+    case Biz.update_real_estate(real_estate, real_estate_params) do
+      {:ok, real_estate} ->
+        conn
+        |> put_flash(:info, "Real estate updated successfully.")
+        |> redirect(to: real_estate_path(conn, :show, real_estate))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit_step_four.html", real_estate: real_estate, changeset: changeset)
+    end
+  end
+
+  def edit_step_five(conn, %{"id" => id}) do
+    real_estate = Biz.get_real_estate!(id)
+    changeset = Biz.change_real_estate(real_estate)
+    render(conn, "edit_step_five.html", real_estate: real_estate, changeset: changeset)
+  end
+
+  def update_step_five(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    real_estate = Biz.get_real_estate!(id)
+
+    case Biz.update_real_estate(real_estate, real_estate_params) do
+      {:ok, real_estate} ->
+        conn
+        |> put_flash(:info, "Real estate updated successfully.")
+        |> redirect(to: real_estate_path(conn, :show, real_estate))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit_step_five.html", real_estate: real_estate, changeset: changeset)
+    end
+  end
 end

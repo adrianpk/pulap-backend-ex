@@ -1,0 +1,320 @@
+<div class="">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+      <%= form_for @changeset, @action, fn f -> %>
+        <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Check following errors, please.</p>
+        </div>
+        <% end %>
+
+        <div class="field">
+          <%= label f, :name, "Name", class: "label" %>
+          <%= text_input f, :name, class: "input is-primary" %>
+          <%= error_tag f, :name %>
+        </div>
+
+        <div class="field">
+          <%= label f, :description, "Description", class: "label" %>
+          <%= textarea f, :description, class: "textarea is-primary", rows: "5" %>
+          <%= error_tag f, :description %>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <label class="label" for="address-autocomplete">Address</label>
+          <input type="search" id="address-autocomplete" class="input is-primary" placeholder="Enter address"></input>
+        </div>
+
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <div class="field">
+              <%= label f, :street, class: "label" %>
+              <%= text_input f, :street, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :street %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :street_number, class: "label" %>
+              <%= text_input f, :street_number, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :street_number %>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :block, class: "label" %>
+              <%= text_input f, :block, class: "input is-primary" %>
+              <%= error_tag f, :block %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :floor, class: "label" %>
+              <%= text_input f, :floor, class: "input is-primary" %>
+              <%= error_tag f, :floor %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :apartment, class: "label" %>
+              <%= text_input f, :apartment, class: "input is-primary" %>
+              <%= error_tag f, :apartment%>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <%= label f, :administrative_area_level_4, class: "label" %>
+              <%= text_input f, :administrative_area_level_4, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_4 %>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :administrative_area_level_3, class: "label" %>
+              <%= text_input f, :administrative_area_level_3, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_3 %>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :administrative_area_level_2, class: "label" %>
+              <%= text_input f, :administrative_area_level_2, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_2 %>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <div class="field">
+              <%= label f, :administrative_area_level_1, class: "label" %>
+              <%= text_input f, :administrative_area_level_1, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_1 %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :postal_code, class: "label" %>
+              <%= text_input f, :postal_code, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :postal_code %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label f, :country, class: "label" %>
+          <%= text_input f, :country, class: "input is-primary", disabled: true %>
+          <%= error_tag f, :country %>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <%= label f, :property_type_val_en, class: "label" %>
+          <%= text_input f, :property_type_val_en, class: "input is-primary" %>
+          <%= error_tag f, :property_type_val_en %>
+        </div>
+
+        <div class="field">
+          <%= label f, :property_type_val_loc, class: "label" %>
+          <%= text_input f, :property_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :property_type_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :total_area_m2, class: "label" %>
+          <%= number_input f, :total_area_m2, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :total_area_m2 %>
+        </div>
+
+        <div class="field">
+          <%= label f, :indoor_area_m2, class: "label" %>
+          <%= number_input f, :indoor_area_m2, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :indoor_area_m2 %>
+        </div>
+
+        <div class="field">
+          <%= label f, :price, class: "label" %>
+          <%= number_input f, :price, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :price %>
+        </div>
+
+        <div class="field">
+          <%= label f, :price_per_square_meter, class: "label" %>
+          <%= number_input f, :price_per_square_meter, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :price_per_square_meter %>
+        </div>
+
+        <div class="field">
+          <%= label f, :suggested_installment_loan, class: "label" %>
+          <%= number_input f, :suggested_installment_loan, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :suggested_installment_loan %>
+        </div>
+
+        <div class="field">
+          <%= label f, :type_of_building_val_en, class: "label" %>
+          <%= text_input f, :type_of_building_val_en, class: "input is-primary" %>
+          <%= error_tag f, :type_of_building_val_en %>
+        </div>
+
+        <div class="field">
+          <%= label f, :type_of_building_val_loc, class: "label" %>
+          <%= text_input f, :type_of_building_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :type_of_building_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :year_of_construction, class: "label" %>
+          <%= number_input f, :year_of_construction, class: "input is-primary" %>
+          <%= error_tag f, :year_of_construction %>
+        </div>
+
+        <div class="field">
+          <%= label f, :room_height_cm, class: "label" %>
+          <%= number_input f, :room_height_cm, class: "input is-primary" %>
+          <%= error_tag f, :room_height_cm %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_rooms, class: "label" %>
+          <%= number_input f, :number_of_rooms, class: "input is-primary" %>
+          <%= error_tag f, :number_of_rooms %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_bedroms, class: "label" %>
+          <%= number_input f, :number_of_bedroms, class: "input is-primary" %>
+          <%= error_tag f, :number_of_bedroms %>
+        </div>
+
+        <div class="field">
+          <%= label f, :kitchen_type_val_en, class: "label" %>
+          <%= text_input f, :kitchen_type_val_en, class: "input is-primary" %>
+          <%= error_tag f, :kitchen_type_val_en %>
+        </div>
+
+        <div class="field">
+          <%= label f, :kitchen_type_val_loc, class: "label" %>
+          <%= text_input f, :kitchen_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :kitchen_type_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_bathrooms, class: "label" %>
+          <%= number_input f, :number_of_bathrooms, class: "input is-primary" %>
+          <%= error_tag f, :number_of_bathrooms %>
+        </div>
+
+        <div class="field">
+          <%= label f, :bathroom_area_m2, class: "label" %>
+          <%= number_input f, :bathroom_area_m2, step: "any", class: "input is-primary" %>
+          <%= error_tag f, :bathroom_area_m2 %>
+        </div>
+
+        <div class="field">
+          <%= label f, :heating_type_val_en, class: "label" %>
+          <%= text_input f, :heating_type_val_en, class: "input is-primary" %>
+          <%= error_tag f, :heating_type_val_en %>
+        </div>
+
+        <div class="field">
+          <%= label f, :heating_type_val_loc, class: "label" %>
+          <%= text_input f, :heating_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :heating_type_val_loc %>
+        </div>
+
+        <div class="field">
+          <%= label f, :accessible_without_stairs, class: "label" %>
+          <%= checkbox f, :accessible_without_stairs, class: "checkbox" %>
+          <%= error_tag f, :accessible_without_stairs %>
+        </div>
+
+        <div class="field">
+          <%= label f, :elevator, class: "label" %>
+          <%= checkbox f, :elevator, class: "checkbox" %>
+          <%= error_tag f, :elevator %>
+        </div>
+
+        <div class="field">
+          <%= label f, :terrace, class: "label" %>
+          <%= checkbox f, :terrace, class: "checkbox" %>
+          <%= error_tag f, :terrace %>
+        </div>
+
+        <div class="field">
+          <%= label f, :backyard, class: "label" %>
+          <%= checkbox f, :backyard, class: "checkbox" %>
+          <%= error_tag f, :backyard %>
+        </div>
+
+        <div class="field">
+          <%= label f, :balcony, class: "label" %>
+          <%= checkbox f, :balcony, class: "checkbox" %>
+          <%= error_tag f, :balcony %>
+        </div>
+
+        <div class="field">
+          <%= label f, :number_of_balconies, class: "label" %>
+          <%= number_input f, :number_of_balconies, class: "input is-primary" %>
+          <%= error_tag f, :number_of_balconies %>
+        </div>
+
+        <div class="field">
+          <%= label f, :furniture_set, class: "label" %>
+          <%= checkbox f, :furniture_set, class: "checkbox" %>
+          <%= error_tag f, :furniture_set %>
+        </div>
+
+        <div class="field">
+          <%= label f, :house_equipment, class: "label" %>
+          <%= checkbox f, :house_equipment, class: "checkbox" %>
+          <%= error_tag f, :house_equipment %>
+        </div>
+
+        <div class="field">
+          <%= label f, :house_equipment_description, class: "label" %>
+          <%= textarea f, :house_equipment_description, class: "input is-primary" %>
+          <%= error_tag f, :house_equipment_description %>
+        </div>
+
+        <div class="field">
+          <%= label f, :currency_code, class: "label" %>
+          <%= text_input f, :currency_code, class: "input is-primary" %>
+          <%= error_tag f, :currency_code %>
+        </div>
+
+        <div class="field">
+          <%= label f, :currency_symbol, class: "label" %>
+          <%= text_input f, :currency_symbol, class: "input is-primary" %>
+          <%= error_tag f, :currency_symbol %>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit "Sign In", class: "button is-link" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render PulapWeb.HTML.Shared, "places_pl.html", assigns %>

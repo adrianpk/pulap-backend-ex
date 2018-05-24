@@ -1,0 +1,62 @@
+<div class="">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+      <%= form_for @changeset, @action, fn f -> %>
+        <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Check following errors, please.</p>
+        </div>
+        <% end %>
+
+        <div class="field">
+          <%= label f, :name, "Name", class: "label" %>
+          <%= text_input f, :name, class: "input is-primary" %>
+          <%= error_tag f, :name %>
+        </div>
+
+        <hr>
+
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :sale_price, class: "label" %>
+              <%= text_input f, :sale_price, class: "input is-primary" %>
+              <%= error_tag f, :sale_price %>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :suggested_installment_loan, class: "label" %>
+              <%= text_input f, :suggested_installment_loan, class: "input is-primary" %>
+              <%= error_tag f, :suggested_installment_loan %>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <%= label f, :long_term_rent_monthly_price, class: "label" %>
+          <%= text_input f, :long_term_monthly_price, class: "input is-primary" %>
+          <%= error_tag f, :long_term_monthly_price %>
+        </div>
+
+
+        <div class="field">
+          <%= label f, :daily_rent_monthly_price, class: "label" %>
+          <%= text_input f, :daily_rent_monthly_price, class: "input is-primary" %>
+          <%= error_tag f, :daily_rent_monthly_price %>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit "Update", class: "button is-link" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
