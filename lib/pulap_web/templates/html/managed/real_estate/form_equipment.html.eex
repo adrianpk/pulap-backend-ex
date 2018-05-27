@@ -21,7 +21,7 @@
           <div class="column is-one-third">
             <div class="field">
               <%= label f, :dishwasher, class: "label" %>
-              <%= text_input f, :dishwasher, class: "input is-primary" %>
+              <%= checkbox f, :dishwasher, class: "is-primary" %>
               <%= error_tag f, :dishwasher %>
             </div>
           </div>
@@ -29,7 +29,7 @@
           <div class="column is-one-third">
             <div class="field">
               <%= label f, :washing_machine, class: "label" %>
-              <%= text_input f, :washing_machine, class: "input is-primary" %>
+              <%= checkbox f, :washing_machine, class: "is-primary" %>
               <%= error_tag f, :washing_machine %>
             </div>
           </div>
@@ -37,7 +37,7 @@
           <div class="column is-one-third">
             <div class="field">
               <%= label f, :clothes_dryer, class: "label" %>
-              <%= text_input f, :clothes_dryer, class: "input is-primary" %>
+              <%= checkbox f, :clothes_dryer, class: "is-primary" %>
               <%= error_tag f, :clothes_dryer %>
             </div>
           </div>
@@ -48,7 +48,7 @@
         <div class="field">
           <div class="field">
             <%= label f, :furniture_set, class: "label" %>
-            <%= text_input f, :furniture_set, class: "input is-primary" %>
+            <%= checkbox f, :furniture_set, class: "is-primary" %>
             <%= error_tag f, :furniture_set %>
           </div>
 
@@ -62,7 +62,7 @@
         <div class="field">
           <div class="field">
             <%= label f, :house_equipment, class: "label" %>
-            <%= text_input f, :house_equipment, class: "input is-primary" %>
+            <%= checkbox f, :house_equipment, class: "is-primary" %>
             <%= error_tag f, :houser_equipment %>
           </div>
 

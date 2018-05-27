@@ -1,0 +1,132 @@
+<div class="">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+      <%= form_for @changeset, @action, fn f -> %>
+        <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Check following errors, please.</p>
+        </div>
+        <% end %>
+
+        <div class="field">
+          <%= label f, :name, "Name", class: "label" %>
+          <%= text_input f, :name, class: "input is-primary" %>
+          <%= error_tag f, :name %>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <label class="label" for="address-autocomplete">Address</label>
+          <input type="search" id="address-autocomplete" class="input is-primary" placeholder="Enter address"></input>
+        </div>
+
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <div class="field">
+              <%= label f, :street, class: "label" %>
+              <%= text_input f, :street, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :street %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :street_number, class: "label" %>
+              <%= text_input f, :street_number, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :street_number %>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :block, class: "label" %>
+              <%= text_input f, :block, class: "input is-primary" %>
+              <%= error_tag f, :block %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :floor, class: "label" %>
+              <%= text_input f, :floor, class: "input is-primary" %>
+              <%= error_tag f, :floor %>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="field">
+              <%= label f, :apartment, class: "label" %>
+              <%= text_input f, :apartment, class: "input is-primary" %>
+              <%= error_tag f, :apartment%>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <%= label f, :administrative_area_level_4, class: "label" %>
+              <%= text_input f, :administrative_area_level_4, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_4 %>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :administrative_area_level_3, class: "label" %>
+              <%= text_input f, :administrative_area_level_3, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_3 %>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <%= label f, :administrative_area_level_2, class: "label" %>
+              <%= text_input f, :administrative_area_level_2, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_2 %>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <div class="field">
+              <%= label f, :administrative_area_level_1, class: "label" %>
+              <%= text_input f, :administrative_area_level_1, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_1 %>
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <%= label f, :postal_code, class: "label" %>
+              <%= text_input f, :postal_code, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :postal_code %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label f, :country, class: "label" %>
+          <%= text_input f, :country, class: "input is-primary", disabled: true %>
+          <%= error_tag f, :country %>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit "Sign In", class: "button is-link" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render PulapWeb.HTML.Shared, "places_pl.html", assigns %>

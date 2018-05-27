@@ -1,0 +1,12 @@
+<div class="section">
+  <h2 class="subtitle">
+    Edit Real Estate
+  </h2>
+
+  <%= render "form_equipment.html", Map.put(assigns, :action, real_estate_path(@conn, :update_equipment, @real_estate)) %>
+
+</div>
+
+<%= render PulapWeb.HTML.Shared, "real_estate_edit_buttons.html", Map.put(assigns, :current, :equipment) %>
+
+<span><%= link "Back", to: real_estate_path(@conn, :index) %></span>
