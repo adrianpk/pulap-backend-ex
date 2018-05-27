@@ -8,15 +8,15 @@ exports.config = {
       // http://brunch.io/docs/config#-files-
       joinTo: {
         "js/app.js": /js/,
-        "js/vendor.js": /(vendor)|(deps)/
+        "js/vendor.js": /(deps)|(vendor)/
       },
       // To change the order of concatenation of files, explicitly mention here
-      order: {
-        before: [
-          "vendor/js/places.min.js",
-          "vendor/js/search-places.js"
-        ]
-      }
+      // order: {
+      //   before: [
+      //     "vendor/js/places.min.js",
+      //     "vendor/js/search-places.js"
+      //   ]
+      // }
     },
     stylesheets: {
       joinTo: "css/app.css",
@@ -39,7 +39,7 @@ exports.config = {
   // Phoenix paths configuration
   paths: {
     // Dependencies and current project directories to watch
-    watched: ["static", "css", "js", "vendor"], //, "elm"
+    watched: ["static", "css", "js"], //, "elm"
 
     // Where to compile files to
     public: "../priv/static"
@@ -68,14 +68,15 @@ exports.config = {
   modules: {
     autoRequire: {
       "js/app.js": ["js/app"]
+      // "js/vendor.js": ["js/vendor"]
     }
   },
 
   npm: {
-    enabled: true,
-    whitelist: ['places.js'],
-    globals: {
-      places: 'places.js'
-    }
+    enabled: true
+    // whitelist: ['places.js'],
+    // globals: {
+    //   places: 'places.js'
+    // }
   }
 };
