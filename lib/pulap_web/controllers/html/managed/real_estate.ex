@@ -1,7 +1,8 @@
 defmodule PulapWeb.HTML.Managed.RealEstateController do
   use PulapWeb, :controller
 
-  alias Pulap.Biz
+  # alias Pulap.Biz
+  alias Pulap.Biz.RealEstate.Context, as: RealEstateContext
   alias Pulap.Biz.RealEstate
   alias PulapWeb.Auth.Helpers
 
@@ -12,19 +13,19 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
           user |> Repo.preload(:managed_real_estate)
 
         %{organization: organization} ->
-          organization |> Repo.preload(:managed_real_estate)
+          organization |> Repo.preload(:managed)
       end
 
-    render(conn, "index.html", real_estate: context.managed_real_estate())
+    render(conn, "index.html", real_estate: context.managed())
   end
 
   def new(conn, _params) do
-    changeset = Biz.change_real_estate(%RealEstate{})
+    changeset = RealEstateContext.change(%RealEstate{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"real_estate" => real_estate_params}) do
-    case Biz.create_real_estate(real_estate_params) do
+    case RealEstateContext.create(real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate created successfully.")
@@ -36,20 +37,20 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   end
 
   def show(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
+    real_estate = RealEstateContext.get!(id)
     render(conn, "show.html", real_estate: real_estate)
   end
 
   def edit(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
-    changeset = Biz.change_real_estate(real_estate)
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
     render(conn, "edit.html", real_estate: real_estate, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "real_estate" => real_estate_params}) do
-    real_estate = Biz.get_real_estate!(id)
+    real_estate = RealEstateContext.get!(id)
 
-    case Biz.update_real_estate(real_estate, real_estate_params) do
+    case RealEstateContext.update(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
@@ -61,91 +62,111 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   end
 
   def delete(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
-    {:ok, _real_estate} = Biz.delete_real_estate(real_estate)
+    real_estate = RealEstateContext.get!(id)
+    {:ok, _real_estate} = RealEstateContext.delete(real_estate)
 
     conn
     |> put_flash(:info, "Real estate deleted successfully.")
     |> redirect(to: real_estate_path(conn, :index))
   end
 
-  def edit_step_two(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
-    changeset = Biz.change_real_estate(real_estate)
-    render(conn, "edit_step_two.html", real_estate: real_estate, changeset: changeset)
+  def edit_address(conn, %{"id" => id}) do
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
+    render(conn, "edit_address.html", real_estate: real_estate, changeset: changeset)
   end
 
-  def update_step_two(conn, %{"id" => id, "real_estate" => real_estate_params}) do
-    real_estate = Biz.get_real_estate!(id)
+  def update_address(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    real_estate = RealEstateContext.get!(id)
 
-    case Biz.update_real_estate(real_estate, real_estate_params) do
+    case RealEstateContext.update(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
         |> redirect(to: real_estate_path(conn, :show, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit_step_two.html", real_estate: real_estate, changeset: changeset)
+        render(conn, "edit_address.html", real_estate: real_estate, changeset: changeset)
     end
   end
 
-  def edit_step_three(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
-    changeset = Biz.change_real_estate(real_estate)
-    render(conn, "edit_step_three.html", real_estate: real_estate, changeset: changeset)
+  def edit_main_features(conn, %{"id" => id}) do
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
+    render(conn, "edit_main_features.html", real_estate: real_estate, changeset: changeset)
   end
 
-  def update_step_three(conn, %{"id" => id, "real_estate" => real_estate_params}) do
-    real_estate = Biz.get_real_estate!(id)
+  def update_main_features(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    real_estate = RealEstateContext.get!(id)
 
-    case Biz.update_real_estate(real_estate, real_estate_params) do
+    case RealEstateContext.update(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
         |> redirect(to: real_estate_path(conn, :show, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit_step_three.html", real_estate: real_estate, changeset: changeset)
+        render(conn, "edit_main_features.html", real_estate: real_estate, changeset: changeset)
     end
   end
 
-  def edit_step_four(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
-    changeset = Biz.change_real_estate(real_estate)
-    render(conn, "edit_step_four.html", real_estate: real_estate, changeset: changeset)
+  def edit_services(conn, %{"id" => id}) do
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
+    render(conn, "edit_services.html", real_estate: real_estate, changeset: changeset)
   end
 
-  def update_step_four(conn, %{"id" => id, "real_estate" => real_estate_params}) do
-    real_estate = Biz.get_real_estate!(id)
+  def update_services(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    real_estate = RealEstateContext.get!(id)
 
-    case Biz.update_real_estate(real_estate, real_estate_params) do
+    case RealEstateContext.update(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
         |> redirect(to: real_estate_path(conn, :show, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit_step_four.html", real_estate: real_estate, changeset: changeset)
+        render(conn, "edit_services.html", real_estate: real_estate, changeset: changeset)
     end
   end
 
-  def edit_step_five(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
-    changeset = Biz.change_real_estate(real_estate)
-    render(conn, "edit_step_five.html", real_estate: real_estate, changeset: changeset)
+  def edit_equipment(conn, %{"id" => id}) do
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
+    render(conn, "edit_equipment.html", real_estate: real_estate, changeset: changeset)
   end
 
-  def update_step_five(conn, %{"id" => id, "real_estate" => real_estate_params}) do
-    real_estate = Biz.get_real_estate!(id)
+  def update_equipment(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    real_estate = RealEstateContext.get!(id)
 
-    case Biz.update_real_estate(real_estate, real_estate_params) do
+    case RealEstateContext.update(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
         |> redirect(to: real_estate_path(conn, :show, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit_step_five.html", real_estate: real_estate, changeset: changeset)
+        render(conn, "edit_equipment.html", real_estate: real_estate, changeset: changeset)
+    end
+  end
+
+  def edit_prices(conn, %{"id" => id}) do
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
+    render(conn, "edit_prices.html", real_estate: real_estate, changeset: changeset)
+  end
+
+  def update_prices(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    real_estate = RealEstateContext.get!(id)
+
+    case RealEstateContext.update(real_estate, real_estate_params) do
+      {:ok, real_estate} ->
+        conn
+        |> put_flash(:info, "Real estate updated successfully.")
+        |> redirect(to: real_estate_path(conn, :show, real_estate))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit_prices.html", real_estate: real_estate, changeset: changeset)
     end
   end
 end

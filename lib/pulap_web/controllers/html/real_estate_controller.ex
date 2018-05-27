@@ -1,23 +1,24 @@
 defmodule PulapWeb.HTML.RealEstateController do
   use PulapWeb, :controller
 
-  alias Pulap.Biz
+  # alias Pulap.Biz
   alias Pulap.Biz.RealEstate
+  alias Pulap.Biz.RealEstate.Context, as: RealEstateContext
   alias PulapWeb.Auth.Helpers
   require Logger
 
   def index(conn, _params) do
-    real_estate = Biz.list_real_estate()
+    real_estate = RealEstateContext.list()
     render(conn, "index.html", real_estate: real_estate)
   end
 
   def new(conn, _params) do
-    changeset = Biz.change_real_estate(%RealEstate{})
+    changeset = RealEstateContext.change(%RealEstate{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"real_estate" => real_estate_params}) do
-    case Biz.create_real_estate(real_estate_params) do
+    case RealEstateContext.create(real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate created successfully.")
@@ -29,20 +30,20 @@ defmodule PulapWeb.HTML.RealEstateController do
   end
 
   def show(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
+    real_estate = RealEstateContext.get!(id)
     render(conn, "show.html", real_estate: real_estate)
   end
 
   def edit(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
-    changeset = Biz.change_real_estate(real_estate)
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
     render(conn, "edit.html", real_estate: real_estate, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "real_estate" => real_estate_params}) do
-    real_estate = Biz.get_real_estate!(id)
+    real_estate = RealEstateContext.get!(id)
 
-    case Biz.update_real_estate(real_estate, real_estate_params) do
+    case RealEstateContext.update(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
@@ -54,8 +55,8 @@ defmodule PulapWeb.HTML.RealEstateController do
   end
 
   def delete(conn, %{"id" => id}) do
-    real_estate = Biz.get_real_estate!(id)
-    {:ok, _real_estate} = Biz.delete_real_estate(real_estate)
+    real_estate = RealEstateContext.get!(id)
+    {:ok, _real_estate} = RealEstateContext.delete(real_estate)
 
     conn
     |> put_flash(:info, "Real estate deleted successfully.")
