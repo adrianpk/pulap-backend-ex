@@ -7,4 +7,6 @@
 
 </div>
 
+<%= render PulapWeb.HTML.Shared, "real_estate_edit_buttons.html", Map.put(assigns, :current, :presentation) %>
+
 <span><%= link "Back", to: real_estate_path(@conn, :index) %></span>
