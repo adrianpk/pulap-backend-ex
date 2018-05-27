@@ -1,5 +1,6 @@
 <script>
  (function() {
+   var places = require('places.js');
    var placesAutocomplete = places({
      container: document.querySelector('#address-autocomplete'),
      type: 'address',
