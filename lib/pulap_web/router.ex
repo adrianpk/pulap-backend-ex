@@ -127,27 +127,39 @@ defmodule PulapWeb.Router do
       # put "/profile", ProfileController, :update
     end
 
-    resources "/real-estate", RealEstateController do
-      # nested resource
-    end
-
+    # resources "/real-estate", RealEstateController do
+    #   # nested resource
+    # end
+    
     scope "/managed", Managed do
+      get("/real-estate", RealEstateController, :index)
       get("/real-estate/new", RealEstateController, :new)
       post("/real-estate", RealEstateController, :create)
+      get("/real-estate/:id", RealEstateController, :edit)
+      post("/real-estate/:id", RealEstateController, :edit)
       patch("/real-estate/:id", RealEstateController, :update)
       put("/real-estate/:id", RealEstateController, :update)
-      get("/real-estate/:id/step-two", RealEstateController, :edit_step_two)
-      patch("/real-estate/:id/step-two", RealEstateController, :update_step_two)
-      put("/real-estate/:id/step-two", RealEstateController, :update_step_two)
-      get("/real-estate/:id/step-three", RealEstateController, :edit_step_three)
-      patch("/real-estate/:id/step-three", RealEstateController, :update_step_three)
-      put("/real-estate/:id/step-three", RealEstateController, :update_step_three)
-      get("/real-estate/:id/step-four", RealEstateController, :edit_step_four)
-      patch("/real-estate/:id/step-four", RealEstateController, :update_step_four)
-      put("/real-estate/:id/step-four", RealEstateController, :update_step_four)
-      get("/real-estate/:id/step-five", RealEstateController, :edit_step_five)
-      patch("/real-estate/:id/step-five", RealEstateController, :update_step_five)
-      put("/real-estate/:id/step-five", RealEstateController, :update_step_five)
+      get("/real-estate/:id/address", RealEstateController, :edit_address)
+      post("/real-estate/:id/address", RealEstateController, :edit_address)
+      patch("/real-estate/:id/address", RealEstateController, :update_address)
+      put("/real-estate/:id/address", RealEstateController, :update_address)
+      get("/real-estate/:id/main-features", RealEstateController, :edit_main_features)
+      post("/real-estate/:id/main-features", RealEstateController, :edit_main_features)
+      post("/real-estate/:id/main-features", RealEstateController, :edit_main_features)
+      patch("/real-estate/:id/main-features", RealEstateController, :update_main_features)
+      put("/real-estate/:id/main-features", RealEstateController, :update_main_features)
+      get("/real-estate/:id/services", RealEstateController, :edit_services)
+      post("/real-estate/:id/services", RealEstateController, :edit_services)
+      patch("/real-estate/:id/services", RealEstateController, :update_services)
+      put("/real-estate/:id/services", RealEstateController, :update_services)
+      get("/real-estate/:id/equipment", RealEstateController, :edit_equipment)
+      post("/real-estate/:id/equipment", RealEstateController, :edit_equipment)
+      patch("/real-estate/:id/equipment", RealEstateController, :update_equipment)
+      put("/real-estate/:id/equipment", RealEstateController, :update_equipment)
+      get("/real-estate/:id/prices", RealEstateController, :edit_prices)
+      post("/real-estate/:id/prices", RealEstateController, :edit_prices)
+      patch("/real-estate/:id/prices", RealEstateController, :update_prices)
+      put("/real-estate/:id/prices", RealEstateController, :update_prices)
       # resources "/real-estate", RealEstateController do
       # end
     end
