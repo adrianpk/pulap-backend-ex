@@ -1,0 +1,24 @@
+<div class="section">
+  <div class="columns">
+    <div class="column">
+      <%= button "Presentation", to: real_estate_path(@conn, :edit, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :presentation) %>
+    </div>
+    <div class="column">
+      <%= button "Address", to: real_estate_path(@conn, :edit_address, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :address) %>
+    </div>
+    <div class="column">
+      <%= button "Main Features", to: real_estate_path(@conn, :edit_main_features, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :main_features) %>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <%= button "Services", to: real_estate_path(@conn, :edit_services, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :services) %>
+    </div>
+    <div class="column">
+      <%= button "Equipment", to: real_estate_path(@conn, :edit_equipment, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :equipment) %>
+    </div>
+    <div class="column">
+      <%= button "Prices", to: real_estate_path(@conn, :edit_prices, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :prices) %>
+    </div>
+  </div>
+</div>
