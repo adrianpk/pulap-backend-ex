@@ -90,6 +90,114 @@ defmodule Pulap.Biz.RealEstate.Context do
   end
 
   @doc """
+  Updates a real_estate presentation.
+
+  ## Examples
+
+      iex> update_presentation(real_estate, %{field: new_value})
+      {:ok, %RealEstate{}}
+
+      iex> update_presentation(real_estate, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_presentation(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> RealEstate.edit_presentation_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates a real_estate address.
+
+  ## Examples
+
+      iex> update_address(real_estate, %{field: new_value})
+      {:ok, %RealEstate{}}
+
+      iex> update_address(real_estate, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_address(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> RealEstate.edit_address_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates a real_estate main_features.
+
+  ## Examples
+
+      iex> update_main_features(real_estate, %{field: new_value})
+      {:ok, %RealEstate{}}
+
+      iex> update_main_features(real_estate, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_main_features(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> RealEstate.edit_main_features_changeset(attrs)
+    |> Repo.update()
+  end
+
+    @doc """
+  Updates a real_estate services.
+
+  ## Examples
+
+      iex> update_services(real_estate, %{field: new_value})
+      {:ok, %RealEstate{}}
+
+      iex> update_services(real_estate, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_services(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> RealEstate.edit_services_changeset(attrs)
+    |> Repo.update()
+  end
+
+    @doc """
+  Updates a real_estate equipment.
+
+  ## Examples
+
+      iex> update_equipment(real_estate, %{field: new_value})
+      {:ok, %RealEstate{}}
+
+      iex> update_equipment(real_estate, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_equipment(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> RealEstate.edit_equipment_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates a real_estate prices.
+
+  ## Examples
+
+      iex> update_prices(real_estate, %{field: new_value})
+      {:ok, %RealEstate{}}
+
+      iex> update_prices(real_estate, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_prices(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> RealEstate.edit_prices_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking real_estate changes.
 
   ## Examples
