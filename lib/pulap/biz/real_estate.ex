@@ -136,4 +136,134 @@ defmodule Pulap.Biz.RealEstate do
       :terrace
     ])
   end
+
+  @doc false
+  def edit_presentation_changeset(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> cast(attrs, [
+      :name,
+      :description
+      ])
+    |> validate_required([
+      :name,
+      :description
+      ])
+  end
+
+  @doc false
+  def edit_address_changeset(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> cast(attrs, [
+      :administrative_area_level_1,
+      :administrative_area_level_2,
+      :administrative_area_level_3,
+      :administrative_area_level_4,
+      :administrative_area_level_5,
+      :apartment,
+      :block,
+      :country,
+      :floor,
+      :name,
+      :postal_code,
+      :street,
+      :street_number,
+      ])
+    |> validate_required([
+      :administrative_area_level_1,
+      #:administrative_area_level_2,
+      #:administrative_area_level_3,
+      #:administrative_area_level_4,
+      #:administrative_area_level_5,
+      #:apartment,
+      #:block,
+      :country,
+      #:floor,
+      :name,
+      #:postal_code,
+      #:street,
+      #:street_number,
+      ])
+  end
+
+  @doc false
+  def edit_main_features_changeset(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> cast(attrs, [
+      :accessible_without_stairs,
+      :backyard,
+      :bathroom_area_m2,
+      :elevator,
+      :frontyard,
+      :indoor_area_m2,
+      :kitchen_type_val_loc,
+      :name,
+      :number_of_balconies,
+      :number_of_bathrooms,
+      :number_of_bedroms,
+      :number_of_rooms,
+      :property_type_val_loc,
+      :room_height_cm,
+      :terrace,
+      :total_area_m2,
+      :type_of_building_val_loc,
+      :year_of_construction
+      ])
+    |> validate_required([
+      :name,
+      :property_type_val_loc
+      ])
+  end
+
+  @doc false
+  def edit_services_changeset(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> cast(attrs, [
+      :name,
+      :air_conditioning,
+      :cable_television,
+      :free_to_air_television,
+      :heating_type_val_en,
+      :internet,
+      :internet_television,
+      :name,
+      :satellite_television,
+      :telephone_line,
+      :tv_set_type_loc,
+      ])
+    |> validate_required([
+      :name
+      ])
+  end
+
+  @doc false
+  def edit_equipment_changeset(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> cast(attrs, [
+        :clothes_dryer,
+        :dishwasher,
+        :furniture_set,
+        :furniture_set_description,
+        :house_equipment,
+        :house_equipment_description,
+        :name,
+        :washing_machine,
+      ])
+    |> validate_required([
+        :name,
+      ])
+  end
+
+  @doc false
+  def edit_prices_changeset(%RealEstate{} = real_estate, attrs) do
+    real_estate
+    |> cast(attrs, [
+        :daily_rent_monthly_price,
+        :long_term_rent_monthly_price,
+        :sale_price,
+        :suggested_installment_loan,
+      ])
+    |> validate_required([
+        :name
+      ])
+  end
 end
