@@ -83,7 +83,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
-        |> redirect(to: real_estate_path(conn, :show, real_estate))
+        |> redirect(to: real_estate_path(conn, :edit_presentation, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", real_estate: real_estate, changeset: changeset)
@@ -103,7 +103,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
-        |> redirect(to: real_estate_path(conn, :show, real_estate))
+        |> redirect(to: real_estate_path(conn, :edit_address, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit_address.html", real_estate: real_estate, changeset: changeset)
@@ -123,7 +123,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
-        |> redirect(to: real_estate_path(conn, :show, real_estate))
+        |> redirect(to: real_estate_path(conn, :edit_main_features, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit_main_features.html", real_estate: real_estate, changeset: changeset)
@@ -143,7 +143,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
-        |> redirect(to: real_estate_path(conn, :show, real_estate))
+        |> redirect(to: real_estate_path(conn, :edit_services, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit_services.html", real_estate: real_estate, changeset: changeset)
@@ -163,7 +163,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
-        |> redirect(to: real_estate_path(conn, :show, real_estate))
+        |> redirect(to: real_estate_path(conn, :edit_equipment, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit_equipment.html", real_estate: real_estate, changeset: changeset)
@@ -183,7 +183,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
-        |> redirect(to: real_estate_path(conn, :show, real_estate))
+        |> redirect(to: real_estate_path(conn, :edit_prices, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit_prices.html", real_estate: real_estate, changeset: changeset)
