@@ -12,8 +12,8 @@ defmodule Pulap.Repo.Migrations.CreateGeoAreas do
       add :canonical_name, :string, size: 255, null: false
       add :canonical_name_loc, :string, size: 255, null: false
       add :normalized_name, :string, size: 64
-      add :administrative_level, :string, size: 8, null: false
-      add :administrative_level_type, :string, size: 16, null: false
+      add :administrative_area_level, :string, size: 8, null: false
+      add :administrative_area_level_type, :string, size: 16, null: false
       # locality
       # ward
       # sublocality
