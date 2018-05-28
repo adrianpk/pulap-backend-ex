@@ -7,8 +7,11 @@ exports.config = {
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
       joinTo: {
-        "js/app.js": /js/,
-        "js/vendor.js": /(deps)|(vendor)/
+        //"js/app.js": /js/,
+        'js/app.js': [/^.*node_modules(?!zxcvbn).*$/, /js/],
+        //"js/vendor.js": /(deps)|(vendor)/
+        'js/vendor.js': [/^.*node_modules(?!zxcvbn).*$/, /vendor/, /deps/],
+
       },
       // To change the order of concatenation of files, explicitly mention here
       // order: {
@@ -39,7 +42,7 @@ exports.config = {
   // Phoenix paths configuration
   paths: {
     // Dependencies and current project directories to watch
-    watched: ["static", "css", "js"], //, "elm"
+    watched: ["static", "css", "js", "vendor"], //, "elm"
 
     // Where to compile files to
     public: "../priv/static"
@@ -67,8 +70,8 @@ exports.config = {
 
   modules: {
     autoRequire: {
-      "js/app.js": ["js/app"]
-      // "js/vendor.js": ["js/vendor"]
+      "js/app.js": ["js/app.js"]
+      // "js/vendor.js": ["js/vendor.js"]
     }
   },
 
