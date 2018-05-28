@@ -130,15 +130,15 @@ defmodule PulapWeb.Router do
     # resources "/real-estate", RealEstateController do
     #   # nested resource
     # end
-    
+
     scope "/managed", Managed do
       get("/real-estate", RealEstateController, :index)
       get("/real-estate/new", RealEstateController, :new)
       post("/real-estate", RealEstateController, :create)
-      get("/real-estate/:id", RealEstateController, :edit)
-      post("/real-estate/:id", RealEstateController, :edit)
-      patch("/real-estate/:id", RealEstateController, :update)
-      put("/real-estate/:id", RealEstateController, :update)
+      get("/real-estate/:id/presentation", RealEstateController, :edit_presentation)
+      post("/real-estate/:id/presentation", RealEstateController, :edit_presentation)
+      patch("/real-estate/:id/presentation", RealEstateController, :update_presentation)
+      put("/real-estate/:id/presentation", RealEstateController, :update_presentation)
       get("/real-estate/:id/address", RealEstateController, :edit_address)
       post("/real-estate/:id/address", RealEstateController, :edit_address)
       patch("/real-estate/:id/address", RealEstateController, :update_address)

@@ -1,7 +1,7 @@
 <div class="section">
   <div class="columns">
     <div class="column">
-      <%= button "Presentation", to: real_estate_path(@conn, :edit, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :presentation) %>
+      <%= button "Presentation", to: real_estate_path(@conn, :edit_presentation, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :presentation) %>
     </div>
     <div class="column">
       <%= button "Address", to: real_estate_path(@conn, :edit_address, @real_estate), method: "post", class: "button is-primary is-fullwidth", disabled: (@current == :address) %>
