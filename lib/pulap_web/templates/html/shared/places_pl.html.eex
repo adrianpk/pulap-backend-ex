@@ -1,56 +1,75 @@
+<script src="https://cdn.jsdelivr.net/npm/places.js@1.7.2"></script>
 <script>
- (function() {
-   var places = require('places.js');
-   var placesAutocomplete = places({
-     container: document.querySelector('#address-autocomplete'),
-     type: 'address',
-     templates: {
-       value: function(suggestion) {
-         return suggestion.name;
-       }
-     }
-   });
+(function() {
+  var placesAutocomplete = places({
+  container: document.querySelector('#address-autocomplete'),
+  type: 'address',
+  templates: {
+    value: function(suggestion) {
+      return suggestion.name;
+    }
+  }
+});
 
-   placesAutocomplete.on('change', function resultSelected(e) {
-     var address = parseAddress(e.suggestion.name || '')
-     document.querySelector('#real_estate_street').value = address[1] || '';
-     document.querySelector('#real_estate_street_number').value = address[0] || ''; // e.rawAnswer.hits[0].administrative[1]
-     wojewodztwo = parseWojewodztwo(e.suggestion.administrative) || '';
-     document.querySelector('#real_estate_administrative_area_level_1').value = wojewodztwo
-     document.querySelector('#real_estate_administrative_area_level_2').value = e.suggestion.county  || '';
-     document.querySelector('#real_estate_administrative_area_level_3').value = e.suggestion.city || '';
-     document.querySelector('#real_estate_administrative_area_level_4').value = e.suggestion.suburb|| '';
-     document.querySelector('#real_estate_postal_code').value = e.suggestion.postcode || '';
-     document.querySelector('#real_estate_country').value = e.suggestion.country || '';
-   });
- })();
+placesAutocomplete.on('change', function resultSelected(e) {
+  var address = parseAddress(e.suggestion.name || '')
+  handleEnabled(document.querySelector('#real_estate_street'), address[1], false)
+  handleEnabled(document.querySelector('#real_estate_street_number'), address[0], false)
+  wojewodztwo = parseWojewodztwo(e.suggestion.administrative);
+  handleEnabled(document.querySelector('#real_estate_administrative_area_level_1'), wojewodztwo, true)
+  handleEnabled(document.querySelector('#real_estate_administrative_area_level_2'), e.suggestion.county, true)
+  handleEnabled(document.querySelector('#real_estate_administrative_area_level_3'), e.suggestion.city, true)
+  handleEnabled(document.querySelector('#real_estate_administrative_area_level_4'), e.suggestion.suburb, true)
+  handleEnabled(document.querySelector('#real_estate_postal_code'), e.suggestion.postcode, true)
+  handleEnabled(document.querySelector('#real_estate_country'), e.suggestion.country, true)
+});
+})();
 
- var streetNumberRegex = /\d+$/
- function parseAddress(address) {
-   var result = ['', '']
-   var matches = address.match(streetNumberRegex);
-   if (matches) {
-     result[0] = matches[0];
-   }
-   result[1] = address.substring(0, address.indexOf(result[0])).trim();
-   return result
- }
- var wojewodztwoRegex = /(województwo)./
- function parseWojewodztwo(wojewodztwo) {
-   var matches = wojewodztwo.match(wojewodztwoRegex);
-   if (matches) {
-     toDiscard = matches[0];
-     result = toTitleCase(wojewodztwo.substring(11).trim());
-     return result
-   }
-   return wojewodztwo
- }
- var splitRegex = /(?:[A-zĄĆĘŁŃÓŚŹŻąćęłńóśźż])+(?:[A-zĄĆĘŁŃÓŚŹŻąćęłńóśźż])+/g
- function toTitleCase(str) {
-   console.log("str: " + str)
-   return str.replace(splitRegex, function(text){
-     console.log(text.charAt(0) + " - - " + text.substr(1))
-     return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
-   });
- }
+function handleEnabled(field, value, isReadOnly) {
+  if (typeof value != 'undefined' && value) {
+    field.value = value.trim()
+    field.disabled = false
+  } else {
+    field.value = null
+    field.disabled = true
+  }
+  if (isReadOnly) {
+    field.readOnly = true
+    field.classList.remove("is-primary")
+    field.setAttribute("readonly", "")
+  } else {
+    field.readOnly = false
+    field.classList.add("is-primary")
+    field.removeAttribute("readonly")
+  }
+}
+
+var streetNumberRegex = /\d+$/
+function parseAddress(address) {
+  var result = ['', '']
+  var matches = address.match(streetNumberRegex);
+  if (matches) {
+    result[0] = matches[0];
+  }
+  result[1] = address.substring(0, address.indexOf(result[0])).trim();
+  return result
+}
+
+var wojewodztwoRegex = /(województwo)./
+function parseWojewodztwo(wojewodztwo) {
+  var matches = wojewodztwo.match(wojewodztwoRegex);
+  if (matches) {
+    toDiscard = matches[0];
+    result = toTitleCase(wojewodztwo.substring(11).trim());
+    return result
+  }
+  return wojewodztwo
+}
+
+var splitRegex = /(?:[A-zĄĆĘŁŃÓŚŹŻąćęłńóśźż])+(?:[A-zĄĆĘŁŃÓŚŹŻąćęłńóśźż])+/g
+function toTitleCase(str) {
+  return str.replace(splitRegex, function(text){
+    return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+  });
+}
 </script>
