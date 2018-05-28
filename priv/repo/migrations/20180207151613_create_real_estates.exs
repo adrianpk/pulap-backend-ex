@@ -12,16 +12,16 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :geo_area_canonical_name, :string, size: 255
       add :geo_area_canonical_name_loc, :string, size: 255
       add :country, :string, size: 8
-      add :administrative_level_1, :string, size: 64
-      add :administrative_level_1_type, :string, size: 32
-      add :administrative_level_2, :string, size: 64
-      add :administrative_level_2_type, :string, size: 32
-      add :administrative_level_3, :string, size: 64
-      add :administrative_level_3_type, :string, size: 32
-      add :administrative_level_4, :string, size: 64
-      add :administrative_level_4_type, :string, size: 32
-      add :administrative_level_5, :string, size: 64
-      add :administrative_level_5_type, :string, size: 32
+      add :administrative_area_level_1, :string, size: 64
+      add :administrative_area_level_1_type, :string, size: 32
+      add :administrative_area_level_2, :string, size: 64
+      add :administrative_area_level_2_type, :string, size: 32
+      add :administrative_area_level_3, :string, size: 64
+      add :administrative_area_level_3_type, :string, size: 32
+      add :administrative_area_level_4, :string, size: 64
+      add :administrative_area_level_4_type, :string, size: 32
+      add :administrative_area_level_5, :string, size: 64
+      add :administrative_area_level_5_type, :string, size: 32
       add :street, :string, size: 64
       add :street_number, :string, size: 8
       add :block, :string, size: 32
