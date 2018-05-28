@@ -3,7 +3,7 @@
     Edit Real Estate
   </h2>
 
-  <%= render "form.html", Map.put(assigns, :action, real_estate_path(@conn, :update_presentation, @real_estate)) %>
+  <%= render "form_presentation.html", Map.put(assigns, :action, real_estate_path(@conn, :update_presentation, @real_estate)) %>
 
 </div>
 

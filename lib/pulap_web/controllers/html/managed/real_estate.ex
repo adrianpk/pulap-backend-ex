@@ -70,6 +70,26 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
     |> redirect(to: real_estate_path(conn, :index))
   end
 
+  def edit_presentation(conn, %{"id" => id}) do
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
+    render(conn, "edit.html", real_estate: real_estate, changeset: changeset)
+  end
+
+  def update_presentation(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    real_estate = RealEstateContext.get!(id)
+
+    case RealEstateContext.update_presentation(real_estate, real_estate_params) do
+      {:ok, real_estate} ->
+        conn
+        |> put_flash(:info, "Real estate updated successfully.")
+        |> redirect(to: real_estate_path(conn, :show, real_estate))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", real_estate: real_estate, changeset: changeset)
+    end
+  end
+
   def edit_address(conn, %{"id" => id}) do
     real_estate = RealEstateContext.get!(id)
     changeset = RealEstateContext.change(real_estate)
@@ -79,7 +99,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def update_address(conn, %{"id" => id, "real_estate" => real_estate_params}) do
     real_estate = RealEstateContext.get!(id)
 
-    case RealEstateContext.update(real_estate, real_estate_params) do
+    case RealEstateContext.update_address(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
@@ -99,7 +119,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def update_main_features(conn, %{"id" => id, "real_estate" => real_estate_params}) do
     real_estate = RealEstateContext.get!(id)
 
-    case RealEstateContext.update(real_estate, real_estate_params) do
+    case RealEstateContext.update_main_features(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
@@ -119,7 +139,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def update_services(conn, %{"id" => id, "real_estate" => real_estate_params}) do
     real_estate = RealEstateContext.get!(id)
 
-    case RealEstateContext.update(real_estate, real_estate_params) do
+    case RealEstateContext.update_services(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
@@ -139,7 +159,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def update_equipment(conn, %{"id" => id, "real_estate" => real_estate_params}) do
     real_estate = RealEstateContext.get!(id)
 
-    case RealEstateContext.update(real_estate, real_estate_params) do
+    case RealEstateContext.update_equipment(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
@@ -159,7 +179,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def update_prices(conn, %{"id" => id, "real_estate" => real_estate_params}) do
     real_estate = RealEstateContext.get!(id)
 
-    case RealEstateContext.update(real_estate, real_estate_params) do
+    case RealEstateContext.update_prices(real_estate, real_estate_params) do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate updated successfully.")
