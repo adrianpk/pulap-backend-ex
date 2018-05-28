@@ -121,7 +121,7 @@
 
         <div class="field is-grouped">
           <div class="control">
-            <%= submit "Sign In", class: "button is-link" %>
+            <%= submit "Update", class: "button is-link" %>
           </div>
         </div>
         <% end %>
