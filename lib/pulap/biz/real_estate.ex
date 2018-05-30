@@ -6,6 +6,7 @@ defmodule Pulap.Biz.RealEstate do
   alias Pulap.Biz.RealEstate
 
   schema "real_estate" do
+    # field(:geolocation, Geo.Point)
     field(:accessible_without_stairs, :boolean, default: false)
     field(:administrative_area_level_1, :string)
     field(:administrative_area_level_1_type, :string)
@@ -28,7 +29,7 @@ defmodule Pulap.Biz.RealEstate do
     field(:currency_code, :string)
     field(:currency_id, :id)
     field(:currency_symbol, :string)
-    field(:daily_rent_price, :float)
+    field(:daily_rent_price, :integer)
     field(:description, :string)
     field(:elevator, :boolean, default: false)
     field(:floor, :string)
@@ -38,7 +39,6 @@ defmodule Pulap.Biz.RealEstate do
     field(:geo_area_id, :id)
     field(:geo_area_name, :string)
     field(:geo_area_name_loc, :string)
-    field(:geolocation, Geo.Point)
     field(:heating_type_id, :id)
     field(:heating_type_val_en, :string)
     field(:heating_type_val_loc, :string)
@@ -51,7 +51,7 @@ defmodule Pulap.Biz.RealEstate do
     field(:kitchen_type_val_en, :string)
     field(:kitchen_type_val_loc, :string)
     field(:locale, :string)
-    field(:long_term_rent_monthly_price, :float)
+    field(:long_term_rent_monthly_price, :integer)
     field(:name, :string)
     field(:number_of_balconies, :integer)
     field(:number_of_bathrooms, :integer)
@@ -63,12 +63,12 @@ defmodule Pulap.Biz.RealEstate do
     field(:property_type_val_en, :string)
     field(:property_type_val_loc, :string)
     field(:room_height_cm, :integer)
-    field(:sale_price, :float)
-    field(:sale_price_per_square_meter, :float)
+    field(:sale_price, :integer)
+    field(:sale_price_per_square_meter, :integer)
     field(:short_description, :string)
     field(:street, :string)
     field(:street_number, :string)
-    field(:suggested_installment_loan, :float)
+    field(:suggested_installment_loan, :integer)
     field(:terrace, :boolean, default: false)
     field(:total_area_m2, :float)
     field(:type_of_building_id, :id)
@@ -101,7 +101,7 @@ defmodule Pulap.Biz.RealEstate do
       :geo_area_canonical_name_loc,
       :geo_area_name,
       :geo_area_name_loc,
-      :geolocation,
+      # :geolocation,
       :heating_type_val_en,
       :heating_type_val_loc,
       :house_equipment,
@@ -155,11 +155,11 @@ defmodule Pulap.Biz.RealEstate do
     |> cast(attrs, [
       :name,
       :description
-      ])
+    ])
     |> validate_required([
       :name,
       :description
-      ])
+    ])
   end
 
   @doc false
@@ -178,23 +178,23 @@ defmodule Pulap.Biz.RealEstate do
       :name,
       :postal_code,
       :street,
-      :street_number,
-      ])
+      :street_number
+    ])
     |> validate_required([
       :administrative_area_level_1,
-      #:administrative_area_level_2,
-      #:administrative_area_level_3,
-      #:administrative_area_level_4,
-      #:administrative_area_level_5,
-      #:apartment,
-      #:block,
+      # :administrative_area_level_2,
+      # :administrative_area_level_3,
+      # :administrative_area_level_4,
+      # :administrative_area_level_5,
+      # :apartment,
+      # :block,
       :country,
-      #:floor,
-      :name,
-      #:postal_code,
-      #:street,
-      #:street_number,
-      ])
+      # :floor,
+      :name
+      # :postal_code,
+      # :street,
+      # :street_number,
+    ])
   end
 
   @doc false
@@ -219,11 +219,11 @@ defmodule Pulap.Biz.RealEstate do
       :total_area_m2,
       :type_of_building_val_loc,
       :year_of_construction
-      ])
+    ])
     |> validate_required([
       :name,
       :property_type_val_loc
-      ])
+    ])
   end
 
   @doc false
@@ -240,42 +240,42 @@ defmodule Pulap.Biz.RealEstate do
       :name,
       :satellite_television,
       :telephone_line,
-      :tv_set_type_loc,
-      ])
+      :tv_set_type_loc
+    ])
     |> validate_required([
       :name
-      ])
+    ])
   end
 
   @doc false
   def edit_equipment_changeset(%RealEstate{} = real_estate, attrs) do
     real_estate
     |> cast(attrs, [
-        :clothes_dryer,
-        :dishwasher,
-        :furniture_set,
-        :furniture_set_description,
-        :house_equipment,
-        :house_equipment_description,
-        :name,
-        :washing_machine,
-      ])
+      :clothes_dryer,
+      :dishwasher,
+      :furniture_set,
+      :furniture_set_description,
+      :house_equipment,
+      :house_equipment_description,
+      :name,
+      :washing_machine
+    ])
     |> validate_required([
-        :name,
-      ])
+      :name
+    ])
   end
 
   @doc false
   def edit_prices_changeset(%RealEstate{} = real_estate, attrs) do
     real_estate
     |> cast(attrs, [
-        :daily_rent_monthly_price,
-        :long_term_rent_monthly_price,
-        :sale_price,
-        :suggested_installment_loan,
-      ])
+      :daily_rent_monthly_price,
+      :long_term_rent_monthly_price,
+      :sale_price,
+      :suggested_installment_loan
+    ])
     |> validate_required([
-        :name
-      ])
+      :name
+    ])
   end
 end
