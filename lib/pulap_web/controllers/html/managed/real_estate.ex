@@ -29,7 +29,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
       {:ok, real_estate} ->
         conn
         |> put_flash(:info, "Real estate created successfully.")
-        |> redirect(to: real_estate_path(conn, :show, real_estate))
+        |> redirect(to: real_estate_path(conn, :edit_address, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
