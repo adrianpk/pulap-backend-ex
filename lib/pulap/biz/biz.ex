@@ -294,7 +294,6 @@ defmodule Pulap.Biz do
     Currency.changeset(currency, %{})
   end
 
-
   alias Pulap.Biz.Tenure
 
   @doc """

@@ -143,7 +143,7 @@ defmodule Pulap.Biz.RealEstate.Context do
     |> Repo.update()
   end
 
-    @doc """
+  @doc """
   Updates a real_estate services.
 
   ## Examples
@@ -161,7 +161,7 @@ defmodule Pulap.Biz.RealEstate.Context do
     |> Repo.update()
   end
 
-    @doc """
+  @doc """
   Updates a real_estate equipment.
 
   ## Examples
@@ -209,5 +209,4 @@ defmodule Pulap.Biz.RealEstate.Context do
   def change(%RealEstate{} = real_estate) do
     RealEstate.changeset(real_estate, %{})
   end
-
 end

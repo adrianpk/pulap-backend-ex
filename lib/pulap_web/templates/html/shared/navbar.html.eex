@@ -2,7 +2,8 @@
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <%= render PulapWeb.HTML.Shared, "logo.html", assigns %>
+        <%#= render PulapWeb.HTML.Shared, "logo.html", assigns %>
+        <img src="/images/plp_logo.png" alt="Pulap" height="28">
       </a>
 
       <div id="navbarBurger" class="navbar-burger burger" data-target="navMenuIndex">
@@ -43,7 +44,7 @@
                   <i class="fas fa-plus"></i>
                 </span>
                 <strong>Add Real Estate</strong>
-                <br> Add a new Property 
+                <br> Add a new Property
               </span>
             </a>
             <hr class="navbar-divider">
