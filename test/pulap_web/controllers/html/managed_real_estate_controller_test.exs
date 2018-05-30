@@ -2,12 +2,13 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   use PulapWeb.ConnCase
 
   alias Pulap.Auth
-  alias Pulap.Auth.User
+  # alias Pulap.Auth.User
   alias Pulap.Biz
-  alias Pulap.Biz.RealEstate
+  # alias Pulap.Biz.RealEstate
   alias Pulap.Biz.RealEstate.Context, as: RealEstateContext
-  alias Pulap.Biz.Managership
+  # alias Pulap.Biz.Managership
   alias PulapWeb.Auth.Helpers, as: AuthHelper
+  require Logger
 
   @user_create_attrs %{
     username: "owner",
@@ -259,17 +260,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   describe "index" do
     setup [:create_all]
 
-    test "lists all user managed real estate", %{conn: conn, user: user} do
-      signin =
-        conn
-        |> AuthHelper.sign_in_with_username_and_password(
-          # @user_create_attrs[:username],
-          "john",
-          @user_create_attrs[:password],
-          nil
-        )
-
-      case signin do
+    test "lists all user managed real estate", %{conn: conn, user: _user} do
+      case sign_in(conn) do
         {:ok, conn} ->
           conn = get(conn, real_estate_path(conn, :index))
           response = html_response(conn, 200)
@@ -277,90 +269,100 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
           assert response =~ "Real Estate One"
           assert response =~ "Real Estate Two"
 
-        {:error, reason, conn} ->
+        {:error, _reason, _conn} ->
           flunk("User not logged in")
       end
     end
   end
 
   describe "new real estate" do
-    test "renders form", %{conn: conn} do
-      conn = get(conn, user_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Real Estate"
-    end
-  end
+    setup [:create_all]
 
-  describe "signup user" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, user_path(conn, :signup), user: @real_estate_create_attrs)
+    test "renders new Real Estate form", %{conn: conn} do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn = get(conn, real_estate_path(conn, :new))
+          response = html_response(conn, 200)
+          # Logger.warn(response)
+          assert response =~ "New Real Estate"
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == user_path(conn, :show, id)
-
-      conn = get(conn, user_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show User"
-    end
-
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, user_path(conn, :create), user: @invalid_real_estate_attrs)
-      assert html_response(conn, 200) =~ "New User"
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
     end
   end
 
   describe "create real estate" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, user_path(conn, :create), user: @real_estate_create_attrs)
+    setup [:create_user]
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == user_path(conn, :show, id)
+    test "redirects to edit when data is valid", %{conn: conn} do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn = post(conn, real_estate_path(conn, :create), real_estate: @real_estate_create_attrs)
+          redirection_parameters = redirected_params(conn)
+          # Logger.warn(inspect redirection_parameters)
+          assert %{id: id} = redirection_parameters
+          assert redirected_to(conn) == real_estate_path(conn, :edit_address, id)
+          conn = get(conn, real_estate_path(conn, :edit_address, id))
+          assert html_response(conn, 200) =~ "Edit Real Estate - Address"
 
-      conn = get(conn, user_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show User"
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, user_path(conn, :create), user: @invalid_real_estate_attrs)
-      assert html_response(conn, 200) =~ "New User"
-    end
+    # test "renders errors when data is invalid", %{conn: conn} do
+    #   conn = post(conn, real_estate_path(conn, :create), user: @invalid_real_estate_attrs)
+    #   assert html_response(conn, 200) =~ "New Real Estate"
+    # end
   end
 
   describe "edit real estate presentation" do
-    setup [:create_user]
+    setup [:create_all]
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
-      conn = get(conn, user_path(conn, :edit, user))
+      conn = get(conn, real_estate_path(conn, :edit, user))
       assert html_response(conn, 200) =~ "Edit User"
     end
   end
 
   describe "update real estate presentation" do
-    setup [:create_user]
+    setup [:create_all]
 
     test "redirects when data is valid", %{conn: conn, user: user} do
-      conn = put(conn, user_path(conn, :update, user), user: @update_real_estate_attrs)
-      assert redirected_to(conn) == user_path(conn, :show, user)
+      conn = put(conn, real_estate_path(conn, :update, user), user: @update_real_estate_attrs)
+      assert redirected_to(conn) == real_estate_path(conn, :show, user)
 
-      conn = get(conn, user_path(conn, :show, user))
+      conn = get(conn, real_estate_path(conn, :show, user))
       assert html_response(conn, 200) =~ "updated@gmail.com"
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
-      conn = put(conn, user_path(conn, :update, user), user: @invalid_real_estate_attrs)
+      conn = put(conn, real_estate_path(conn, :update, user), user: @invalid_real_estate_attrs)
       assert html_response(conn, 200) =~ "Edit User"
     end
   end
 
   describe "delete real estate" do
-    setup [:create_user]
+    setup [:create_all]
 
     test "deletes chosen user", %{conn: conn, user: user} do
-      conn = delete(conn, user_path(conn, :delete, user))
-      assert redirected_to(conn) == user_path(conn, :index)
+      conn = delete(conn, real_estate_path(conn, :delete, user))
+      assert redirected_to(conn) == real_estate_path(conn, :index)
 
       assert_error_sent(404, fn ->
-        get(conn, user_path(conn, :show, user))
+        get(conn, real_estate_path(conn, :show, user))
       end)
     end
+  end
+
+  def sign_in(conn) do
+    conn
+    |> AuthHelper.sign_in_with_username_and_password(
+      @user_create_attrs[:username],
+      @user_create_attrs[:password],
+      nil
+    )
   end
 
   def fixture(:user) do
@@ -376,11 +378,6 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   def fixture(:real_estate_two) do
     {:ok, real_estate_two} = RealEstateContext.create(@real_estate_two_create_attrs)
     real_estate_two
-  end
-
-  def fixture(:managership) do
-    {:ok, managership} = Biz.create_managership(@managership_create_attrs)
-    managership
   end
 
   def fixture(:all) do
@@ -399,15 +396,15 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     {:ok, user: user}
   end
 
-  defp create_real_estate(_) do
-    real_estate = fixture(:real_estate)
-    {:ok, real_estate: real_estate}
-  end
+  # defp create_real_estate(_) do
+  #   real_estate = fixture(:real_estate)
+  #   {:ok, real_estate: real_estate}
+  # end
 
-  defp create_managership(_) do
-    managership = fixture(:managership)
-    {:ok, managership: managership}
-  end
+  # defp create_managership(_) do
+  #   managership = fixture(:managership)
+  #   {:ok, managership: managership}
+  # end
 
   defp create_all(_) do
     {user, real_estate, managership, real_estate_two, managership_two} = fixture(:all)
