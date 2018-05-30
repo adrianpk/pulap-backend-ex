@@ -13,10 +13,10 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
           user |> Repo.preload(:managed_real_estate)
 
         %{organization: organization} ->
-          organization |> Repo.preload(:managed)
+          organization |> Repo.preload(:managed_real_estate)
       end
 
-    render(conn, "index.html", real_estate: context.managed())
+    render(conn, "index.html", real_estate: context.managed_real_estate)
   end
 
   def new(conn, _params) do
