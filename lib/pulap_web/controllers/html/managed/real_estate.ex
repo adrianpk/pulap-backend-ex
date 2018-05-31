@@ -73,7 +73,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def edit_presentation(conn, %{"id" => id}) do
     real_estate = RealEstateContext.get!(id)
     changeset = RealEstateContext.change(real_estate)
-    render(conn, "edit.html", real_estate: real_estate, changeset: changeset)
+    render(conn, "edit_presentation.html", real_estate: real_estate, changeset: changeset)
   end
 
   def update_presentation(conn, %{"id" => id, "real_estate" => real_estate_params}) do
@@ -86,7 +86,8 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         |> redirect(to: real_estate_path(conn, :edit_presentation, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", real_estate: real_estate, changeset: changeset)
+        conn = conn |> put_flash(:error, "Check following errors, please.")
+        render(conn, "edit_presentation.html", real_estate: real_estate, changeset: changeset)
     end
   end
 
@@ -106,6 +107,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         |> redirect(to: real_estate_path(conn, :edit_address, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        conn = conn |> put_flash(:error, "Check following errors, please.")
         render(conn, "edit_address.html", real_estate: real_estate, changeset: changeset)
     end
   end

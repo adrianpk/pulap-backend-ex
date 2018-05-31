@@ -8,7 +8,21 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   alias Pulap.Biz.RealEstate.Context, as: RealEstateContext
   # alias Pulap.Biz.Managership
   alias PulapWeb.Auth.Helpers, as: AuthHelper
+  import PulapWeb.TestHelpers
   require Logger
+
+  # Sample timestamp "2010-04-17 14:00:00.000000Z",
+
+  # Sample test structure
+
+  # test "redirects to edit real estate presentation when data is valid", %{conn: conn} do
+  #   case sign_in(conn) do
+  #     {:ok, conn} ->
+  #       # Do the test
+  #     {:error, _reason, _conn} ->
+  #       flunk("User not logged in")
+  #   end
+  # end
 
   @user_create_attrs %{
     username: "owner",
@@ -83,8 +97,6 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     type_of_building_val_loc: "Tradycyjny",
     year_of_construction: "1978"
   }
-
-  # Sample timestamp "2010-04-17 14:00:00.000000Z",
 
   @update_real_estate_attrs %{
     apartment: "B",
@@ -255,7 +267,6 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     year_of_construction: "1978"
   }
 
-  # require Logger
 
   describe "index" do
     setup [:create_all]
@@ -295,64 +306,103 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   describe "create real estate" do
     setup [:create_user]
 
-    test "redirects to edit when data is valid", %{conn: conn} do
+    test "redirects to edit real estate presentation when data is valid", %{conn: conn} do
       case sign_in(conn) do
         {:ok, conn} ->
-          conn = post(conn, real_estate_path(conn, :create), real_estate: @real_estate_create_attrs)
+          conn =
+            post(conn, real_estate_path(conn, :create), real_estate: @real_estate_create_attrs)
+
           redirection_parameters = redirected_params(conn)
           # Logger.warn(inspect redirection_parameters)
           assert %{id: id} = redirection_parameters
           assert redirected_to(conn) == real_estate_path(conn, :edit_address, id)
-          conn = get(conn, real_estate_path(conn, :edit_address, id))
-          assert html_response(conn, 200) =~ "Edit Real Estate - Address"
+          assert flash_messages_contain(conn, "Real estate created successfully.")
+
+          ## VERIFY: Connection recycling not working as expected in tests
+          ## Trying to reuse the connection for a second request make it lose authentication.
+          ## But it also fail if a reauthentication is tryed.
+          # conn = conn |> recycle_conn
+          # conn = get(conn, real_estate_path(conn, :edit_presentation, id))
+          # response = html_response(conn, 302)
+          # Logger.warn(inspect response)
+          # assert response =~ "Edit Real Estate - Presentation"
 
         {:error, _reason, _conn} ->
           flunk("User not logged in")
       end
     end
 
-    # test "renders errors when data is invalid", %{conn: conn} do
-    #   conn = post(conn, real_estate_path(conn, :create), user: @invalid_real_estate_attrs)
-    #   assert html_response(conn, 200) =~ "New Real Estate"
-    # end
+    test "renders errors when data is invalid", %{conn: conn} do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            post(conn, real_estate_path(conn, :create), real_estate: @invalid_real_estate_attrs)
+
+          assert html_response(conn, 200) =~ "New Real Estate"
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
   end
 
   describe "edit real estate presentation" do
     setup [:create_all]
 
-    test "renders form for editing chosen user", %{conn: conn, user: user} do
-      conn = get(conn, real_estate_path(conn, :edit, user))
-      assert html_response(conn, 200) =~ "Edit User"
+    test "renders form for editing chosen real estate", %{conn: conn, user: _user, real_estate: real_estate} do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn = get(conn, real_estate_path(conn, :edit_presentation, real_estate))
+          # Logger.warn(html_response(conn, 200))
+          assert html_response(conn, 200) =~ "Edit Real Estate - Presentation"
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
     end
   end
 
   describe "update real estate presentation" do
     setup [:create_all]
 
-    test "redirects when data is valid", %{conn: conn, user: user} do
-      conn = put(conn, real_estate_path(conn, :update, user), user: @update_real_estate_attrs)
-      assert redirected_to(conn) == real_estate_path(conn, :show, user)
+    test "redirects to real estate edit presentation when data is valid", %{conn: conn, user: user, real_estate: real_estate} do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn = put(conn, real_estate_path(conn, :update_presentation, real_estate), real_estate: @update_real_estate_attrs)
+          assert redirected_to(conn) == real_estate_path(conn, :edit_presentation, real_estate)
+          assert flash_messages_contain(conn, "Real estate updated successfully.")
 
-      conn = get(conn, real_estate_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "updated@gmail.com"
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
     end
 
-    test "renders errors when data is invalid", %{conn: conn, user: user} do
-      conn = put(conn, real_estate_path(conn, :update, user), user: @invalid_real_estate_attrs)
-      assert html_response(conn, 200) =~ "Edit User"
+    test "renders errors when data is invalid", %{conn: conn, user: user, real_estate: real_estate} do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn = put(conn, real_estate_path(conn, :update_presentation, real_estate), real_estate: @invalid_real_estate_attrs)
+          assert html_response(conn, 200) =~ "Edit Real Estate - Presentation"
+          assert flash_messages_contain(conn, "Check following errors, please.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
     end
   end
 
   describe "delete real estate" do
     setup [:create_all]
 
-    test "deletes chosen user", %{conn: conn, user: user} do
-      conn = delete(conn, real_estate_path(conn, :delete, user))
-      assert redirected_to(conn) == real_estate_path(conn, :index)
+    test "deletes chosen user", %{conn: conn, user: user, real_estate: real_estate} do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn = delete(conn, real_estate_path(conn, :delete, real_estate))
+          assert redirected_to(conn) == real_estate_path(conn, :index)
+          assert flash_messages_contain(conn, "Real estate deleted successfully.")
 
-      assert_error_sent(404, fn ->
-        get(conn, real_estate_path(conn, :show, user))
-      end)
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
     end
   end
 
@@ -416,4 +466,10 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
      real_estate_two: real_estate_two,
      managership_two: managership_two}
   end
+
+  # defp recycle_conn(conn) do
+  #   saved_assigns = conn.assigns
+  #   conn = conn |> recycle()
+  #   Map.put(conn, :assigns, saved_assigns)
+  # end
 end

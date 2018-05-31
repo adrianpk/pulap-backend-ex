@@ -1,3 +1,5 @@
+<%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+
 <div class="section">
   <h2 class="subtitle">
     Edit Real Estate - Address

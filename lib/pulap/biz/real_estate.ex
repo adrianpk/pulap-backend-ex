@@ -78,6 +78,9 @@ defmodule Pulap.Biz.RealEstate do
     field(:year_of_construction, :integer)
 
     timestamps()
+
+    has_many(:managerships, Pulap.Biz.Managership, on_delete: :delete_all)
+
   end
 
   @doc false

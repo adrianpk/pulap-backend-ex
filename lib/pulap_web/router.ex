@@ -160,6 +160,7 @@ defmodule PulapWeb.Router do
       post("/real-estate/:id/prices", RealEstateController, :edit_prices)
       patch("/real-estate/:id/prices", RealEstateController, :update_prices)
       put("/real-estate/:id/prices", RealEstateController, :update_prices)
+      delete("/real-estate/:id", RealEstateController, :delete)
       # resources "/real-estate", RealEstateController do
       # end
     end
