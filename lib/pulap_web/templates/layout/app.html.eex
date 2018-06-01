@@ -10,6 +10,7 @@
     <title>Pulap</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <!-- <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"> -->
+    <noscript><style> .is-jsonly { display: none !important } </style></noscript>
   </head>
 
   <body class="layout-default">
@@ -26,7 +27,7 @@
               </div>
             </div>
             <div class="tile is-9 is-parent is-block">
-                <%= render @view_module, @view_template, assigns %>
+              <%= render @view_module, @view_template, assigns %>
             </div>
             <div class="tile is-vertical is-parent is-hidden-mobile">
               <div class="tile is-child <blue></blue> post">
@@ -44,8 +45,7 @@
         </div>
       </div>
       <%= render PulapWeb.HTML.Shared, "bottombar.html", assigns %>
-      <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
-
+      <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
       <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
       <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
     </div>
