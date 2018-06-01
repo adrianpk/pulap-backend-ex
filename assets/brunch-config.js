@@ -71,7 +71,7 @@ exports.config = {
   modules: {
     autoRequire: {
       "js/app.js": ["js/app.js"]
-      // "js/vendor.js": ["js/vendor.js"]
+      //"js/vendor.js": ["js/vendor.js"]
     }
   },
 

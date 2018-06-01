@@ -2,16 +2,19 @@
   <%= for real_estate <- @real_estate do %>
   <div class="tile is-ancestor">
     <div class="tile is-parent is-vertical is-11">
-      <div class="tile is-child">
+      <div class="tile is-hild">
         <div class="card" >
           <div class="card-image">
             <div class="image is-4by3">
               <img alt="Placeholder image" src="/images/realestate/realestate1.png">
-              <a class="button is-medium is-text">
+              <%= link to: real_estate_path(@conn, :edit_presentation, real_estate), method: :post, class: "button is-medium is-text is-jsonly", href: real_estate_path(@conn, :edit_presentation, real_estate) do %>
                 <span class="icon">
                   <i class="fas fa-edit"></i>
                 </span>
-              </a>
+              <% end %>
+              <noscript>
+                <%= link "Edit", to: real_estate_path(@conn, :edit_presentation, real_estate), method: :get, class: "button is-medium", href: real_estate_path(@conn, :edit_presentation, real_estate) %>
+              </noscript>
             </div>
           </div>
           <div class="card-content">
