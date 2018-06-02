@@ -1,20 +1,20 @@
 <%= if get_flash(@conn, :info) do %>
 <div class="notification is-primary">
-  <button class="delete" onclick="dismiss(this)"></button>
+  <button class="delete is-jsonly" onclick="dismiss(this)"></button>
   <%= get_flash(@conn, :info) %>
 </div>
 <% end %>
 
 <%= if get_flash(@conn, :warn) do %>
 <div class="notification is-primary">
-  <button class="delete" onclick="dismiss(this)"></button>
+  <button class="delete is-jsonly" onclick="dismiss(this)"></button>
   <%= get_flash(@conn, :warn) %>
 </div>
 <% end %>
 
 <%= if get_flash(@conn, :error) do %>
 <div class="notification is-primary">
-  <button class="delete" onclick="dismiss(this)"></button>
+  <button class="delete is-jsonly" onclick="dismiss(this)"></button>
   <%= get_flash(@conn, :error) %>
 </div>
 <% end %>
