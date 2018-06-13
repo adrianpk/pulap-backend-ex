@@ -3,11 +3,6 @@
     <div class="tile is-parent">
       <div class="tile is-child">
       <%= form_for @changeset, @action, fn f -> %>
-        <%= if @changeset.action do %>
-        <div class="alert alert-danger">
-          <p>Check following errors, please.</p>
-        </div>
-        <% end %>
 
         <div class="field">
           <%= label f, :name, "Name", class: "label" %>
@@ -39,15 +34,14 @@
 
         <div class="field">
           <%= label f, :long_term_rent_monthly_price, class: "label" %>
-          <%= text_input f, :long_term_monthly_price, class: "input is-primary" %>
-          <%= error_tag f, :long_term_monthly_price %>
+          <%= text_input f, :long_term_rent_monthly_price, class: "input is-primary" %>
+          <%= error_tag f, :long_term_rent_monthly_price %>
         </div>
 
-
         <div class="field">
-          <%= label f, :daily_rent_monthly_price, class: "label" %>
-          <%= text_input f, :daily_rent_monthly_price, class: "input is-primary" %>
-          <%= error_tag f, :daily_rent_monthly_price %>
+          <%= label f, :daily_rent_price, class: "label" %>
+          <%= text_input f, :daily_rent_price, class: "input is-primary" %>
+          <%= error_tag f, :daily_rent_price %>
         </div>
 
         <div class="field is-grouped">

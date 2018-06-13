@@ -1,0 +1,42 @@
+<div class="section">
+  <div class="columns">
+    <div class="column">
+      <%= button "Presentation", to: real_estate_path(@conn, :edit_presentation, @real_estate), method: :post, class: "button is-info is-outlined is-fullwidth is-jsonly", disabled: (@current == :presentation) %>
+      <noscript>
+        <%= link "Presentation", to: real_estate_path(@conn, :edit_presentation, @real_estate), method: :get, class: "button is-info is-outlined is-fullwidth", disabled: (@current == :presentation) %>
+      </noscript>
+    </div>
+    <div class="column">
+      <%= button "Address", to: real_estate_path(@conn, :edit_address, @real_estate), method: :post, class: "button is-info is-outlined is-fullwidth is-jsonly", disabled: (@current == :address) %>
+      <noscript>
+        <%= link "Address", to: real_estate_path(@conn, :edit_address, @real_estate), method: :get, class: "button is-info is-outlined is-fullwidth", disabled: (@current == :address) %>
+      </noscript>
+    </div>
+    <div class="column">
+      <%= button "Main Features", to: real_estate_path(@conn, :edit_main_features, @real_estate), method: :post, class: "button is-info is-outlined is-fullwidth is-jsonly", disabled: (@current == :main_features) %>
+      <noscript>
+        <%= link "Main Features", to: real_estate_path(@conn, :edit_main_features, @real_estate), method: :get, class: "button is-info is-outlined is-fullwidth", disabled: (@current == :main_features) %>
+      </noscript>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column" class="is-jsonly">
+      <%= button "Services", to: real_estate_path(@conn, :edit_services, @real_estate), method: :post, class: "button is-info is-outlined is-fullwidth is-jsonly", disabled: (@current == :services) %>
+      <noscript>
+        <%= link "Services", to: real_estate_path(@conn, :edit_services, @real_estate), method: :get, class: "button is-info is-outlined is-fullwidth", disabled: (@current == :services) %>
+      </noscript>
+    </div>
+    <div class="column">
+      <%= button "Equipment", to: real_estate_path(@conn, :edit_equipment, @real_estate), method: :post, class: "button is-info is-outlined is-fullwidth is-jsonly", disabled: (@current == :equipment) %>
+      <noscript>
+        <%= link "Equipment", to: real_estate_path(@conn, :edit_equipment, @real_estate), method: :get, class: "button is-info is-outlined is-fullwidth", disabled: (@current == :equipment) %>
+      </noscript>
+    </div>
+    <div class="column">
+      <%= button "Prices", to: real_estate_path(@conn, :edit_prices, @real_estate), method: :post, class: "button is-info is-outlined is-fullwidth is-jsonly", disabled: (@current == :prices) %>
+      <noscript>
+        <%= link "Prices", to: real_estate_path(@conn, :edit_prices, @real_estate), method: :get, class: "button is-info is-outlined is-fullwidth", disabled: (@current == :prices) %>
+      </noscript>
+    </div>
+  </div>
+</div>
