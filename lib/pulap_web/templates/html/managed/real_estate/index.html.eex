@@ -2,7 +2,7 @@
   <%= for real_estate <- @real_estate do %>
   <div class="tile is-ancestor">
     <div class="tile is-parent is-vertical is-11">
-      <div class="tile is-hild">
+      <div class="tile is-child">
         <div class="card" >
           <div class="card-image">
             <div class="image is-4by3">
