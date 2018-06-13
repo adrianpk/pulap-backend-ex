@@ -6,8 +6,8 @@ defmodule PulapWeb.Auth.AuthPlug do
   require Logger
   require IEx
 
-  def init(opts) do
-    Logger.debug(inspect(opts))
+  def init(_opts) do
+    # Logger.debug(inspect(opts))
     # Keyword.fetch!(opts, :repo)
   end
 
