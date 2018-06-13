@@ -18,8 +18,6 @@ defmodule Pulap.Repo.Migrations.CreateProfiles do
       add :avatar, :binary
       add :header_path, :string, size: 255
       add :header, :binary
-      add :cards, :string, size: 255
-      add :annotations, :json
     end
 
     execute("SELECT AddGeometryColumn ('profiles','geolocation', 4326, 'POINT', 2);")

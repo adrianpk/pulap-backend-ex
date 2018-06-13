@@ -13,8 +13,6 @@ defmodule Pulap.Auth.User do
   require IEx
 
   schema "users" do
-    field(:annotations, :string)
-    field(:card, :string)
     field(:created_by_id, Ecto.UUID)
     field(:context_id, Ecto.UUID)
     field(:email, :string)
@@ -73,8 +71,8 @@ defmodule Pulap.Auth.User do
   # @doc false
   # def changeset(%User{} = user, attrs) do
   #   user
-  #   |> cast(attrs, [:username, :password, :password_hash, :email, :given_name, :middle_names, :family_name, :card, :annotations, :geolocation, :started_at, :created_by_id, :updated_by_id :is_active, :is_logical_deleted])
-  #   |> validate_required([:username, :password, :password_hash, :email, :given_name, :middle_names, :family_name, :card, :annotations, :geolocation, :started_at, :created_by_id, :updated_by_id, :is_active, :is_logical_deleted])
+  #   |> cast(attrs, [:username, :password, :password_hash, :email, :given_name, :middle_names, :family_name, :geolocation, :started_at, :created_by_id, :updated_by_id :is_active, :is_logical_deleted])
+  #   |> validate_required([:username, :password, :password_hash, :email, :given_name, :middle_names, :family_name, :geolocation, :started_at, :created_by_id, :updated_by_id, :is_active, :is_logical_deleted])
   # end
 
   @doc false

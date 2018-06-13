@@ -13,7 +13,6 @@ defmodule Pulap.GeoTest do
       alternative_name_loc: "some alternative_name_loc",
       canonical_name: "some canonical_name",
       canonical_name_loc: "some canonical_name_loc",
-      cards: "some cards",
       dialing_code: "some dialing_code",
       geo_areas: 42,
       id: "7488a646-e31f-11e4-aace-600308960662",
@@ -34,7 +33,6 @@ defmodule Pulap.GeoTest do
       alternative_name_loc: "some updated alternative_name_loc",
       canonical_name: "some updated canonical_name",
       canonical_name_loc: "some updated canonical_name_loc",
-      cards: "some updated cards",
       dialing_code: "some updated dialing_code",
       geo_areas: 43,
       id: "7488a646-e31f-11e4-aace-600308960668",
@@ -55,7 +53,6 @@ defmodule Pulap.GeoTest do
       alternative_name_loc: nil,
       canonical_name: nil,
       canonical_name_loc: nil,
-      cards: nil,
       dialing_code: nil,
       geo_areas: nil,
       id: nil,
@@ -97,7 +94,6 @@ defmodule Pulap.GeoTest do
       assert geo_area.alternative_name_loc == "some alternative_name_loc"
       assert geo_area.canonical_name == "some canonical_name"
       assert geo_area.canonical_name_loc == "some canonical_name_loc"
-      assert geo_area.cards == "some cards"
       assert geo_area.dialing_code == "some dialing_code"
       assert geo_area.geo_areas == 42
       assert geo_area.id == "7488a646-e31f-11e4-aace-600308960662"
@@ -126,7 +122,6 @@ defmodule Pulap.GeoTest do
       assert geo_area.alternative_name_loc == "some updated alternative_name_loc"
       assert geo_area.canonical_name == "some updated canonical_name"
       assert geo_area.canonical_name_loc == "some updated canonical_name_loc"
-      assert geo_area.cards == "some updated cards"
       assert geo_area.dialing_code == "some updated dialing_code"
       assert geo_area.geo_areas == 43
       assert geo_area.id == "7488a646-e31f-11e4-aace-600308960668"

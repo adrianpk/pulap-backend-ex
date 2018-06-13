@@ -31,7 +31,6 @@ defmodule Pulap.Repo.Migrations.CreateGeoAreas do
       # viewport - recommended viewport for the returned result.
       # bounds - stores the LatLngBounds which can fully contain the returned result.
       add :is_main, :boolean, default: false, null: false
-      add :cards, :jsonb
     end
 
     execute("SELECT AddGeometryColumn ('geo_areas', 'geolocation', 4326, 'POINT', 2);")

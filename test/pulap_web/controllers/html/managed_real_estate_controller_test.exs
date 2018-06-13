@@ -30,12 +30,11 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     email: "owner@gmail.com",
     given_name: "Wojciech",
     middle_names: "P",
-    family_name: "Novak",
-    card: "",
-    annotations: ""
+    family_name: "Novak"
   }
 
   @real_estate_create_attrs %{
+    # geolocation: "####",
     accessible_without_stairs: true,
     administrative_area_level_1: "Administrative Level 1",
     administrative_area_level_1_type: "Administrative Level 1 Type",
@@ -47,15 +46,15 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     administrative_area_level_4_type: "Administrative Level 4 Type",
     administrative_area_level_5: "Administrative Level 5",
     administrative_area_level_5_type: "Administrative Level 5 Type",
+    country: "Poland",
     apartment: "A",
     backyard: true,
     balcony: true,
     bathroom_area_m2: 22,
     block: "A",
-    cards: "",
     currency_code: "USD",
     currency_symbol: "$",
-    daily_rent_price: 21000,
+    daily_rent_price: 21_000,
     description: "Description",
     elevator: true,
     floor: "2",
@@ -64,7 +63,6 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     geo_area_canonical_name_loc: "####",
     geo_area_name: "####",
     geo_area_name_loc: "####",
-    # geolocation: "####",
     heating_type_val_en: "Central",
     heating_type_val_loc: "Centralny",
     house_equipment: true,
@@ -90,7 +88,7 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     short_description: "Real estate short description.",
     street: "Florianska",
     street_number: "222",
-    suggested_installment_loan: 28000,
+    suggested_installment_loan: 28_000,
     terrace: true,
     total_area_m2: 500,
     type_of_building_val_en: "Traditional",
@@ -98,14 +96,24 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     year_of_construction: "1978"
   }
 
-  @update_real_estate_attrs %{
+  @real_estate_update_attrs %{
     apartment: "B",
+    administrative_area_level_1: "Administrative Level 1 Updated",
+    administrative_area_level_1_type: "Administrative Level 1 Type Updated",
+    administrative_area_level_2: "Administrative Level 2 Updated",
+    administrative_area_level_2_type: "Administrative Level 2 Type Updated",
+    administrative_area_level_3: "Administrative Level 3 Updated",
+    administrative_area_level_3_type: "Administrative Level 3 Type Updated",
+    administrative_area_level_4: "Administrative Level 4 Updated",
+    administrative_area_level_4_type: "Administrative Level 4 Type Updated",
+    administrative_area_level_5: "Administrative Level 5 Updated",
+    administrative_area_level_5_type: "Administrative Level 5 Type Updated",
+    country: "Poland",
     accessible_without_stairs: false,
     backyard: false,
     balcony: false,
     bathroom_area_m2: 44,
     block: "B",
-    cards: "",
     currency_code: "USD",
     currency_symbol: "$",
     description: "Description updated.",
@@ -128,7 +136,7 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     kitchen_type_val_loc: "Tradycyjny",
     locale: "PL",
     long_term_rent_monthly_price: 400_000,
-    daily_rent_price: 40000,
+    daily_rent_price: 40_000,
     name: "Real Estate One Updated",
     number_of_balconies: 4,
     number_of_bathrooms: 4,
@@ -143,7 +151,7 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     short_description: "Short description updated.",
     street: "Świętego",
     street_number: "444",
-    suggested_installment_loan: 40000,
+    suggested_installment_loan: 40_000,
     terrace: false,
     total_area_m2: 1000,
     type_of_building_val_en: "Traditional",
@@ -151,14 +159,25 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     year_of_construction: "1970"
   }
 
-  @invalid_real_estate_attrs %{
+  @real_estate_invalid_attrs %{
+    apartment: nil,
+    administrative_area_level_1: nil,
+    administrative_area_level_1_type: nil,
+    administrative_area_level_2: nil,
+    administrative_area_level_2_type: nil,
+    administrative_area_level_3: nil,
+    administrative_area_level_3_type: nil,
+    administrative_area_level_4: nil,
+    administrative_area_level_4_type: nil,
+    administrative_area_level_5: nil,
+    administrative_area_level_5_type: nil,
+    country: nil,
     apartment: nil,
     accessible_without_stairs: nil,
     backyard: nil,
     balcony: nil,
     bathroom_area_m2: nil,
     block: nil,
-    cards: nil,
     currency_code: nil,
     currency_symbol: nil,
     description: nil,
@@ -204,7 +223,7 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     year_of_construction: nil
   }
 
-  @real_estate_two_create_attrs %{
+  @real_estate_2_create_attrs %{
     # geolocation: "####",
     accessible_without_stairs: true,
     administrative_area_level_1: "Administrative Level 1",
@@ -222,10 +241,9 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     balcony: true,
     bathroom_area_m2: 22,
     block: "A",
-    cards: "",
     currency_code: "USD",
     currency_symbol: "$",
-    daily_rent_price: 21000,
+    daily_rent_price: 21_000,
     description: "Description",
     elevator: true,
     floor: "2",
@@ -259,14 +277,13 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     short_description: "Real estate short description.",
     street: "Florianska",
     street_number: "222",
-    suggested_installment_loan: 28000,
+    suggested_installment_loan: 28_000,
     terrace: true,
     total_area_m2: 500,
     type_of_building_val_en: "Traditional",
     type_of_building_val_loc: "Tradycyjny",
     year_of_construction: "1978"
   }
-
 
   describe "index" do
     setup [:create_all]
@@ -318,14 +335,14 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
           assert redirected_to(conn) == real_estate_path(conn, :edit_address, id)
           assert flash_messages_contain(conn, "Real estate created successfully.")
 
-          ## VERIFY: Connection recycling not working as expected in tests
-          ## Trying to reuse the connection for a second request make it lose authentication.
-          ## But it also fail if a reauthentication is tryed.
-          # conn = conn |> recycle_conn
-          # conn = get(conn, real_estate_path(conn, :edit_presentation, id))
-          # response = html_response(conn, 302)
-          # Logger.warn(inspect response)
-          # assert response =~ "Edit Real Estate - Presentation"
+        ## VERIFY: Connection recycling not working as expected in tests
+        ## Trying to reuse the connection for a second request make it lose authentication.
+        ## But it also fail if a reauthentication is tryed.
+        # conn = conn |> recycle_conn
+        # conn = get(conn, real_estate_path(conn, :edit_presentation, id))
+        # response = html_response(conn, 302)
+        # Logger.warn(inspect response)
+        # assert response =~ "Edit Real Estate - Presentation"
 
         {:error, _reason, _conn} ->
           flunk("User not logged in")
@@ -336,7 +353,7 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
       case sign_in(conn) do
         {:ok, conn} ->
           conn =
-            post(conn, real_estate_path(conn, :create), real_estate: @invalid_real_estate_attrs)
+            post(conn, real_estate_path(conn, :create), real_estate: @real_estate_invalid_attrs)
 
           assert html_response(conn, 200) =~ "New Real Estate"
 
@@ -349,7 +366,11 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   describe "edit real estate presentation" do
     setup [:create_all]
 
-    test "renders form for editing chosen real estate", %{conn: conn, user: _user, real_estate: real_estate} do
+    test "renders form for editing chosen real estate", %{
+      conn: conn,
+      user: _user,
+      real_estate: real_estate
+    } do
       case sign_in(conn) do
         {:ok, conn} ->
           conn = get(conn, real_estate_path(conn, :edit_presentation, real_estate))
@@ -365,10 +386,20 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   describe "update real estate presentation" do
     setup [:create_all]
 
-    test "redirects to real estate edit presentation when data is valid", %{conn: conn, user: user, real_estate: real_estate} do
+    test "redirects to real estate edit presentation when data is valid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
       case sign_in(conn) do
         {:ok, conn} ->
-          conn = put(conn, real_estate_path(conn, :update_presentation, real_estate), real_estate: @update_real_estate_attrs)
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_presentation, real_estate),
+              real_estate: @real_estate_update_attrs
+            )
+
           assert redirected_to(conn) == real_estate_path(conn, :edit_presentation, real_estate)
           assert flash_messages_contain(conn, "Real estate updated successfully.")
 
@@ -377,11 +408,262 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
       end
     end
 
-    test "renders errors when data is invalid", %{conn: conn, user: user, real_estate: real_estate} do
+    test "renders errors when data is invalid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
       case sign_in(conn) do
         {:ok, conn} ->
-          conn = put(conn, real_estate_path(conn, :update_presentation, real_estate), real_estate: @invalid_real_estate_attrs)
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_presentation, real_estate),
+              real_estate: @real_estate_invalid_attrs
+            )
+
           assert html_response(conn, 200) =~ "Edit Real Estate - Presentation"
+          assert flash_messages_contain(conn, "Check following errors, please.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+  end
+
+  describe "update real estate address" do
+    setup [:create_all]
+
+    test "redirects to real estate edit address when data is valid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_address, real_estate),
+              real_estate: @real_estate_update_attrs
+            )
+
+          assert redirected_to(conn) == real_estate_path(conn, :edit_address, real_estate)
+          assert flash_messages_contain(conn, "Real estate updated successfully.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+
+    test "renders errors when data is invalid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_address, real_estate),
+              real_estate: @real_estate_invalid_attrs
+            )
+
+          assert html_response(conn, 200) =~ "Edit Real Estate - Address"
+          assert flash_messages_contain(conn, "Check following errors, please.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+  end
+
+  describe "update real estate main features" do
+    setup [:create_all]
+
+    test "redirects to real estate edit main features when data is valid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_main_features, real_estate),
+              real_estate: @real_estate_update_attrs
+            )
+
+          assert redirected_to(conn) == real_estate_path(conn, :edit_main_features, real_estate)
+          assert flash_messages_contain(conn, "Real estate updated successfully.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+
+    test "renders errors when data is invalid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_main_features, real_estate),
+              real_estate: @real_estate_invalid_attrs
+            )
+
+          assert html_response(conn, 200) =~ "Edit Real Estate - Main Features"
+          assert flash_messages_contain(conn, "Check following errors, please.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+  end
+
+  describe "update real estate services" do
+    setup [:create_all]
+
+    test "redirects to real estate edit services when data is valid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_services, real_estate),
+              real_estate: @real_estate_update_attrs
+            )
+
+          assert redirected_to(conn) == real_estate_path(conn, :edit_services, real_estate)
+          assert flash_messages_contain(conn, "Real estate updated successfully.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+
+    test "renders errors when data is invalid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_services, real_estate),
+              real_estate: @real_estate_invalid_attrs
+            )
+
+          assert html_response(conn, 200) =~ "Edit Real Estate - Services"
+          assert flash_messages_contain(conn, "Check following errors, please.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+  end
+
+  describe "update real estate equipment" do
+    setup [:create_all]
+
+    test "redirects to real estate edit equipment when data is valid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_services, real_estate),
+              real_estate: @real_estate_update_attrs
+            )
+
+          assert redirected_to(conn) == real_estate_path(conn, :edit_services, real_estate)
+          assert flash_messages_contain(conn, "Real estate updated successfully.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+
+    test "renders errors when data is invalid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_equipment, real_estate),
+              real_estate: @real_estate_invalid_attrs
+            )
+
+          assert html_response(conn, 200) =~ "Edit Real Estate - Equipment"
+          assert flash_messages_contain(conn, "Check following errors, please.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+  end
+
+  describe "update real estate prices" do
+    setup [:create_all]
+
+    test "redirects to real estate edit prices when data is valid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_prices, real_estate),
+              real_estate: @real_estate_update_attrs
+            )
+
+          Logger.warn(inspect(real_estate_path(conn, :edit_prices, real_estate)))
+          assert redirected_to(conn) == real_estate_path(conn, :edit_prices, real_estate)
+          assert flash_messages_contain(conn, "Real estate updated successfully.")
+
+        {:error, _reason, _conn} ->
+          flunk("User not logged in")
+      end
+    end
+
+    test "renders errors when data is invalid", %{
+      conn: conn,
+      user: user,
+      real_estate: real_estate
+    } do
+      case sign_in(conn) do
+        {:ok, conn} ->
+          conn =
+            put(
+              conn,
+              real_estate_path(conn, :update_prices, real_estate),
+              real_estate: @real_estate_invalid_attrs
+            )
+
+          assert html_response(conn, 200) =~ "Edit Real Estate - Prices"
           assert flash_messages_contain(conn, "Check following errors, please.")
 
         {:error, _reason, _conn} ->
@@ -425,9 +707,9 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     real_estate
   end
 
-  def fixture(:real_estate_two) do
-    {:ok, real_estate_two} = RealEstateContext.create(@real_estate_two_create_attrs)
-    real_estate_two
+  def fixture(:real_estate_2) do
+    {:ok, real_estate_2} = RealEstateContext.create(@real_estate_2_create_attrs)
+    real_estate_2
   end
 
   def fixture(:all) do
@@ -435,10 +717,10 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     real_estate = fixture(:real_estate)
     managership_create_attrs = %{user_id: user.id, real_estate_id: real_estate.id}
     managership = Biz.create_managership(managership_create_attrs)
-    real_estate_two = fixture(:real_estate_two)
-    managership_create_attrs = %{user_id: user.id, real_estate_id: real_estate_two.id}
-    managership_two = Biz.create_managership(managership_create_attrs)
-    {user, real_estate, managership, real_estate_two, managership_two}
+    real_estate_2 = fixture(:real_estate_2)
+    managership_create_attrs = %{user_id: user.id, real_estate_id: real_estate_2.id}
+    managership_2 = Biz.create_managership(managership_create_attrs)
+    {user, real_estate, managership, real_estate_2, managership_2}
   end
 
   defp create_user(_) do
@@ -457,14 +739,14 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   # end
 
   defp create_all(_) do
-    {user, real_estate, managership, real_estate_two, managership_two} = fixture(:all)
+    {user, real_estate, managership, real_estate_2, managership_2} = fixture(:all)
 
     {:ok,
      user: user,
      real_estate: real_estate,
      managership: managership,
-     real_estate_two: real_estate_two,
-     managership_two: managership_two}
+     real_estate_2: real_estate_2,
+     managership_2: managership_2}
   end
 
   # defp recycle_conn(conn) do

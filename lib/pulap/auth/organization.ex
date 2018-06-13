@@ -6,7 +6,6 @@ defmodule Pulap.Auth.Organization do
   alias Pulap.Auth.Organization
 
   schema "organizations" do
-    field(:annotations, :string)
     field(:created_by_id, Ecto.UUID)
     field(:description, :string)
     field(:geolocation, :float)
@@ -45,7 +44,6 @@ defmodule Pulap.Auth.Organization do
     |> cast(attrs, [
       :name,
       :description,
-      :annotations,
       :geolocation,
       :started_at,
       :is_active,

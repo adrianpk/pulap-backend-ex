@@ -19,8 +19,6 @@ defmodule PulapWeb.API.V1.UserView do
       given_name: user.given_name,
       middle_names: user.middle_names,
       family_name: user.family_name,
-      card: user.card,
-      annotations: user.annotations,
       geolocation: user.geolocation,
       started_at: user.started_at,
       is_active: user.is_active,

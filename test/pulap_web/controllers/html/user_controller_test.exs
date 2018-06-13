@@ -6,8 +6,6 @@ defmodule PulapWeb.UserControllerTest do
   require Logger
 
   @create_attrs %{
-    annotations: "annotations",
-    card: "card",
     email: "some@gmail.com",
     family_name: "family_name",
     geolocation: 42,
@@ -31,8 +29,6 @@ defmodule PulapWeb.UserControllerTest do
     given_password: "password"
   }
   @invalid_attrs %{
-    annotations: nil,
-    card: nil,
     email: nil,
     family_name: nil,
     geolocation: nil,

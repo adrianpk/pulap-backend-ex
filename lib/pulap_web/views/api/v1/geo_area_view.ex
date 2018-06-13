@@ -25,7 +25,6 @@ defmodule PulapWeb.API.V1.GeoAreaView do
       dialing_code: geo_area.dialing_code,
       zip_code: geo_area.zip_code,
       is_main: geo_area.is_main,
-      cards: geo_area.cards,
       geo_areas: geo_area.geo_areas,
       locale: geo_area.locale,
       position: geo_area.position,

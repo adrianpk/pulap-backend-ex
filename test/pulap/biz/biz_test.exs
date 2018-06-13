@@ -359,7 +359,6 @@ defmodule Pulap.BizTest do
       description: "some description",
       active: true,
       number_of_bedroms: 42,
-      cards: "some cards",
       position: 42,
       geo_area_canonical_name_loc: "some geo_area_canonical_name_loc",
       is_logical_deleted: true,
@@ -411,7 +410,6 @@ defmodule Pulap.BizTest do
       description: "some updated description",
       active: false,
       number_of_bedroms: 43,
-      cards: "some updated cards",
       position: 43,
       geo_area_canonical_name_loc: "some updated geo_area_canonical_name_loc",
       is_logical_deleted: false,
@@ -463,7 +461,6 @@ defmodule Pulap.BizTest do
       description: nil,
       active: nil,
       number_of_bedroms: nil,
-      cards: nil,
       position: nil,
       geo_area_canonical_name_loc: nil,
       is_logical_deleted: nil,
@@ -536,7 +533,6 @@ defmodule Pulap.BizTest do
       assert real_estate.description == "some description"
       assert real_estate.active == true
       assert real_estate.number_of_bedroms == 42
-      assert real_estate.cards == "some cards"
       assert real_estate.position == 42
       assert real_estate.geo_area_canonical_name_loc == "some geo_area_canonical_name_loc"
       assert real_estate.is_logical_deleted == true
@@ -597,7 +593,6 @@ defmodule Pulap.BizTest do
       assert real_estate.description == "some updated description"
       assert real_estate.active == false
       assert real_estate.number_of_bedroms == 43
-      assert real_estate.cards == "some updated cards"
       assert real_estate.position == 43
       assert real_estate.geo_area_canonical_name_loc == "some updated geo_area_canonical_name_loc"
       assert real_estate.is_logical_deleted == false

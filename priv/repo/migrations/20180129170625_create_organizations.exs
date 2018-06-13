@@ -9,8 +9,6 @@ defmodule Pulap.Repo.Migrations.CreateOrganizations do
       add :owner_username, :string, size: 32, null: false
       add :name, :string, size: 32, null: false
       add :description, :string, size: 255
-      add :card, :json
-      add :annotations, :string
     end
 
     execute("SELECT AddGeometryColumn ('organizations', 'geolocation', 4326, 'POINT', 2);")

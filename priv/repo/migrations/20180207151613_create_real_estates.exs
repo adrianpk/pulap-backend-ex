@@ -7,21 +7,31 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :name, :string, size: 32, null: false
       add :short_description, :string, size: 128
       add :description, :text
-      add :geo_area_name, :string, size: 255
-      add :geo_area_name_loc, :string, size: 255
-      add :geo_area_canonical_name, :string, size: 255
-      add :geo_area_canonical_name_loc, :string, size: 255
+      add :geo_area_name, :string, size: 512
+      add :geo_area_name_loc, :string, size: 512
+      add :geo_area_canonical_name, :string, size: 512
+      add :geo_area_canonical_name_loc, :string, size: 512
       add :country, :string, size: 8
       add :administrative_area_level_1, :string, size: 64
       add :administrative_area_level_1_type, :string, size: 32
+      add :administrative_area_level_1_loc, :string, size: 64
+      add :administrative_area_level_1_type_loc, :string, size: 32
       add :administrative_area_level_2, :string, size: 64
       add :administrative_area_level_2_type, :string, size: 32
+      add :administrative_area_level_2_loc, :string, size: 64
+      add :administrative_area_level_2_type_loc, :string, size: 32
       add :administrative_area_level_3, :string, size: 64
       add :administrative_area_level_3_type, :string, size: 32
+      add :administrative_area_level_3_loc, :string, size: 64
+      add :administrative_area_level_3_type_loc, :string, size: 32
       add :administrative_area_level_4, :string, size: 64
       add :administrative_area_level_4_type, :string, size: 32
+      add :administrative_area_level_4_loc, :string, size: 64
+      add :administrative_area_level_4_type_loc, :string, size: 32
       add :administrative_area_level_5, :string, size: 64
       add :administrative_area_level_5_type, :string, size: 32
+      add :administrative_area_level_5_loc, :string, size: 64
+      add :administrative_area_level_5_type_loc, :string, size: 32
       add :street, :string, size: 64
       add :street_number, :string, size: 8
       add :block, :string, size: 32
@@ -75,7 +85,6 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :internet_television, :boolean, default: false, null: false
       add :free_to_air_television, :boolean, default: false, null: false
       add :telephone_line, :boolean, default: false, null: false
-      add :cards, :jsonb
       add :geolocation, :float
       add :locale, :string
       add :position, :integer
@@ -93,13 +102,15 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       timestamps()
     end
 
-    create index(:real_estate, [:geo_area_id])
-    create index(:real_estate, [:property_type_id])
-    create index(:real_estate, [:currency_id])
+    create index(:real_estate, [:country])
+    create index(:real_estate, [:geo_area_canonical_name])
+    create index(:real_estate, [:geo_area_canonical_name_loc])
+    # create index(:real_estate, [:property_type_id])
+    # create index(:real_estate, [:currency_id])
     create index(:real_estate, [:type_of_building_id])
-    create index(:real_estate, [:kitchen_type_id])
-    create index(:real_estate, [:heating_type_id])
-    create index(:real_estate, [:created_by_id])
-    create index(:real_estate, [:updated_by_id])
+    # create index(:real_estate, [:kitchen_type_id])
+    # create index(:real_estate, [:heating_type_id])
+    # create index(:real_estate, [:created_by_id])
+    # create index(:real_estate, [:updated_by_id])
   end
 end

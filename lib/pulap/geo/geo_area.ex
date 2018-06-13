@@ -14,7 +14,6 @@ defmodule Pulap.Geo.GeoArea do
     field(:dialing_code, :string)
     # postal_code
     # location_type - ROOFTOP / RANGE_INTERPOLATED / GEOMETRIC_CENTER / APPROXIMATE
-    field(:cards, :string)
     field(:is_active, :boolean, default: false)
     field(:is_logical_deleted, :boolean, default: false)
     field(:is_main, :boolean, default: false)
@@ -42,7 +41,6 @@ defmodule Pulap.Geo.GeoArea do
       :dialing_code,
       :zip_code,
       :is_main,
-      :cards,
       :geolocation,
       :locale,
       :position,
@@ -58,7 +56,6 @@ defmodule Pulap.Geo.GeoArea do
       :dialing_code,
       :zip_code,
       :is_main,
-      :cards,
       :geolocation,
       :locale,
       :position,
