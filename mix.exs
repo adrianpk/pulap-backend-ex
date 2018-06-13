@@ -54,7 +54,8 @@ defmodule Pulap.Mixfile do
       {:guardian, "~> 1.0"},
       # {:map_diff, "~> 1.0"}
       {:corsica, "~> 1.0"},
-      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false}
+      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
+      {:minify_response, "~> 0.1.0"}
     ]
   end
 
@@ -66,7 +67,12 @@ defmodule Pulap.Mixfile do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.setup": [
+        "ecto.create",
+        "ecto.migrate",
+        "run priv/repo/seeds.exs",
+        "run priv/repo/key_values_seeds.exs"
+      ],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
