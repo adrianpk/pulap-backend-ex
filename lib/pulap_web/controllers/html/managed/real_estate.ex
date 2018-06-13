@@ -5,6 +5,9 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   alias Pulap.Biz.RealEstate.Context, as: RealEstateContext
   alias Pulap.Biz.RealEstate
   alias PulapWeb.Auth.Helpers
+  alias Pulap.App.KeyValue.Context, as: KeyValueContext
+  require Logger
+  require IEx
 
   def index(conn, _params) do
     context =
@@ -27,11 +30,14 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def create(conn, %{"real_estate" => real_estate_params}) do
     case RealEstateContext.create(real_estate_params) do
       {:ok, real_estate} ->
+        # TODO: Pass Real Estate Country + Administrative Areas to GeoArea Service
+        # GeoArea Service shoud create a new GeoArea with this data if it does not exist.
         conn
         |> put_flash(:info, "Real estate created successfully.")
         |> redirect(to: real_estate_path(conn, :edit_address, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        conn = conn |> put_flash(:error, "Check following errors, please.")
         render(conn, "new.html", changeset: changeset)
     end
   end
@@ -115,7 +121,17 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def edit_main_features(conn, %{"id" => id}) do
     real_estate = RealEstateContext.get!(id)
     changeset = RealEstateContext.change(real_estate)
-    render(conn, "edit_main_features.html", real_estate: real_estate, changeset: changeset)
+
+    property_types =
+      KeyValueContext.html_select_values(conn, %{"set" => "property-types", "locale" => "pl"})
+
+    render(
+      conn,
+      "edit_main_features.html",
+      real_estate: real_estate,
+      changeset: changeset,
+      property_types: property_types
+    )
   end
 
   def update_main_features(conn, %{"id" => id, "real_estate" => real_estate_params}) do
@@ -128,6 +144,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         |> redirect(to: real_estate_path(conn, :edit_main_features, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        conn = conn |> put_flash(:error, "Check following errors, please.")
         render(conn, "edit_main_features.html", real_estate: real_estate, changeset: changeset)
     end
   end
@@ -148,6 +165,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         |> redirect(to: real_estate_path(conn, :edit_services, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        conn = conn |> put_flash(:error, "Check following errors, please.")
         render(conn, "edit_services.html", real_estate: real_estate, changeset: changeset)
     end
   end
@@ -168,6 +186,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         |> redirect(to: real_estate_path(conn, :edit_equipment, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        conn = conn |> put_flash(:error, "Check following errors, please.")
         render(conn, "edit_equipment.html", real_estate: real_estate, changeset: changeset)
     end
   end
@@ -179,6 +198,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   end
 
   def update_prices(conn, %{"id" => id, "real_estate" => real_estate_params}) do
+    # Logger.debug(inspect(conn))
     real_estate = RealEstateContext.get!(id)
 
     case RealEstateContext.update_prices(real_estate, real_estate_params) do
@@ -188,6 +208,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         |> redirect(to: real_estate_path(conn, :edit_prices, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        conn = conn |> put_flash(:error, "Check following errors, please.")
         render(conn, "edit_prices.html", real_estate: real_estate, changeset: changeset)
     end
   end
