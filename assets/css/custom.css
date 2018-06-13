@@ -329,3 +329,8 @@
 .notification>button.delete {
   border: none;
 }
+
+/* Awesomplete */
+div.awesomplete {
+  display: block;
+}
