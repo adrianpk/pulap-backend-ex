@@ -1,0 +1,13 @@
+<% assigns = assigns
+              |> Map.put(:title, "Edit Key Values - " <> @key_value.key)
+              |> Map.put(:action, key_values_path(@conn, :edit, @key_value)) %>
+
+<div class="section">
+
+  <%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+
+  <%= render "main_bar.html", assigns %>
+
+  <%= render "form.html", assigns %>
+
+</div>

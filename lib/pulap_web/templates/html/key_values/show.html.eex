@@ -1,0 +1,248 @@
+<h2>Show Real estate</h2>
+
+<ul>
+
+  <li>
+    <strong>Id:</strong>
+    <%= @key_value.id %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @key_value.name %>
+  </li>
+
+  <li>
+    <strong>Short description:</strong>
+    <%= @key_value.short_description %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @key_value.description %>
+  </li>
+
+  <li>
+    <strong>Geo area name:</strong>
+    <%= @key_value.geo_area_name %>
+  </li>
+
+  <li>
+    <strong>Geo area name loc:</strong>
+    <%= @key_value.geo_area_name_loc %>
+  </li>
+
+  <li>
+    <strong>Geo area canonical name:</strong>
+    <%= @key_value.geo_area_canonical_name %>
+  </li>
+
+  <li>
+    <strong>Geo area canonical name loc:</strong>
+    <%= @key_value.geo_area_canonical_name_loc %>
+  </li>
+
+  <li>
+    <strong>Street:</strong>
+    <%= @key_value.street %>
+  </li>
+
+  <li>
+    <strong>Street number:</strong>
+    <%= @key_value.street_number %>
+  </li>
+
+  <li>
+    <strong>Block:</strong>
+    <%= @key_value.block %>
+  </li>
+
+  <li>
+    <strong>Floor:</strong>
+    <%= @key_value.floor %>
+  </li>
+
+  <li>
+    <strong>Apartment:</strong>
+    <%= @key_value.apartment %>
+  </li>
+
+  <li>
+    <strong>Property type val en:</strong>
+    <%= @key_value.property_type_val_en %>
+  </li>
+
+  <li>
+    <strong>Property type val loc:</strong>
+    <%= @key_value.property_type_val_loc %>
+  </li>
+
+  <li>
+    <strong>Total area m2:</strong>
+    <%= @key_value.total_area_m2 %>
+  </li>
+
+  <li>
+    <strong>Indoor area m2:</strong>
+    <%= @key_value.indoor_area_m2 %>
+  </li>
+
+  <li>
+    <strong>Price:</strong>
+    <%= @key_value.price %>
+  </li>
+
+  <li>
+    <strong>Price per square meter:</strong>
+    <%= @key_value.price_per_square_meter %>
+  </li>
+
+  <li>
+    <strong>Suggested installment loan:</strong>
+    <%= @key_value.suggested_installment_loan %>
+  </li>
+
+  <li>
+    <strong>Type of building val en:</strong>
+    <%= @key_value.type_of_building_val_en %>
+  </li>
+
+  <li>
+    <strong>Type of building val loc:</strong>
+    <%= @key_value.type_of_building_val_loc %>
+  </li>
+
+  <li>
+    <strong>Year of construction:</strong>
+    <%= @key_value.year_of_construction %>
+  </li>
+
+  <li>
+    <strong>Room height cm:</strong>
+    <%= @key_value.room_height_cm %>
+  </li>
+
+  <li>
+    <strong>Number of rooms:</strong>
+    <%= @key_value.number_of_rooms %>
+  </li>
+
+  <li>
+    <strong>Number of bedroms:</strong>
+    <%= @key_value.number_of_bedroms %>
+  </li>
+
+  <li>
+    <strong>Kitchen type val en:</strong>
+    <%= @key_value.kitchen_type_val_en %>
+  </li>
+
+  <li>
+    <strong>Kitchen type val loc:</strong>
+    <%= @key_value.kitchen_type_val_loc %>
+  </li>
+
+  <li>
+    <strong>Number of bathrooms:</strong>
+    <%= @key_value.number_of_bathrooms %>
+  </li>
+
+  <li>
+    <strong>Bathroom area m2:</strong>
+    <%= @key_value.bathroom_area_m2 %>
+  </li>
+
+  <li>
+    <strong>Heating type val en:</strong>
+    <%= @key_value.heating_type_val_en %>
+  </li>
+
+  <li>
+    <strong>Heating type val loc:</strong>
+    <%= @key_value.heating_type_val_loc %>
+  </li>
+
+  <li>
+    <strong>Accessible without stairs:</strong>
+    <%= @key_value.accessible_without_stairs %>
+  </li>
+
+  <li>
+    <strong>Elevator:</strong>
+    <%= @key_value.elevator %>
+  </li>
+
+  <li>
+    <strong>Terrace:</strong>
+    <%= @key_value.terrace %>
+  </li>
+
+  <li>
+    <strong>Backyard:</strong>
+    <%= @key_value.backyard %>
+  </li>
+
+  <li>
+    <strong>Balcony:</strong>
+    <%= @key_value.balcony %>
+  </li>
+
+  <li>
+    <strong>Number of balconies:</strong>
+    <%= @key_value.number_of_balconies %>
+  </li>
+
+  <li>
+    <strong>Furniture set:</strong>
+    <%= @key_value.furniture_set %>
+  </li>
+
+  <li>
+    <strong>House equipment:</strong>
+    <%= @key_value.house_equipment %>
+  </li>
+
+  <li>
+    <strong>House equipment description:</strong>
+    <%= @key_value.house_equipment_description %>
+  </li>
+
+  <li>
+    <strong>Geolocation:</strong>
+    <%= @key_value.geolocation %>
+  </li>
+
+  <li>
+    <strong>Locale:</strong>
+    <%= @key_value.locale %>
+  </li>
+
+  <li>
+    <strong>Position:</strong>
+    <%= @key_value.position %>
+  </li>
+
+  <li>
+    <strong>Is active:</strong>
+    <%= @key_value.is_active %>
+  </li>
+
+  <li>
+    <strong>Is logical deleted:</strong>
+    <%= @key_value.is_logical_deleted %>
+  </li>
+
+  <li>
+    <strong>Currency code:</strong>
+    <%= @key_value.currency_code %>
+  </li>
+
+  <li>
+    <strong>Currency symbol:</strong>
+    <%= @key_value.currency_symbol %>
+  </li>
+
+</ul>
+
+<%# <span><%= link "Edit", to: key_value_path(@conn, :edit, @key_value)</span> %> %>
+<%# <span><%= link "Back", to: key_value_path(@conn, :index) %></span> %>

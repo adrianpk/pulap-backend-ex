@@ -7,6 +7,7 @@ defmodule PulapWeb.Router do
     plug(:fetch_flash)
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
+    plug(MinifyResponse.HTML)
   end
 
   pipeline :authenticated do
@@ -127,9 +128,19 @@ defmodule PulapWeb.Router do
       # put "/profile", ProfileController, :update
     end
 
-    # resources "/real-estate", RealEstateController do
-    #   # nested resource
-    # end
+    scope "/admin" do
+      get("/key-values", KeyValuesController, :index)
+      get("/key-values/new", KeyValuesController, :new)
+      post("/key-values/new", KeyValuesController, :new)
+      post("/key-values", KeyValuesController, :create)
+      get("/key-values/:id", KeyValuesController, :edit)
+      post("/key-values/:id", KeyValuesController, :edit)
+      patch("/key-values/:id", KeyValuesController, :update)
+      put("/key-values/:id", KeyValuesController, :update)
+      get("/key-values/:id/confirm-delete", KeyValuesController, :show_confirm_delete)
+      delete("/key-values/:id", KeyValuesController, :delete)
+      get("/:set/key-values/", KeyValuesController, :set_index)
+    end
 
     scope "/managed", Managed do
       get("/real-estate", RealEstateController, :index)
@@ -177,5 +188,6 @@ defmodule PulapWeb.Router do
     get("/signin", SessionController, :new)
     post("/signin", SessionController, :create)
     resources("/sessions", SessionController, only: [:new, :create])
+    # Key Value
   end
 end

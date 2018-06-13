@@ -1,7 +1,7 @@
 defmodule Pulap.App.KeyValue do
   @moduledoc false
 
-  use Ecto.Schema
+  use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.App.KeyValue
 
@@ -36,15 +36,15 @@ defmodule Pulap.App.KeyValue do
       :is_logical_deleted
     ])
     |> validate_required([
-      :set,
+      # :set,
       :key,
       :value,
-      :key_group,
-      :key_subgroup,
-      :locale,
-      :position,
-      :is_active,
-      :is_logical_deleted
+      # :key_group,
+      # :key_subgroup,
+      # :locale,
+      # :position,
+      # :is_active,
+      # :is_logical_deleted
     ])
   end
 end

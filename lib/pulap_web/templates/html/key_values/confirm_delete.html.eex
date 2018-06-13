@@ -1,0 +1,33 @@
+<% assigns = assigns
+              |> Map.put(:set, nil)
+              |> Map.put(:title, "Confirm Delete")
+              |> Map.put(:action, key_values_path(@conn, :delete, @key_value)) %>
+
+<div class="section">
+
+  <%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+
+  <%= render "main_bar.html", assigns %>
+
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>Confirme delete</p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+    <div class="message-body">
+      <div class="level">
+        <%= @key_value.set %>
+      </div>
+      <div class="level">
+        <strong><%= @key_value.key %> - <%= @key_value.value %></strong>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <%= link "Cancel", to: key_values_path(@conn, :edit, @key_value), class: "button is-link" %>
+          <%= link "Delete", to: key_values_path(@conn, :delete,  @key_value), method: :delete, class: "button is-danger" %>
+        </div>
+      </div>
+    </div>
+    </article>
+</div>
+
