@@ -15,7 +15,7 @@ defmodule PulapWeb.Auth.Helpers do
   require Logger
 
   def sign_in_with_username_and_password(conn, username, given_password, opts) do
-    Logger.debug(inspect(opts))
+    # Logger.debug(inspect(opts))
     user = Auth.get_user_by_username(username)
 
     cond do
@@ -145,5 +145,9 @@ defmodule PulapWeb.Auth.Helpers do
         organization = Auth.get_organization!(user.context_id)
         %{organization: organization}
     end
+  end
+
+  def set_from_params(conn) do
+    set = conn.params["set"]
   end
 end
