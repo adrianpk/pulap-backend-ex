@@ -1,0 +1,14 @@
+<% assigns = assigns
+              |> Map.put(:title, "New Key Value")
+              |> Map.put(:set, nil)
+              |> Map.put(:action, key_values_path(@conn, :create)) %>
+
+<div class="section">
+
+  <%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+
+  <%= render "main_bar.html", assigns %>
+
+  <%= render "form.html", assigns %>
+
+</div>

@@ -1,0 +1,68 @@
+<div class="">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child">
+      <%= form_for @changeset, @action, fn f -> %>
+
+        <%#= if @changeset.action do %>
+        <div class="field">
+          <%= label f, :set, class: "label" %>
+          <%= text_input f, :set, class: "awesomplete input is-primary is-fullwidth", data: [list: @autocomplete_data.sets] %>
+          <%= error_tag f, :set %>
+        </div>
+        <%# end %>
+      
+        <div class="field">
+          <%= label f, :key, "Key", class: "label" %>
+          <%= text_input f, :key, class: "input is-primary" %>
+          <%= error_tag f, :key %>
+        </div>
+
+        <div class="field">
+          <%= label f, :value, "value", class: "label" %>
+          <%= text_input f, :value, class: "input is-primary" %>
+          <%= error_tag f, :value %>
+        </div>
+
+        <hr>
+
+        <div class="field">
+          <%= label f, :key_group, "Key Group", class: "label" %>
+          <%= text_input f, :key_group, class: "awesomplete input is-primary is-fullwidth", data: [list: @autocomplete_data.groups] %>
+          <%= error_tag f, :key %>
+        </div>
+
+        <div class="field">
+          <%= label f, :key_subgroup, "Key Subgroup", class: "label" %>
+          <%= text_input f, :key_subgroup, class: "awesomplete input is-primary is-fullwidth", data: [list: @autocomplete_data.subgroups] %>
+          <%= error_tag f, :key_subgroup %>
+        </div>
+
+        
+        <div class="field">
+          <%= label f, :locale, class: "label" %>
+          <%= text_input f, :locale, class: "awesomplete input is-primary is-fullwidth", data: [list: @autocomplete_data.locales] %>
+          <%= error_tag f, :property_type_val_loc %>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+
+            <%= link "Delete", to: key_values_path(@conn, :delete, @key_value), method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger is-jsonly" %>
+            <div class="field">
+              <noscript>
+                <%= link "Delete", to: key_values_path(@conn, :show_confirm_delete, @key_value), class: "button is-danger" %>
+              </noscript>
+            </div>
+            
+            <div class="field">
+              <%= submit "Update", class: "button is-link" %>
+            </div>
+          </div>
+        </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

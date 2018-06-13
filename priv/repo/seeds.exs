@@ -18,6 +18,7 @@ alias Pulap.Auth.UserRole
 alias Pulap.Biz.RealEstate
 alias Pulap.Biz.Managership
 alias Pulap.Biz.Ownership
+alias Pulap.App.KeyValue
 alias PulapWeb.ControllersHelpers, as: Helper
 
 ## Start and end datetimes
@@ -226,3 +227,37 @@ data = %{
 
 changeset = Managership.changeset(%Managership{}, data)
 real_estate_two_managership = Repo.insert!(changeset)
+
+# KeyValue --------------------------------------------------------------------------------------------------------------
+## Property
+data = %{
+  key: "traditional",
+  key_group: "-",
+  key_subgroup: "-",
+  locale: "pl",
+  position: 0,
+  set: "property-types",
+  value: "Traditional",
+  active: true,
+  is_logical_deleted: false
+}
+
+Logger.debug("Data: " <> inspect(data))
+changeset = KeyValue.changeset(%KeyValue{}, data)
+key_value = Repo.insert!(changeset)
+
+data = %{
+  key: "modern",
+  key_group: "-",
+  key_subgroup: "-",
+  locale: "pl",
+  position: 0,
+  set: "property-types",
+  value: "Modern",
+  active: true,
+  is_logical_deleted: false
+}
+
+Logger.debug("Data: " <> inspect(data))
+changeset = KeyValue.changeset(%KeyValue{}, data)
+key_value = Repo.insert!(changeset)
