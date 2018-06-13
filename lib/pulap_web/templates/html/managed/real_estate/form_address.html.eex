@@ -69,9 +69,9 @@
         <div class="columns">
           <div class="column">
             <div class="field">
-              <%= label f, :administrative_area_level_4, class: "label" %>
-              <%= text_input f, :administrative_area_level_4, class: "input is-primary", disabled: true %>
-              <%= error_tag f, :administrative_area_level_4 %>
+              <%= label f, :administrative_area_level_4_loc, class: "label" %>
+              <%= text_input f, :administrative_area_level_4_loc, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_4_loc %>
             </div>
           </div>
         </div>
@@ -79,17 +79,17 @@
         <div class="columns">
           <div class="column is-half">
             <div class="field">
-              <%= label f, :administrative_area_level_3, class: "label" %>
-              <%= text_input f, :administrative_area_level_3, class: "input is-primary", disabled: true %>
-              <%= error_tag f, :administrative_area_level_3 %>
+              <%= label f, :administrative_area_level_3_loc, class: "label" %>
+              <%= text_input f, :administrative_area_level_3_loc, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_3_loc %>
             </div>
           </div>
 
           <div class="column is-half">
             <div class="field">
-              <%= label f, :administrative_area_level_2, class: "label" %>
-              <%= text_input f, :administrative_area_level_2, class: "input is-primary", disabled: true %>
-              <%= error_tag f, :administrative_area_level_2 %>
+              <%= label f, :administrative_area_level_2_loc, class: "label" %>
+              <%= text_input f, :administrative_area_level_2_loc, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_2_loc %>
             </div>
           </div>
         </div>
@@ -98,9 +98,9 @@
         <div class="columns">
           <div class="column is-three-quarters">
             <div class="field">
-              <%= label f, :administrative_area_level_1, class: "label" %>
-              <%= text_input f, :administrative_area_level_1, class: "input is-primary", disabled: true %>
-              <%= error_tag f, :administrative_area_level_1 %>
+              <%= label f, :administrative_area_level_1_loc, class: "label" %>
+              <%= text_input f, :administrative_area_level_1_loc, class: "input is-primary", disabled: true %>
+              <%= error_tag f, :administrative_area_level_1_loc %>
             </div>
           </div>
 

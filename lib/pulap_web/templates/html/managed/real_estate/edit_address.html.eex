@@ -1,14 +1,17 @@
-<%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+<% assigns = assigns
+              |> Map.put(:title, "Edit Real Estate - Address")
+              |> Map.put(:action, real_estate_path(@conn, :update_presentation, @real_estate))
+              |> Map.put(:current, :address) %>
 
 <div class="section">
-  <h2 class="subtitle">
-    Edit Real Estate - Address
-  </h2>
 
-  <%= render "form_address.html", Map.put(assigns, :action, real_estate_path(@conn, :update_address, @real_estate)) %>
+  <%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+
+  <%= render "main_bar.html", assigns %>
+
+  <%= render "form_presentation.html", assigns %>
+
+  <%= render "edit_menu.html", assigns %>
 
 </div>
 
-<%= render PulapWeb.HTML.Shared, "real_estate_edit_buttons.html", Map.put(assigns, :current, :address) %>
-
-<span><%= link "Back", to: real_estate_path(@conn, :index) %></span>

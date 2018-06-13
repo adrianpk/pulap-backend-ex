@@ -17,11 +17,25 @@
 
         <hr>
 
-        <div class="field">
-          <%# Has english name %>
+        <div class="columns">
+          <div class="column is-half">
           <%= label f, :property_type_val_loc, class: "label" %>
-          <%= text_input f, :property_type_val_loc, class: "input is-primary" %>
+          <div class="field">
+            <div class="control">
+              <div class="select is-primary is-fullwidth">
+                <%= select f, :property_type_val_loc, @property_types, class: "" %>
+              </div>
+            </div>
+          </div>
           <%= error_tag f, :property_type_val_loc %>
+         </div>
+
+         <div class="column is-half">
+            <%# Has english name %>
+            <%= label f, :type_of_building_val_loc, class: "label" %>
+            <%= text_input f, :type_of_building_val_loc, class: "input is-primary" %>
+            <%= error_tag f, :type_of_building_val_loc %>
+          </div>
         </div>
 
         <div class="columns">
@@ -43,10 +57,6 @@
         </div>
 
         <div class="field">
-          <%# Has english name %>
-          <%= label f, :type_of_building_val_loc, class: "label" %>
-          <%= text_input f, :type_of_building_val_loc, class: "input is-primary" %>
-          <%= error_tag f, :type_of_building_val_loc %>
         </div>
 
         <div class="field">
