@@ -208,11 +208,6 @@
   </li>
 
   <li>
-    <strong>Cards:</strong>
-    <%= @real_estate.cards %>
-  </li>
-
-  <li>
     <strong>Geolocation:</strong>
     <%= @real_estate.geolocation %>
   </li>

@@ -5,8 +5,6 @@ defmodule PulapWeb.OrganizationControllerTest do
   alias Pulap.Auth.Organization
 
   @create_attrs %{
-    annotations: "some annotations",
-    card: "some card",
     default: "some default",
     description: "some description",
     id: "7488a646-e31f-11e4-aace-600308960662",
@@ -18,8 +16,6 @@ defmodule PulapWeb.OrganizationControllerTest do
     started_at: "2010-04-17 14:00:00.000000Z"
   }
   @update_attrs %{
-    annotations: "some updated annotations",
-    card: "some updated card",
     default: "some updated default",
     description: "some updated description",
     id: "7488a646-e31f-11e4-aace-600308960668",
@@ -31,8 +27,6 @@ defmodule PulapWeb.OrganizationControllerTest do
     started_at: "2011-05-18 15:01:01.000000Z"
   }
   @invalid_attrs %{
-    annotations: nil,
-    card: nil,
     default: nil,
     description: nil,
     id: nil,
@@ -69,8 +63,6 @@ defmodule PulapWeb.OrganizationControllerTest do
 
       assert json_response(conn, 200)["data"] == %{
                # "id" => id,
-               "annotations" => "some annotations",
-               "card" => "some card",
                "default" => "some default",
                "description" => "some description",
                "id" => "7488a646-e31f-11e4-aace-600308960662",
@@ -109,8 +101,6 @@ defmodule PulapWeb.OrganizationControllerTest do
 
       assert json_response(conn, 200)["data"] == %{
                # "id" => id,
-               "annotations" => "some updated annotations",
-               "card" => "some updated card",
                "default" => "some updated default",
                "description" => "some updated description",
                "id" => "7488a646-e31f-11e4-aace-600308960668",

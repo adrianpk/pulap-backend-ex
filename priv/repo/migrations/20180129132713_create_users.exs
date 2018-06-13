@@ -11,8 +11,6 @@ defmodule Pulap.Repo.Migrations.CreateUsers do
       add :middle_names, :string, size: 32
       add :family_name, :string, size: 64
       add :context_id, :uuid
-      add :card, :json
-      add :annotations, :jsonb
     end
 
     execute("SELECT AddGeometryColumn ('users', 'geolocation', 4326, 'POINT', 2);")

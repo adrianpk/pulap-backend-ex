@@ -5,8 +5,6 @@ defmodule PulapWeb.UserControllerTest do
   alias Pulap.Auth.User
 
   @create_attrs %{
-    annotations: "some annotations",
-    card: "some card",
     email: "some email",
     family_name: "some family_name",
     geolocation: 42,
@@ -20,8 +18,6 @@ defmodule PulapWeb.UserControllerTest do
     username: "some username"
   }
   @update_attrs %{
-    annotations: "some updated annotations",
-    card: "some updated card",
     email: "some updated email",
     family_name: "some updated family_name",
     geolocation: 43,
@@ -35,8 +31,6 @@ defmodule PulapWeb.UserControllerTest do
     username: "some updated username"
   }
   @invalid_attrs %{
-    annotations: nil,
-    card: nil,
     email: nil,
     family_name: nil,
     geolocation: nil,
@@ -75,8 +69,6 @@ defmodule PulapWeb.UserControllerTest do
 
       assert json_response(conn, 200)["data"] == %{
                "id" => id,
-               "annotations" => "some annotations",
-               "card" => "some card",
                "email" => "some email",
                "family_name" => "some family_name",
                "geolocation" => 42,
@@ -108,8 +100,6 @@ defmodule PulapWeb.UserControllerTest do
 
       assert json_response(conn, 200)["data"] == %{
                "id" => id,
-               "annotations" => "some updated annotations",
-               "card" => "some updated card",
                "email" => "some updated email",
                "family_name" => "some updated family_name",
                "geolocation" => 43,

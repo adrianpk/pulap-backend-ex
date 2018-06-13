@@ -7,8 +7,6 @@ defmodule Pulap.AuthTest do
     alias Pulap.Auth.User
 
     @valid_attrs %{
-      annotations: "some annotations",
-      card: "some card",
       email: "some email",
       family_name: "some family_name",
       geolocation: 42,
@@ -22,8 +20,6 @@ defmodule Pulap.AuthTest do
       username: "some username"
     }
     @update_attrs %{
-      annotations: "some updated annotations",
-      card: "some updated card",
       email: "some updated email",
       family_name: "some updated family_name",
       geolocation: 43,
@@ -37,8 +33,6 @@ defmodule Pulap.AuthTest do
       username: "some updated username"
     }
     @invalid_attrs %{
-      annotations: nil,
-      card: nil,
       email: nil,
       family_name: nil,
       geolocation: nil,
@@ -73,8 +67,6 @@ defmodule Pulap.AuthTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Auth.create_user(@valid_attrs)
-      assert user.annotations == "some annotations"
-      assert user.card == "some card"
       assert user.email == "some email"
       assert user.family_name == "some family_name"
       assert user.geolocation == 42
@@ -96,8 +88,6 @@ defmodule Pulap.AuthTest do
       user = user_fixture()
       assert {:ok, user} = Auth.update_user(user, @update_attrs)
       assert %User{} = user
-      assert user.annotations == "some updated annotations"
-      assert user.card == "some updated card"
       assert user.email == "some updated email"
       assert user.family_name == "some updated family_name"
       assert user.geolocation == 43
@@ -133,8 +123,6 @@ defmodule Pulap.AuthTest do
     alias Pulap.Auth.Organization
 
     @valid_attrs %{
-      annotations: "some annotations",
-      card: "some card",
       default: "some default",
       description: "some description",
       id: "7488a646-e31f-11e4-aace-600308960662",
@@ -146,8 +134,6 @@ defmodule Pulap.AuthTest do
       started_at: "2010-04-17 14:00:00.000000Z"
     }
     @update_attrs %{
-      annotations: "some updated annotations",
-      card: "some updated card",
       default: "some updated default",
       description: "some updated description",
       id: "7488a646-e31f-11e4-aace-600308960668",
@@ -159,8 +145,6 @@ defmodule Pulap.AuthTest do
       started_at: "2011-05-18 15:01:01.000000Z"
     }
     @invalid_attrs %{
-      annotations: nil,
-      card: nil,
       default: nil,
       description: nil,
       id: nil,
@@ -193,8 +177,6 @@ defmodule Pulap.AuthTest do
 
     test "create_organization/1 with valid data creates a organization" do
       assert {:ok, %Organization{} = organization} = Auth.create_organization(@valid_attrs)
-      assert organization.annotations == "some annotations"
-      assert organization.card == "some card"
       assert organization.default == "some default"
       assert organization.description == "some description"
       assert organization.id == "7488a646-e31f-11e4-aace-600308960662"
@@ -216,8 +198,6 @@ defmodule Pulap.AuthTest do
       organization = organization_fixture()
       assert {:ok, organization} = Auth.update_organization(organization, @update_attrs)
       assert %Organization{} = organization
-      assert organization.annotations == "some updated annotations"
-      assert organization.card == "some updated card"
       assert organization.default == "some updated default"
       assert organization.description == "some updated description"
       assert organization.id == "7488a646-e31f-11e4-aace-600308960668"
@@ -254,11 +234,9 @@ defmodule Pulap.AuthTest do
 
     @valid_attrs %{
       anniversary_date: "some anniversary_date",
-      annotations: "some annotations",
       avatar: "some avatar",
       avatar_path: "some avatar_path",
       bio: "some bio",
-      cards: "some cards",
       description: "some description",
       email: "some email",
       geolocation: 42,
@@ -274,11 +252,9 @@ defmodule Pulap.AuthTest do
     }
     @update_attrs %{
       anniversary_date: "some updated anniversary_date",
-      annotations: "some updated annotations",
       avatar: "some updated avatar",
       avatar_path: "some updated avatar_path",
       bio: "some updated bio",
-      cards: "some updated cards",
       description: "some updated description",
       email: "some updated email",
       geolocation: 43,
@@ -294,11 +270,9 @@ defmodule Pulap.AuthTest do
     }
     @invalid_attrs %{
       anniversary_date: nil,
-      annotations: nil,
       avatar: nil,
       avatar_path: nil,
       bio: nil,
-      cards: nil,
       description: nil,
       email: nil,
       geolocation: nil,
@@ -335,11 +309,9 @@ defmodule Pulap.AuthTest do
     test "create_profile/1 with valid data creates a profile" do
       assert {:ok, %Profile{} = profile} = Auth.create_profile(@valid_attrs)
       assert profile.anniversary_date == "some anniversary_date"
-      assert profile.annotations == "some annotations"
       assert profile.avatar == "some avatar"
       assert profile.avatar_path == "some avatar_path"
       assert profile.bio == "some bio"
-      assert profile.cards == "some cards"
       assert profile.description == "some description"
       assert profile.email == "some email"
       assert profile.geolocation == 42
@@ -363,11 +335,9 @@ defmodule Pulap.AuthTest do
       assert {:ok, profile} = Auth.update_profile(profile, @update_attrs)
       assert %Profile{} = profile
       assert profile.anniversary_date == "some updated anniversary_date"
-      assert profile.annotations == "some updated annotations"
       assert profile.avatar == "some updated avatar"
       assert profile.avatar_path == "some updated avatar_path"
       assert profile.bio == "some updated bio"
-      assert profile.cards == "some updated cards"
       assert profile.description == "some updated description"
       assert profile.email == "some updated email"
       assert profile.geolocation == 43

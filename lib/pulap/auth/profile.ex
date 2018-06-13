@@ -7,11 +7,9 @@ defmodule Pulap.Auth.Profile do
 
   schema "profiles" do
     field(:anniversary_date, :utc_datetime)
-    field(:annotations, :string)
     field(:avatar, :binary)
     field(:avatar_path, :string)
     field(:bio, :string)
-    field(:cards, :string)
     field(:created_by_id, Ecto.UUID)
     field(:description, :string)
     field(:email, :string)
@@ -45,13 +43,11 @@ defmodule Pulap.Auth.Profile do
       :avatar,
       :header_path,
       :header,
-      :cards,
-      :annotations,
       :geolocation,
       :is_active,
       :is_logical_deleted
     ])
 
-    # |> validate_required([:name, :email, :description, :bio, :moto, :website, :anniversary_date, :avatar_path, :avatar, :header_path, :header, :cards, :annotations, :geolocation, :is_active, :is_logical_deleted])
+    # |> validate_required([:name, :email, :description, :bio, :moto, :website, :anniversary_date, :avatar_path, :avatar, :header_path, :header, :geolocation, :is_active, :is_logical_deleted])
   end
 end

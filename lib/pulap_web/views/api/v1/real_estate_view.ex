@@ -53,7 +53,6 @@ defmodule PulapWeb.API.V1.RealEstateView do
       furniture_set: real_estate.furniture_set,
       house_equipment: real_estate.house_equipment,
       house_equipment_description: real_estate.house_equipment_description,
-      cards: real_estate.cards,
       geolocation: real_estate.geolocation,
       locale: real_estate.locale,
       position: real_estate.position,

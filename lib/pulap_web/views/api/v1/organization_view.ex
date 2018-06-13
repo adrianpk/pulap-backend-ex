@@ -16,8 +16,6 @@ defmodule PulapWeb.API.V1.OrganizationView do
       owner_username: organization.owner_username,
       name: organization.name,
       description: organization.description,
-      card: organization.card,
-      annotations: organization.annotations,
       organizations: organization.organizations,
       started_at: organization.started_at,
       is_active: organization.is_active,

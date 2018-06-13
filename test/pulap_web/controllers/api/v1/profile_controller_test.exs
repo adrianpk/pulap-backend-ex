@@ -4,14 +4,12 @@ defmodule PulapWeb.ProfileControllerTest do
   alias Pulap.Auth
   alias Pulap.Auth.Profile
 
-  # @user_create_attrs %{annotations: "some annotations", card: "some card", email: "some email", family_name: "some family_name", geolocation: 42, given_name: "some given_name", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, middle_names: "some middle_names", password_hash: "some password_hash", started_at: "2010-04-17 14:00:00.000000Z", username: "some username"}
+  # @user_create_attrs %{email: "some email", family_name: "some family_name", geolocation: 42, given_name: "some given_name", id: "7488a646-e31f-11e4-aace-600308960662", is_active: true, is_logical_deleted: true, middle_names: "some middle_names", password_hash: "some password_hash", started_at: "2010-04-17 14:00:00.000000Z", username: "some username"}
   @create_attrs %{
     anniversary_date: "some anniversary_date",
-    annotations: "some annotations",
     avatar: "some avatar",
     avatar_path: "some avatar_path",
     bio: "some bio",
-    cards: "some cards",
     description: "some description",
     email: "some email",
     geolocation: 42,
@@ -28,11 +26,9 @@ defmodule PulapWeb.ProfileControllerTest do
   }
   @update_attrs %{
     anniversary_date: "some updated anniversary_date",
-    annotations: "some updated annotations",
     avatar: "some updated avatar",
     avatar_path: "some updated avatar_path",
     bio: "some updated bio",
-    cards: "some updated cards",
     description: "some updated description",
     email: "some updated email",
     geolocation: 43,
@@ -48,11 +44,9 @@ defmodule PulapWeb.ProfileControllerTest do
   }
   @invalid_attrs %{
     anniversary_date: nil,
-    annotations: nil,
     avatar: nil,
     avatar_path: nil,
     bio: nil,
-    cards: nil,
     description: nil,
     email: nil,
     geolocation: nil,
@@ -105,11 +99,9 @@ defmodule PulapWeb.ProfileControllerTest do
       assert json_response(conn, 200)["data"] == %{
                # "id" => id,
                "anniversary_date" => "some anniversary_date",
-               "annotations" => "some annotations",
                "avatar" => "some avatar",
                "avatar_path" => "some avatar_path",
                "bio" => "some bio",
-               "cards" => "some cards",
                "description" => "some description",
                "email" => "some email",
                "geolocation" => 42,
@@ -164,11 +156,9 @@ defmodule PulapWeb.ProfileControllerTest do
       assert json_response(conn, 200)["data"] == %{
                # "id" => id,
                "anniversary_date" => "some updated anniversary_date",
-               "annotations" => "some updated annotations",
                "avatar" => "some updated avatar",
                "avatar_path" => "some updated avatar_path",
                "bio" => "some updated bio",
-               "cards" => "some updated cards",
                "description" => "some updated description",
                "email" => "some updated email",
                "geolocation" => 43,

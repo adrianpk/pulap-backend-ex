@@ -25,8 +25,6 @@ defmodule PulapWeb.ProfileView do
       avatar: profile.avatar,
       header_path: profile.header_path,
       header: profile.header,
-      cards: profile.cards,
-      annotations: profile.annotations,
       geolocation: profile.geolocation,
       is_active: profile.is_active,
       is_logical_deleted: profile.is_logical_deleted

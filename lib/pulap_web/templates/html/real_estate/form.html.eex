@@ -264,12 +264,6 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :cards, class: "control-label" %>
-    <%= text_input f, :cards, class: "form-control" %>
-    <%= error_tag f, :cards %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :geolocation, class: "control-label" %>
     <%= number_input f, :geolocation, step: "any", class: "form-control" %>
     <%= error_tag f, :geolocation %>
