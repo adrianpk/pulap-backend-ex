@@ -38,7 +38,7 @@ defmodule Pulap.App.KeyValue do
     |> validate_required([
       # :set,
       :key,
-      :value,
+      :value
       # :key_group,
       # :key_subgroup,
       # :locale,
