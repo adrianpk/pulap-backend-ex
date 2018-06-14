@@ -1,3 +1,6 @@
+<% assigns = assigns
+             |> Map.put(:title, "Key Values") %>
+
 <div class="section">
 
   <%= render "main_bar.html", assigns %>

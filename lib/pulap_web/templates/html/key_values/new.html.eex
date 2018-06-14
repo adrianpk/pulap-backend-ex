@@ -1,6 +1,6 @@
 <% assigns = assigns
               |> Map.put(:title, "New Key Value")
-              |> Map.put(:set, nil)
+              # |> Map.put(:set, nil)
               |> Map.put(:action, key_values_path(@conn, :create)) %>
 
 <div class="section">
