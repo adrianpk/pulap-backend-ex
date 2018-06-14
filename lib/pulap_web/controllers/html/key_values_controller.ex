@@ -13,9 +13,14 @@ defmodule PulapWeb.HTML.KeyValuesController do
     render(conn, "index.html", key_values: key_values, set: nil)
   end
 
+  def sets_index(conn, %{}) do
+    key_values = KeyValueContext.list_sets()
+    render(conn, "sets_index.html", key_values: key_values, set: nil)
+  end
+
   def set_index(conn, %{}) do
     set = conn |> set_from_params
-    key_values = set |> KeyValueContext.list_set_by_locale("pl")
+    key_values = set |> KeyValueContext.list_set()
     render(conn, "index.html", key_values: key_values, set: set)
   end
 
@@ -73,8 +78,15 @@ defmodule PulapWeb.HTML.KeyValuesController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn = conn |> put_flash(:error, "Check following errors, please.")
-        render(conn, "edit.html", key_value: key_value, changeset: changeset, set: key_value.set, autocomplete_data: autocomplete_data
-    )
+
+        render(
+          conn,
+          "edit.html",
+          key_value: key_value,
+          changeset: changeset,
+          set: key_value.set,
+          autocomplete_data: autocomplete_data
+        )
     end
   end
 
@@ -83,7 +95,6 @@ defmodule PulapWeb.HTML.KeyValuesController do
     changeset = KeyValueContext.change(key_value)
     render(conn, "confirm_delete.html", key_value: key_value, changeset: changeset)
   end
-
 
   def delete(conn, %{"id" => id}) do
     key_value = KeyValueContext.get!(id)

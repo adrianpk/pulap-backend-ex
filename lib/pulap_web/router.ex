@@ -139,7 +139,10 @@ defmodule PulapWeb.Router do
       put("/key-values/:id", KeyValuesController, :update)
       get("/key-values/:id/confirm-delete", KeyValuesController, :show_confirm_delete)
       delete("/key-values/:id", KeyValuesController, :delete)
-      get("/:set/key-values/", KeyValuesController, :set_index)
+      get("/key-values-set", KeyValuesController, :sets_index)
+      post("/key-values-set", KeyValuesController, :sets_index)
+      get("/key-values-set/:set/key-values/", KeyValuesController, :set_index)
+      post("/key-values-set/:set/key-values/", KeyValuesController, :set_index)
     end
 
     scope "/managed", Managed do

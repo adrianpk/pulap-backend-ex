@@ -155,7 +155,22 @@ defmodule Pulap.App.KeyValue.Context do
 
   ## Examples
 
-      iex> list_set_for_locale()
+      iex> list_set(set)
+      [%KeyValue{}, ...]
+
+  """
+  def list_set(set, queryable \\ KeyValue) do
+    queryable
+    |> Query.where_set(set)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of key_value for an specific set and locale.
+
+  ## Examples
+
+      iex> list_set_for_locale(set, locale)
       [%KeyValue{}, ...]
 
   """
