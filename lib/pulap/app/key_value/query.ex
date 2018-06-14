@@ -11,6 +11,12 @@ defmodule Pulap.App.KeyValue.Query do
     # |> select([q], q.set)
   end
 
+  def where_set(queryable, set) do
+    queryable
+    |> where([q], q.set == ^set)
+    |> order_by(asc: :key)
+  end
+
   def where_set_and_locale(queryable, set, locale) do
     queryable
     |> where([q], q.set == ^set)

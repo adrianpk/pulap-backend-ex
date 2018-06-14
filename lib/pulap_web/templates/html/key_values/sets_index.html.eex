@@ -1,0 +1,36 @@
+<% assigns = assigns
+             |> Map.put(:title, "List Key Values Sets") %>
+
+<div class="section">
+
+  <%= render "main_bar.html", assigns %>
+
+  <div class="tile is-12 is-parent is-mobile-flex is-hooverable">
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>Set</th>
+            <th class="has-text-centered">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for key_value <- @key_values do %>
+          <tr>
+            <td><%= key_value.set %></td>
+            <td class="has-text-centered">
+              <% path = key_values_path(@conn, :set_index, key_value.set) %>
+              <%= link to: path , method: :post, class: "button is-text is-jsonly has-text-centered", href: path do %>
+                <span class="icon">
+                  <i class="fas fa-edit"></i>
+                </span>
+              <% end %>
+              <noscript>
+                <%= link "Edit", to: path, method: :get, class: "button", href: path %>
+              </noscript>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>
