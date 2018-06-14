@@ -42,7 +42,7 @@
         <div class="field">
           <%= label f, :locale, class: "label" %>
           <%= text_input f, :locale, class: "awesomplete input is-primary is-fullwidth", data: [list: @autocomplete_data.locales] %>
-          <%= error_tag f, :property_type_val_loc %>
+          <%= error_tag f, :locale %>
         </div>
 
         <div class="field is-grouped is-pulled-left">
