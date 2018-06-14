@@ -1,5 +1,5 @@
 <% assigns = assigns
-              |> Map.put(:title, "Edit Key Values - " <> @key_value.key)
+              |> Map.put(:title, "Edit Key Value - <strong>" <> @set <> "/" <> @key_value.key <> "</strong>")
               |> Map.put(:action, key_values_path(@conn, :edit, @key_value)) %>
 
 <div class="section">

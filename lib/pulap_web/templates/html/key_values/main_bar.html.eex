@@ -2,11 +2,7 @@
   <div class="level-left">
     <div class="level-item is-pulled-left">
       <h2 class="subtitle">
-      <%= if @set do %>
-        Key Values Set - <strong><%= @set %></strong>
-      <% else %>
-        Key Values Set
-      <% end %>
+        <%= @title %>
       </h2>
     </div>
 
