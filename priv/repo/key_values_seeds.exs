@@ -20,7 +20,7 @@ start_date = Pulap.Util.Time.now_timestamp(:micro_seconds)
 valid_until_date = Pulap.Util.Time.sample_date_timestamp()
 
 # KeyValues--------------------------------------------------------------------------------------------------------------
-## Locales
+## Locales --------------------------------------------------------------------------------------------------------------
 data = %{set: "locales", key: "af", value: "Afrikaans", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
 changeset = KeyValue.changeset(%KeyValue{}, data)
 Repo.insert!(changeset)
@@ -2942,5 +2942,74 @@ changeset = KeyValue.changeset(%KeyValue{}, data)
 Repo.insert!(changeset)
 
 data = %{set: "locales", key: "zu_ZA", value: "Zulu (South Africa)", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+## Property types - English --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "property-types", key: "apartment", value: "Apartment", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "property-types", key: "house", value: "House", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+## Property types - Polish --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "property-types", key: "apartment", value: "Mieszkanie", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "property-types", key: "house", value: "Dom", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+## Building types - English --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "building-types", key: "traditional", value: "Traditional", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "building-types", key: "modern", value: "Modern", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+## Building types - Polish --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "building-types", key: "traditional", value: "Tradycyjny", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "building-types", key: "modern", value: "Nowoczesny", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+## Kitchen types - English --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "kitchen-types", key: "one-wall", value: "One-wall", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "kitchen-types", key: "island", value: "Galley", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+## Kitchen types - Polish --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "kitchen-types", key: "one-wall", value: "Jedna ściana", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "kitchen-types", key: "island", value: "Wyspa", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
 changeset = KeyValue.changeset(%KeyValue{}, data)
 Repo.insert!(changeset)

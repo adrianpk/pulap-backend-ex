@@ -1,6 +1,6 @@
 <% assigns = assigns
               |> Map.put(:title, "Edit Real Estate - Services")
-              |> Map.put(:action, real_estate_path(@conn, :update_presentation, @real_estate))
+              |> Map.put(:action, real_estate_path(@conn, :update_services, @real_estate))
               |> Map.put(:current, :services) %>
 
 <div class="section">
@@ -9,7 +9,7 @@
 
   <%= render "main_bar.html", assigns %>
 
-  <%= render "form_presentation.html", assigns %>
+  <%= render "form_services.html", assigns %>
 
   <%= render "edit_menu.html", assigns %>
 

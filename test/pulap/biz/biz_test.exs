@@ -323,7 +323,7 @@ defmodule Pulap.BizTest do
       backyard: true,
       kitchen_type_val_en: "some kitchen_type_val_en",
       currency_code: "some currency_code",
-      type_of_building_val_en: "some type_of_building_val_en",
+      building_type_val_en: "some building_type_val_en",
       id: "7488a646-e31f-11e4-aace-600308960662",
       price: 120.5,
       terrace: true,
@@ -363,7 +363,7 @@ defmodule Pulap.BizTest do
       geo_area_canonical_name_loc: "some geo_area_canonical_name_loc",
       is_logical_deleted: true,
       is_active: true,
-      type_of_building_val_loc: "some type_of_building_val_loc",
+      building_type_val_loc: "some building_type_val_loc",
       name: "some name",
       logical_deleted: true,
       elevator: true
@@ -374,7 +374,7 @@ defmodule Pulap.BizTest do
       backyard: false,
       kitchen_type_val_en: "some updated kitchen_type_val_en",
       currency_code: "some updated currency_code",
-      type_of_building_val_en: "some updated type_of_building_val_en",
+      building_type_val_en: "some updated building_type_val_en",
       id: "7488a646-e31f-11e4-aace-600308960668",
       price: 456.7,
       terrace: false,
@@ -414,7 +414,7 @@ defmodule Pulap.BizTest do
       geo_area_canonical_name_loc: "some updated geo_area_canonical_name_loc",
       is_logical_deleted: false,
       is_active: false,
-      type_of_building_val_loc: "some updated type_of_building_val_loc",
+      building_type_val_loc: "some updated building_type_val_loc",
       name: "some updated name",
       logical_deleted: false,
       elevator: false
@@ -425,7 +425,7 @@ defmodule Pulap.BizTest do
       backyard: nil,
       kitchen_type_val_en: nil,
       currency_code: nil,
-      type_of_building_val_en: nil,
+      building_type_val_en: nil,
       id: nil,
       price: nil,
       terrace: nil,
@@ -465,7 +465,7 @@ defmodule Pulap.BizTest do
       geo_area_canonical_name_loc: nil,
       is_logical_deleted: nil,
       is_active: nil,
-      type_of_building_val_loc: nil,
+      building_type_val_loc: nil,
       name: nil,
       logical_deleted: nil,
       elevator: nil
@@ -497,7 +497,7 @@ defmodule Pulap.BizTest do
       assert real_estate.backyard == true
       assert real_estate.kitchen_type_val_en == "some kitchen_type_val_en"
       assert real_estate.currency_code == "some currency_code"
-      assert real_estate.type_of_building_val_en == "some type_of_building_val_en"
+      assert real_estate.building_type_val_en == "some building_type_val_en"
       assert real_estate.id == "7488a646-e31f-11e4-aace-600308960662"
       assert real_estate.price == 120.5
       assert real_estate.terrace == true
@@ -537,7 +537,7 @@ defmodule Pulap.BizTest do
       assert real_estate.geo_area_canonical_name_loc == "some geo_area_canonical_name_loc"
       assert real_estate.is_logical_deleted == true
       assert real_estate.is_active == true
-      assert real_estate.type_of_building_val_loc == "some type_of_building_val_loc"
+      assert real_estate.building_type_val_loc == "some building_type_val_loc"
       assert real_estate.name == "some name"
       assert real_estate.logical_deleted == true
       assert real_estate.elevator == true
@@ -557,7 +557,7 @@ defmodule Pulap.BizTest do
       assert real_estate.backyard == false
       assert real_estate.kitchen_type_val_en == "some updated kitchen_type_val_en"
       assert real_estate.currency_code == "some updated currency_code"
-      assert real_estate.type_of_building_val_en == "some updated type_of_building_val_en"
+      assert real_estate.building_type_val_en == "some updated building_type_val_en"
       assert real_estate.id == "7488a646-e31f-11e4-aace-600308960668"
       assert real_estate.price == 456.7
       assert real_estate.terrace == false
@@ -597,7 +597,7 @@ defmodule Pulap.BizTest do
       assert real_estate.geo_area_canonical_name_loc == "some updated geo_area_canonical_name_loc"
       assert real_estate.is_logical_deleted == false
       assert real_estate.is_active == false
-      assert real_estate.type_of_building_val_loc == "some updated type_of_building_val_loc"
+      assert real_estate.building_type_val_loc == "some updated building_type_val_loc"
       assert real_estate.name == "some updated name"
       assert real_estate.logical_deleted == false
       assert real_estate.elevator == false
