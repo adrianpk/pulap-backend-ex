@@ -81,6 +81,7 @@ defmodule Pulap.App.KeyValue do
   def validate_locale(changeset, field, options \\ []) do
     validate_change(changeset, field, fn _, locale ->
       to_lookup = Context.get_by_key(locale)
+
       cond do
         locale == nil || String.trim(locale) == "" || to_lookup ->
           []
