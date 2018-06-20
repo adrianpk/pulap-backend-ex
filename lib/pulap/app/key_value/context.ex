@@ -38,6 +38,22 @@ defmodule Pulap.App.KeyValue.Context do
   def get!(id), do: Repo.get!(KeyValue, id)
 
   @doc """
+  Gets a single key_value.
+
+  Return nil if the Key Value does not exist.
+
+  ## Examples
+
+      iex> get(123)
+      %KeyValue{}
+
+      iex> get(456)
+      nil
+
+  """
+  def get(id), do: Repo.get(KeyValue, id)
+
+  @doc """
   Creates a key_value.
 
   ## Examples
@@ -117,7 +133,7 @@ defmodule Pulap.App.KeyValue.Context do
 
   """
   def get_by_key(key), do: Repo.get_by(KeyValue, key: key)
-  
+
   @doc """
   Returns a list of current key values set names.
 
@@ -207,8 +223,9 @@ defmodule Pulap.App.KeyValue.Context do
   """
   def html_select_values(conn, %{"set" => set, "locale" => locale}) do
     list = list_set_by_locale(set, locale)
+
     list
-    |> Enum.map(&[to_string(&1.value), to_string(&1.key)])
+    |> Enum.map(&[to_string(&1.value), to_string(&1.id)])
     |> Enum.map(fn [x, y] -> {x, y} end)
     |> Map.new()
     |> Enum.sort_by(&elem(&1, 1))
@@ -226,6 +243,7 @@ defmodule Pulap.App.KeyValue.Context do
   """
   def keys_data_list_string(conn, %{"set" => set, "locale" => locale}) do
     list = list_set_by_locale(set, locale)
+
     list
     |> Enum.map(&[to_string(&1.key)])
     |> Enum.join(", ")
