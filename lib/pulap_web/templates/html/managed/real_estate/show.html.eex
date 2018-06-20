@@ -104,12 +104,12 @@
 
   <li>
     <strong>Type of building val en:</strong>
-    <%= @real_estate.type_of_building_val_en %>
+    <%= @real_estate.building_type_val_en %>
   </li>
 
   <li>
     <strong>Type of building val loc:</strong>
-    <%= @real_estate.type_of_building_val_loc %>
+    <%= @real_estate.building_type_val_loc %>
   </li>
 
   <li>

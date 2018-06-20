@@ -126,15 +126,15 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :type_of_building_val_en, class: "control-label" %>
-    <%= text_input f, :type_of_building_val_en, class: "form-control" %>
-    <%= error_tag f, :type_of_building_val_en %>
+    <%= label f, :building_type_val_en, class: "control-label" %>
+    <%= text_input f, :building_type_val_en, class: "form-control" %>
+    <%= error_tag f, :building_type_val_en %>
   </div>
 
   <div class="form-group">
-    <%= label f, :type_of_building_val_loc, class: "control-label" %>
-    <%= text_input f, :type_of_building_val_loc, class: "form-control" %>
-    <%= error_tag f, :type_of_building_val_loc %>
+    <%= label f, :building_type_val_loc, class: "control-label" %>
+    <%= text_input f, :building_type_val_loc, class: "form-control" %>
+    <%= error_tag f, :building_type_val_loc %>
   </div>
 
   <div class="form-group">

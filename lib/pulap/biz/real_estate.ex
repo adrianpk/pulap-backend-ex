@@ -4,6 +4,7 @@ defmodule Pulap.Biz.RealEstate do
   use Pulap.Schema
   import Ecto.Changeset
   alias Pulap.Biz.RealEstate
+  alias Pulap.App.KeyValue.Context, as: KeyValueContext
   require IEx
 
   schema "real_estate" do
@@ -66,7 +67,7 @@ defmodule Pulap.Biz.RealEstate do
     field(:internet_television, :boolean, default: false)
     field(:is_active, :boolean, default: false)
     field(:is_logical_deleted, :boolean, default: false)
-    field(:kitchen_type_id, :id)
+    field(:kitchen_type_id, Ecto.UUID)
     field(:kitchen_type_val_en, :string)
     field(:kitchen_type_val_loc, :string)
     field(:locale, :string)
@@ -78,7 +79,7 @@ defmodule Pulap.Biz.RealEstate do
     field(:number_of_rooms, :integer)
     field(:position, :integer)
     field(:postal_code, :string)
-    field(:property_type_id, :id)
+    field(:property_type_id, Ecto.UUID)
     field(:property_type_val_en, :string)
     field(:property_type_val_loc, :string)
     field(:room_height_cm, :integer)
@@ -93,9 +94,9 @@ defmodule Pulap.Biz.RealEstate do
     field(:terrace, :boolean, default: false)
     field(:total_area_m2, :float)
     field(:tv_set_type_loc, :string)
-    field(:type_of_building_id, :id)
-    field(:type_of_building_val_en, :string)
-    field(:type_of_building_val_loc, :string)
+    field(:building_type_id, Ecto.UUID)
+    field(:building_type_val_en, :string)
+    field(:building_type_val_loc, :string)
     field(:updated_by_id, Ecto.UUID)
     field(:washing_machine, :boolean, default: false)
     field(:year_of_construction, :integer)
@@ -103,6 +104,10 @@ defmodule Pulap.Biz.RealEstate do
     timestamps()
 
     has_many(:managerships, Pulap.Biz.Managership, on_delete: :delete_all)
+
+    has_one(:property_type, Pulap.App.KeyValue, on_delete: :nothing)
+    has_one(:building_type, Pulap.App.KeyValue, on_delete: :nothing)
+    has_one(:kitchen_type, Pulap.App.KeyValue, on_delete: :nothing)
   end
 
   @doc false
@@ -158,8 +163,6 @@ defmodule Pulap.Biz.RealEstate do
       :geo_area_name,
       :geo_area_name_loc,
       :heating_type_id,
-      :heating_type_val_en,
-      :heating_type_val_loc,
       :house_equipment,
       :house_equipment_description,
       :indoor_area_m2,
@@ -168,8 +171,6 @@ defmodule Pulap.Biz.RealEstate do
       :is_active,
       :is_logical_deleted,
       :kitchen_type_id,
-      :kitchen_type_val_en,
-      :kitchen_type_val_loc,
       :locale,
       :long_term_rent_monthly_price,
       :name,
@@ -180,8 +181,6 @@ defmodule Pulap.Biz.RealEstate do
       :position,
       :postal_code,
       :property_type_id,
-      :property_type_val_en,
-      :property_type_val_loc,
       :room_height_cm,
       :sale_price,
       :sale_price_per_square_meter,
@@ -194,9 +193,7 @@ defmodule Pulap.Biz.RealEstate do
       :terrace,
       :total_area_m2,
       :tv_set_type_loc,
-      :type_of_building_id,
-      :type_of_building_val_en,
-      :type_of_building_val_loc,
+      :building_type_id,
       :updated_by_id,
       :washing_machine,
       :year_of_construction
@@ -287,9 +284,9 @@ defmodule Pulap.Biz.RealEstate do
       # :terrace,
       # :total_area_m2,
       # :tv_set_type_loc,
-      # :type_of_building_id,
-      # :type_of_building_val_en,
-      # :type_of_building_val_loc,
+      # :building_type_id,
+      # :building_type_val_en,
+      # :building_type_val_loc,
       # :updated_by_id,
       # :washing_machine,
       # :year_of_construction
@@ -355,22 +352,32 @@ defmodule Pulap.Biz.RealEstate do
       :elevator,
       :frontyard,
       :indoor_area_m2,
-      :kitchen_type_val_loc,
+      :kitchen_type_id,
       :name,
       :number_of_balconies,
       :number_of_bathrooms,
       :number_of_bedroms,
       :number_of_rooms,
-      :property_type_val_loc,
+      :property_type_id,
       :room_height_cm,
       :terrace,
       :total_area_m2,
-      :type_of_building_val_loc,
+      :building_type_id,
       :year_of_construction
     ])
-    |> validate_required([
-      :name,
-      :property_type_val_loc
+    |> cast_assoc(:property_type, required: false)
+    |> cast_assoc(:building_type, required: false)
+    |> cast_assoc(:kitchen_type, required: false)
+    # |> validate_required([
+    #   :name,
+    #   :property_type_id,
+    #   :building_type_id,
+    #   :kitchen_type_id
+    # ])
+    |> retrieve_human_readable([
+      :property_type_id,
+      :building_type_id,
+      :kitchen_type_id
     ])
   end
 
@@ -381,13 +388,13 @@ defmodule Pulap.Biz.RealEstate do
       :air_conditioning,
       :cable_television,
       :free_to_air_television,
-      :heating_type_val_en,
+      :heating_type_id,
       :internet,
       :internet_television,
       :name,
       :satellite_television,
       :telephone_line,
-      :tv_set_type_loc
+      :tv_set_type_id
     ])
     |> validate_required([
       :name
@@ -442,11 +449,82 @@ defmodule Pulap.Biz.RealEstate do
     end)
   end
 
+  def retrieve_human_readable(changeset, fields) when is_list(fields) do
+    # changed_keys = changeset.changes |> Map.keys
+    # to_process = Enum.filter(changed_keys, fn el -> Enum.member?(fields, el) end) 
+    to_process =
+      changeset.changes
+      |> Map.keys()
+      |> Enum.filter(fn el -> Enum.member?(fields, el) end)
+
+    changeset =
+      to_process
+      |> Enum.map(&retrieve_human_readable(changeset, &1))
+
+    changeset =
+      case length(fields) do
+        0 ->
+          changeset
+
+        1 ->
+          retrieve_human_readable(changeset, List.first(fields))
+
+        _ ->
+          retrieve_human_readable(changeset, List)
+      end
+
+    # Para cada field en fields que que esté en chageset.cahnges
+    IEx.pry()
+    changeset
+  end
+
+  def retrieve_human_readable(changeset, field) do
+    # El id me permite obtener un keyvalue
+    id_result =
+      changeset.changes
+      |> Map.fetch(field)
+
+    key_value =
+      case id_result do
+        {:ok, id} ->
+          KeyValueContext.get!(id)
+
+        {:error, _} ->
+          nil
+      end
+
+    # El keyvalue me permite obtener un triplete set-key-locale
+    # Si el locale no es key 'en_US'
+    changeset =
+      case key_value.locale do
+        "en_US" ->
+          put_change(changeset, val_en_field_name(field), key_value.value)
+
+        _ ->
+          put_change(changeset, val_loc_field_name(field), key_value.value)
+      end
+
+    ##  Busco un locale de  la forma set-key-'en_US'
+    ## Si lo encuentro con el keyvalue.value seteo el changeset.field_vai_en
+    # Si el locale es 'en_US'
+    ## Con el keyvalue.value lo seteo en el changeset.field_val_val_loc
+    changeset
+  end
+
+  defp val_en_field_name(field_name) when is_atom(field_name) do
+    (Atom.to_string(field_name) <> "_val_en")
+    |> String.to_atom()
+  end
+
+  defp val_loc_field_name(field_name) when is_atom(field_name) do
+    (Atom.to_string(field_name) <> "_val_loc")
+    |> String.to_atom()
+  end
+
   def update_geo_area(changeset) do
     # TODO: Update GeoArea
     # Get country + Administrative levels
     # Concatenate: "Country - Adm. Level 1 - (...) Adm. Level 3"
-
     changeset
   end
 end

@@ -170,15 +170,15 @@
         </div>
 
         <div class="field">
-          <%= label f, :type_of_building_val_en, class: "label" %>
-          <%= text_input f, :type_of_building_val_en, class: "input is-primary" %>
-          <%= error_tag f, :type_of_building_val_en %>
+          <%= label f, :building_type_val_en, class: "label" %>
+          <%= text_input f, :building_type_val_en, class: "input is-primary" %>
+          <%= error_tag f, :building_type_val_en %>
         </div>
 
         <div class="field">
-          <%= label f, :type_of_building_val_loc, class: "label" %>
-          <%= text_input f, :type_of_building_val_loc, class: "input is-primary" %>
-          <%= error_tag f, :type_of_building_val_loc %>
+          <%= label f, :building_type_val_loc, class: "label" %>
+          <%= text_input f, :building_type_val_loc, class: "input is-primary" %>
+          <%= error_tag f, :building_type_val_loc %>
         </div>
 
         <div class="field">
