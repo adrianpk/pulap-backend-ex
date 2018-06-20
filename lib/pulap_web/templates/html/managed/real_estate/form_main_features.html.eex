@@ -19,24 +19,29 @@
 
         <div class="columns">
           <div class="column is-half">
-          <%= label f, :property_type_val_loc, class: "label" %>
-          <div class="field">
-            <div class="control">
-              <div class="select is-primary is-fullwidth">
-                <%= select f, :property_type_val_loc, @property_types, class: "" %>
+            <%= label f, :property_type_id, class: "label" %>
+            <div class="field">
+              <div class="control">
+                <div class="select is-primary is-fullwidth">
+                  <%= select f, :property_type_id, @autocomplete_data.property_type, class: "" %>
+                </div>
               </div>
             </div>
-          </div>
-          <%= error_tag f, :property_type_val_loc %>
+            <%= error_tag f, :property_type_id %>
          </div>
 
          <div class="column is-half">
-            <%# Has english name %>
-            <%= label f, :type_of_building_val_loc, class: "label" %>
-            <%= text_input f, :type_of_building_val_loc, class: "input is-primary" %>
-            <%= error_tag f, :type_of_building_val_loc %>
-          </div>
-        </div>
+           <%= label f, :property_type_id, class: "label" %>
+           <div class="field">
+             <div class="control">
+               <div class="select is-primary is-fullwidth">
+                 <%= select f, :building_type_id, @autocomplete_data.building_type, class: "" %>
+               </div>
+             </div>
+           </div>
+           <%= error_tag f, :building_type_id %>
+         </div>
+       </div>
 
         <div class="columns">
           <div class="column is-half">
@@ -102,10 +107,15 @@
         </div>
 
         <div class="field">
-          <%# Has english name %>
-          <%= label f, :kitchen_type_val_loc, class: "label" %>
-          <%= text_input f, :kitchen_type_val_loc, class: "input is-primary" %>
-          <%= error_tag f, :kitchen_type_val_loc %>
+          <%= label f, :kitchen_type_id, class: "label" %>
+          <div class="field">
+            <div class="control">
+              <div class="select is-primary is-fullwidth">
+                <%= select f, :kitchen_type_id, @autocomplete_data.kitchen_type, class: "" %>
+              </div>
+            </div>
+          </div>
+          <%= error_tag f, :kitchen_type_id %>
         </div>
 
         <div class="columns">
@@ -145,7 +155,7 @@
           <div class="column is-half">
             <div class="field">
               <%= label f, :accessible_without_stairs, class: "label" %>
-              <%= text_input f, :accessible_without_stairs, class: "input is-primary" %>
+              <%= checkbox f, :accessible_without_stairs, class: "checkbox" %>
               <%= error_tag f, :accessible_without_stairs %>
             </div>
           </div>
@@ -153,7 +163,7 @@
           <div class="column is-half">
             <div class="field">
               <%= label f, :elevator, class: "label" %>
-              <%= text_input f, :elevator, class: "input is-primary" %>
+              <%= checkbox f, :elevator, class: "checkbox" %>
               <%= error_tag f, :elevator %>
             </div>
           </div>

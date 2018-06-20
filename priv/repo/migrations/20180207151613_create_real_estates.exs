@@ -50,8 +50,8 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :suggested_installment_loan, :integer
       add :currency_code, :string, size: 4
       add :currency_symbol, :string, size: 4
-      add :type_of_building_val_en, :string, size: 16
-      add :type_of_building_val_loc, :string, size: 16
+      add :building_type_val_en, :string, size: 16
+      add :building_type_val_loc, :string, size: 16
       add :year_of_construction, :integer
       add :room_height_cm, :integer
       add :number_of_rooms, :integer
@@ -93,7 +93,7 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :geo_area_id, references(:geo_areas, type: :uuid, on_delete: :nothing)
       add :property_type_id, references(:key_values, type: :uuid, on_delete: :nothing)
       add :currency_id, references(:currencies, type: :uuid, on_delete: :nothing)
-      add :type_of_building_id, references(:key_values, type: :uuid, on_delete: :nothing)
+      add :building_type_id, references(:key_values, type: :uuid, on_delete: :nothing)
       add :kitchen_type_id, references(:key_values, type: :uuid, on_delete: :nothing)
       add :heating_type_id, references(:key_values, type: :uuid, on_delete: :nothing)
       add :created_by_id, references(:users, type: :uuid, on_delete: :nothing)
@@ -107,7 +107,7 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
     create index(:real_estate, [:geo_area_canonical_name_loc])
     # create index(:real_estate, [:property_type_id])
     # create index(:real_estate, [:currency_id])
-    create index(:real_estate, [:type_of_building_id])
+    create index(:real_estate, [:building_type_id])
     # create index(:real_estate, [:kitchen_type_id])
     # create index(:real_estate, [:heating_type_id])
     # create index(:real_estate, [:created_by_id])

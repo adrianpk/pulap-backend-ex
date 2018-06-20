@@ -91,8 +91,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     suggested_installment_loan: 28_000,
     terrace: true,
     total_area_m2: 500,
-    type_of_building_val_en: "Traditional",
-    type_of_building_val_loc: "Tradycyjny",
+    building_type_val_en: "Traditional",
+    building_type_val_loc: "Tradycyjny",
     year_of_construction: "1978"
   }
 
@@ -154,8 +154,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     suggested_installment_loan: 40_000,
     terrace: false,
     total_area_m2: 1000,
-    type_of_building_val_en: "Traditional",
-    type_of_building_val_loc: "Tradycyjny",
+    building_type_val_en: "Traditional",
+    building_type_val_loc: "Tradycyjny",
     year_of_construction: "1970"
   }
 
@@ -218,8 +218,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     suggested_installment_loan: nil,
     terrace: nil,
     total_area_m2: nil,
-    type_of_building_val_en: nil,
-    type_of_building_val_loc: nil,
+    building_type_val_en: nil,
+    building_type_val_loc: nil,
     year_of_construction: nil
   }
 
@@ -280,8 +280,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     suggested_installment_loan: 28_000,
     terrace: true,
     total_area_m2: 500,
-    type_of_building_val_en: "Traditional",
-    type_of_building_val_loc: "Tradycyjny",
+    building_type_val_en: "Traditional",
+    building_type_val_loc: "Tradycyjny",
     year_of_construction: "1978"
   }
 
