@@ -374,7 +374,7 @@ defmodule Pulap.Biz.RealEstate do
     #   :building_type_id,
     #   :kitchen_type_id
     # ])
-    |> retrieve_human_readable([
+    |> add_human_readable([
       :property_type_id,
       :building_type_id,
       :kitchen_type_id
@@ -449,37 +449,31 @@ defmodule Pulap.Biz.RealEstate do
     end)
   end
 
-  def retrieve_human_readable(changeset, fields) when is_list(fields) do
-    # changed_keys = changeset.changes |> Map.keys
-    # to_process = Enum.filter(changed_keys, fn el -> Enum.member?(fields, el) end) 
+  def add_human_readable(changeset, fields) when is_list(fields) do
     to_process =
       changeset.changes
       |> Map.keys()
       |> Enum.filter(fn el -> Enum.member?(fields, el) end)
 
-    changeset =
-      to_process
-      |> Enum.map(&retrieve_human_readable(changeset, &1))
+    retrieve_human_readable(changeset, to_process)
+  end
 
-    changeset =
-      case length(fields) do
-        0 ->
-          changeset
+  def retrieve_human_readable(changeset, fields) when is_list(fields) do
+    case fields do
+      [] ->
+        changeset
 
-        1 ->
-          retrieve_human_readable(changeset, List.first(fields))
+      [h] ->
+        retrieve_human_readable(changeset, h)
 
-        _ ->
-          retrieve_human_readable(changeset, List)
-      end
-
-    # Para cada field en fields que que esté en chageset.cahnges
-    IEx.pry()
-    changeset
+      [h | t] ->
+        changeset
+        |> retrieve_human_readable(h)
+        |> retrieve_human_readable(t)
+    end
   end
 
   def retrieve_human_readable(changeset, field) do
-    # El id me permite obtener un keyvalue
     id_result =
       changeset.changes
       |> Map.fetch(field)
@@ -493,31 +487,35 @@ defmodule Pulap.Biz.RealEstate do
           nil
       end
 
-    # El keyvalue me permite obtener un triplete set-key-locale
-    # Si el locale no es key 'en_US'
     changeset =
       case key_value.locale do
         "en_US" ->
           put_change(changeset, val_en_field_name(field), key_value.value)
 
+        # TODO: find same set-key tuple but for system locale
+        # Then update val_loc field
         _ ->
           put_change(changeset, val_loc_field_name(field), key_value.value)
+          # TODO: find same set-key tuple but for 'en_US' locale 
+          # Then update val_loc field
       end
 
-    ##  Busco un locale de  la forma set-key-'en_US'
-    ## Si lo encuentro con el keyvalue.value seteo el changeset.field_vai_en
-    # Si el locale es 'en_US'
-    ## Con el keyvalue.value lo seteo en el changeset.field_val_val_loc
     changeset
   end
 
   defp val_en_field_name(field_name) when is_atom(field_name) do
-    (Atom.to_string(field_name) <> "_val_en")
+    field_name
+    |> Atom.to_string()
+    |> String.slice(0..-4)
+    |> Kernel.<>("_val_en")
     |> String.to_atom()
   end
 
   defp val_loc_field_name(field_name) when is_atom(field_name) do
-    (Atom.to_string(field_name) <> "_val_loc")
+    field_name
+    |> Atom.to_string()
+    |> String.slice(0..-4)
+    |> Kernel.<>("_val_loc")
     |> String.to_atom()
   end
 
