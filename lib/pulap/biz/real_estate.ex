@@ -491,31 +491,45 @@ defmodule Pulap.Biz.RealEstate do
       case key_value.locale do
         "en_US" ->
           put_change(changeset, val_en_field_name(field), key_value.value)
+          |> update_val_locale(field, key_value)
 
-        # TODO: find same set-key tuple but for system locale
-        # Then update val_loc field
         _ ->
           put_change(changeset, val_loc_field_name(field), key_value.value)
-          # TODO: find same set-key tuple but for 'en_US' locale 
-          # Then update val_loc field
+          |> update_val_en_US(field, key_value)
       end
 
     changeset
   end
 
+  defp update_val_locale(changeset, field, key_value) do
+    locale_key_value =
+      KeyValueContext.get_by_set_key_and_locale(key_value.set, key_value.key, "pl_PL")
+
+    put_change(changeset, val_loc_field_name(field), locale_key_value.value)
+  end
+
+  defp update_val_en_US(changeset, field, key_value) do
+    en_US_key_value =
+      KeyValueContext.get_by_set_key_and_locale(key_value.set, key_value.key, "en_US")
+
+    put_change(changeset, val_en_field_name(field), en_US_key_value.value)
+  end
+
   defp val_en_field_name(field_name) when is_atom(field_name) do
     field_name
-    |> Atom.to_string()
-    |> String.slice(0..-4)
-    |> Kernel.<>("_val_en")
-    |> String.to_atom()
+    |> val_sufix_field_name("_val_en")
   end
 
   defp val_loc_field_name(field_name) when is_atom(field_name) do
     field_name
+    |> val_sufix_field_name("_val_loc")
+  end
+
+  defp val_sufix_field_name(field_name, sufix) when is_atom(field_name) do
+    field_name
     |> Atom.to_string()
     |> String.slice(0..-4)
-    |> Kernel.<>("_val_loc")
+    |> Kernel.<>(sufix)
     |> String.to_atom()
   end
 

@@ -135,6 +135,23 @@ defmodule Pulap.App.KeyValue.Context do
   def get_by_key(key), do: Repo.get_by(KeyValue, key: key)
 
   @doc """
+  Gets a single key_value by a combination of set, key and locale
+
+  Returns nil if the Real estate does not exist.
+
+  ## Examples
+
+      iex> get_by_set_key_and_locale(set, key, locale)
+      %KeyValue{}
+
+      iex> get_by_set_key_and_locale(nil, nil, nil)
+      nil
+
+  """
+  def get_by_set_key_and_locale(set, key, locale),
+    do: Repo.get_by(KeyValue, set: set, key: key, locale: locale)
+
+  @doc """
   Returns a list of current key values set names.
 
   ## Examples
