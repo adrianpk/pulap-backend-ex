@@ -1,10 +1,14 @@
-<div class="section">
-  <h2 class="subtitle">
-    New Real Estate
-  </h2>
+<% assigns = assigns
+              |> Map.put(:title, "New Real Estate - Presentation")
+              |> Map.put(:action, real_estate_path(@conn, :create))
+              |> Map.put(:current, :presentation) %>
 
-  <%= render "form.html", Map.put(assigns, :action, real_estate_path(@conn, :create)) %>
+<div class="section">
+
+  <%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+
+  <%= render "main_bar.html", assigns %>
+
+  <%= render "form_presentation.html", assigns %>
 
 </div>
-
-<span><%= link "Back", to: real_estate_path(@conn, :index) %></span>
