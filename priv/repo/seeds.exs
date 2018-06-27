@@ -40,7 +40,6 @@ admin_role = Repo.insert!(changeset)
 data = %{
   name: "enterprise-owner",
   description: "Enterprise Owner",
-  description: "Enterprise onwer.",
   active: true,
   is_logical_deleted: false
 }

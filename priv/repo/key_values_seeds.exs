@@ -3013,3 +3013,49 @@ Repo.insert!(changeset)
 data = %{set: "kitchen-types", key: "island", value: "Wyspa", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
 changeset = KeyValue.changeset(%KeyValue{}, data)
 Repo.insert!(changeset)
+
+## Heating types - English --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "heating-types", key: "central", value: "Central", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "heating-types", key: "electric", value: "Electric", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+## Heating types - Polish --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "heating-types", key: "central", value: "Centralna", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "heating-types", key: "electric", value: "Electriczisny", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+## Heating types - English --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "tv-set-types", key: "standard", value: "Standard", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "tv-set-types", key: "smart", value: "Smart", key_group: "", key_subgroup: "", locale: "en_US", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+## Heating types - Polish --------------------------------------------------------------------------------------------------------------
+
+data = %{set: "tv-set-types", key: "standard", value: "Estandard", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
+
+data = %{set: "tv-set-types", key: "smart", value: "Smart", key_group: "", key_subgroup: "", locale: "pl_PL", position: 0, is_active: true, is_logical_deleted: false}
+changeset = KeyValue.changeset(%KeyValue{}, data)
+Repo.insert!(changeset)
+
