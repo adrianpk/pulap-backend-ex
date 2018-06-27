@@ -5,17 +5,22 @@ defmodule Pulap.Biz.Managership do
   alias Pulap.Biz.Managership
 
   schema "managerships" do
+    # field(:organization_id, Ecto.UUID)
+    # field(:real_estate_id, Ecto.UUID)
+    # field(:user_id, Ecto.UUID)
+    field(:created_by_id, Ecto.UUID)
     field(:ends_at, :utc_datetime)
     field(:is_active, :boolean, default: false)
     field(:is_logical_deleted, :boolean, default: false)
+    field(:is_owner, :boolean, default: false)
     field(:started_at, :utc_datetime)
-    field(:user_id, Ecto.UUID)
-    field(:organization_id, Ecto.UUID)
-    field(:real_estate_id, Ecto.UUID)
-    field(:created_by_id, Ecto.UUID)
     field(:updated_by_id, Ecto.UUID)
 
     timestamps()
+
+    belongs_to(:user, Pulap.Auth.User)
+    belongs_to(:organization, Pulap.Auth.Organization)
+    belongs_to(:real_estate, Pulap.Biz.RealEstate)
   end
 
   @doc false

@@ -21,6 +21,12 @@
           <%= error_tag f, :description %>
         </div>
 
+        <div class="field">
+          <%= label f, :manager_is_owner, class: "label" %>
+          <%= checkbox f, :manager_is_owner, class: "checkbox" %>
+          <%= error_tag f, :manager_is_owner %>
+        </div>
+
         <div class="field is-grouped">
           <div class="control">
             <%= submit "Update", class: "button is-link" %>

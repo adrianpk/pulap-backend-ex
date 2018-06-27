@@ -27,8 +27,19 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  require IEx
+
   def create(conn, %{"real_estate" => real_estate_params}) do
-    case RealEstateContext.create(real_estate_params) do
+    manager =
+      case Helpers.get_context(conn) do
+        %{user: user} ->
+          user
+
+        %{organization: organization} ->
+          organization
+      end
+
+    case RealEstateContext.create(:managed, real_estate_params, manager) do
       {:ok, real_estate} ->
         # TODO: Pass Real Estate Country + Administrative Areas to GeoArea Service
         # GeoArea Service shoud create a new GeoArea with this data if it does not exist.
@@ -158,7 +169,15 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
   def edit_services(conn, %{"id" => id}) do
     real_estate = RealEstateContext.get!(id)
     changeset = RealEstateContext.change(real_estate)
-    render(conn, "edit_services.html", real_estate: real_estate, changeset: changeset)
+    autocomplete_data = get_autocomplete_data(conn, :services)
+
+    render(
+      conn,
+      "edit_services.html",
+      real_estate: real_estate,
+      changeset: changeset,
+      autocomplete_data: autocomplete_data
+    )
   end
 
   def update_services(conn, %{"id" => id, "real_estate" => real_estate_params}) do
@@ -171,8 +190,16 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         |> redirect(to: real_estate_path(conn, :edit_services, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        autocomplete_data = get_autocomplete_data(conn, :services)
         conn = conn |> put_flash(:error, "Check following errors, please.")
-        render(conn, "edit_services.html", real_estate: real_estate, changeset: changeset)
+
+        render(
+          conn,
+          "edit_services.html",
+          real_estate: real_estate,
+          changeset: changeset,
+          autocomplete_data: autocomplete_data
+        )
     end
   end
 
@@ -230,5 +257,15 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
       KeyValueContext.html_select_values(conn, %{"set" => "kitchen-types", "locale" => "pl_PL"})
 
     %{property_type: property_type, building_type: building_type, kitchen_type: kitchen_type}
+  end
+
+  def get_autocomplete_data(conn, :services) do
+    heating_type =
+      KeyValueContext.html_select_values(conn, %{"set" => "heating-types", "locale" => "pl_PL"})
+
+    tv_set_type =
+      KeyValueContext.html_select_values(conn, %{"set" => "tv-set-types", "locale" => "pl_PL"})
+
+    %{heating_type: heating_type, tv_set_type: tv_set_type}
   end
 end

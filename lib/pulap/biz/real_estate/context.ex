@@ -7,6 +7,10 @@ defmodule Pulap.Biz.RealEstate.Context do
   alias Pulap.Repo
 
   alias Pulap.Biz.RealEstate
+  alias Pulap.Biz.Managership
+  alias Pulap.Biz.Ownership
+  alias Pulap.Auth.User
+  require IEx
 
   @doc """
   Returns the list of real_estate.
@@ -53,6 +57,68 @@ defmodule Pulap.Biz.RealEstate.Context do
     %RealEstate{}
     |> RealEstate.changeset(attrs)
     |> Repo.insert()
+  end
+
+  require IEx
+
+  @doc """
+  Creates a managed real_estate.
+
+  ## Examples
+
+      iex> create(:managed, %{field: value}, manager)
+      {:ok, %RealEstate{}}
+
+      iex> create(:managed, %{field: bad_value}, manager)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create(:managed, attrs \\ %{}, manager) do
+    is_owner =
+      attrs["manager_is_owner"]
+      |> String.to_existing_atom()
+
+    result =
+      Repo.transaction(fn ->
+        user =
+          manager
+          |> Ecto.Changeset.change()
+
+        real_estate =
+          %RealEstate{}
+          |> RealEstate.edit_presentation_changeset(attrs)
+
+        if is_owner do
+          ownership =
+            %Ownership{}
+            |> Repo.preload([:user, :real_estate])
+            |> Ownership.changeset(attrs)
+            |> Ecto.Changeset.put_assoc(:user, user)
+            |> Ecto.Changeset.put_assoc(:real_estate, real_estate)
+
+          Repo.insert(ownership)
+        end
+
+        managership =
+          %Managership{}
+          |> Repo.preload([:user, :real_estate])
+          |> Managership.changeset(attrs)
+          |> Ecto.Changeset.put_change(:is_owner, is_owner)
+          |> Ecto.Changeset.put_assoc(:user, user)
+          |> Ecto.Changeset.put_assoc(:real_estate, real_estate)
+
+        Repo.insert(managership)
+      end)
+
+    IEx.pry()
+
+    case result do
+      {:ok, {:ok, managership}} ->
+        {:ok, managership.real_estate}
+
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   @doc """
