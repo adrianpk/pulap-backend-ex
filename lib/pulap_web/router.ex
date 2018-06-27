@@ -147,7 +147,9 @@ defmodule PulapWeb.Router do
 
     scope "/managed", Managed do
       get("/real-estate", RealEstateController, :index)
+      # post("/real-estate", RealEstateController, :index)
       get("/real-estate/new", RealEstateController, :new)
+      post("/real-estate/new", RealEstateController, :new)
       post("/real-estate", RealEstateController, :create)
       get("/real-estate/:id/presentation", RealEstateController, :edit_presentation)
       post("/real-estate/:id/presentation", RealEstateController, :edit_presentation)
