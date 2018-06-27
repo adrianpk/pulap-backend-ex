@@ -8,9 +8,16 @@
 
     <div class="level-right">
       <div class="level-item is-pulled-right">
-        <%= button "New", to: key_values_path(@conn, :new), method: :post, class: "button is-light is-jsonly" %>
+        <%= button "List", to: real_estate_path(@conn, :index), method: :post, class: "button is-light is-jsonly" %>
         <noscript>
-          <%= link "New", to: key_values_path(@conn, :new), method: :get, class: "button is-light" %>
+          <%= link "List", to: real_estate_path(@conn, :index), method: :get, class: "button is-light" %>
+        </noscript>
+      </div>
+
+      <div class="level-item is-pulled-right">
+        <%= button "New", to: real_estate_path(@conn, :new), method: :post, class: "button is-light is-jsonly" %>
+        <noscript>
+          <%= link "New", to: real_estate_path(@conn, :new), method: :get, class: "button is-light" %>
         </noscript>
       </div>
     </div>
