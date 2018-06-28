@@ -59,8 +59,6 @@ defmodule Pulap.Biz.RealEstate.Context do
     |> Repo.insert()
   end
 
-  require IEx
-
   @doc """
   Creates a managed real_estate.
 
@@ -95,6 +93,7 @@ defmodule Pulap.Biz.RealEstate.Context do
             |> Ownership.changeset(attrs)
             |> Ecto.Changeset.put_assoc(:user, user)
             |> Ecto.Changeset.put_assoc(:real_estate, real_estate)
+            |> Ownership.update_changeset_fields(manager.username, real_estate.changes.name)
 
           Repo.insert(ownership)
         end
@@ -106,6 +105,7 @@ defmodule Pulap.Biz.RealEstate.Context do
           |> Ecto.Changeset.put_change(:is_owner, is_owner)
           |> Ecto.Changeset.put_assoc(:user, user)
           |> Ecto.Changeset.put_assoc(:real_estate, real_estate)
+          |> Managership.update_changeset_fields(manager.username, real_estate.changes.name)
 
         Repo.insert(managership)
       end)

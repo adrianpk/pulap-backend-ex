@@ -4,6 +4,8 @@ defmodule Pulap.Repo.Migrations.CreateOwnership do
   def change do
     create table(:ownerships, primary_key: false) do
       add :id, :uuid, primary_key: true
+      add :name, :string, size: 32, null: false
+      add :description, :text
       add :started_at, :utc_datetime
       add :ends_at, :utc_datetime
       add :is_active, :boolean, default: false, null: false

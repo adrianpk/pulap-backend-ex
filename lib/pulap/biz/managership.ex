@@ -9,10 +9,12 @@ defmodule Pulap.Biz.Managership do
     # field(:real_estate_id, Ecto.UUID)
     # field(:user_id, Ecto.UUID)
     field(:created_by_id, Ecto.UUID)
+    field(:description, :string)
     field(:ends_at, :utc_datetime)
     field(:is_active, :boolean, default: false)
     field(:is_logical_deleted, :boolean, default: false)
     field(:is_owner, :boolean, default: false)
+    field(:name, :string)
     field(:started_at, :utc_datetime)
     field(:updated_by_id, Ecto.UUID)
 
@@ -37,4 +39,14 @@ defmodule Pulap.Biz.Managership do
     ])
     |> validate_required([:is_active, :is_logical_deleted])
   end
+
+
+  @doc false
+  def update_changeset_fields(changeset, manager_name, real_estate_name) do
+    name = manager_name <> " - " <>  real_estate_name |> String.downcase
+    changeset
+    |> put_change(:name, name) 
+    |> put_change(:description, name <> " managership.") 
+  end
+  
 end
