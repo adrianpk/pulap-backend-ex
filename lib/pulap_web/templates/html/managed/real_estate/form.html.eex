@@ -1,4 +1,4 @@
-<div class="">
+<div class="container">
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="tile is-child">
@@ -20,7 +20,7 @@
           <%= textarea f, :description, class: "textarea is-primary", rows: "5" %>
           <%= error_tag f, :description %>
         </div>
-
+        
         <div class="field is-grouped">
           <div class="control">
             <%= submit "Update", class: "button is-link" %>

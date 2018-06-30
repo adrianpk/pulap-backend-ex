@@ -22,9 +22,15 @@
         <strong><%= @key_value.key %> - <%= @key_value.value %></strong>
       </div>
       <div class="field is-grouped">
-        <div class="control">
-          <%= link "Cancel", to: key_values_path(@conn, :edit, @key_value), class: "button is-link" %>
-          <%= link "Delete", to: key_values_path(@conn, :delete,  @key_value), method: :delete, class: "button is-danger" %>
+        <div class="level-left">
+          <div class="control">
+            <div class="level-item is-pulled-left">
+              <%= link "Cancel", to: key_values_path(@conn, :edit, @key_value), class: "button is-link" %>
+            </div>
+            <div class="level-item is-pulled-left">
+              <%= link "Delete", to: key_values_path(@conn, :delete,  @key_value), method: :delete, class: "button is-danger" %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

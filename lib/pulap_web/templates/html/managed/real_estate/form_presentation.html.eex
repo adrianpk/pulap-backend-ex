@@ -1,14 +1,8 @@
-<div class="">
+<div class="container">
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="tile is-child">
       <%= form_for @changeset, @action, fn f -> %>
-        <%= if @changeset.action do %>
-        <div class="alert alert-danger">
-          <p>Check following errors, please.</p>
-        </div>
-        <% end %>
-
         <div class="field">
           <%= label f, :name, "Name", class: "label" %>
           <%= text_input f, :name, class: "input is-primary" %>
@@ -32,7 +26,7 @@
             <%= submit "Update", class: "button is-link" %>
           </div>
         </div>
-        <% end %>
+      <% end %>
       </div>
     </div>
   </div>

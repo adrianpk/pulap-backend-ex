@@ -110,8 +110,6 @@ defmodule Pulap.Biz.RealEstate.Context do
         Repo.insert(managership)
       end)
 
-    IEx.pry()
-
     case result do
       {:ok, {:ok, managership}} ->
         {:ok, managership.real_estate}
