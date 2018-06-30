@@ -1,18 +1,40 @@
+
+<div class="level">
+  
+  <div class="level-right">
+  </div>
+  <div class="level-right">
+    <div class="tile is-ancestor is-pulled-right">
+      <%= form_for @conn, key_values_path(@conn, :index), [as: :search], fn f -> %>
+      <div class="tile is-pulled-right">
+        <%= link "New", to: key_values_path(@conn, :new), method: :get, class: "button is-light is-small" %>
+      </div>
+      <div class="tile is-pulled-right">
+        <%= link "List", to: key_values_path(@conn, :index), method: :get, class: "button is-light is-small" %>
+      </div>
+      <div class="tile is-pulled-right">
+        <%= submit "List by", class: "button is-light is-small" %>
+      </div>
+      <div class="tile is-pulled-right">
+        <%= text_input f, :key, placeholder: "Set", class: "input is-small" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<br>    
+
 <div class="level">
   <div class="level-left">
-    <div class="level-item is-pulled-left">
+    <div class="tile is-ancestor">
+      <div class="tile is-pulled-left">
       <h2 class="subtitle">
         <%= @title %>
       </h2>
-    </div>
-
-    <div class="level-right">
-      <div class="level-item is-pulled-right">
-        <%= button "New", to: key_values_path(@conn, :new), method: :post, class: "button is-light is-jsonly" %>
-        <noscript>
-          <%= link "New", to: key_values_path(@conn, :new), method: :get, class: "button is-light" %>
-        </noscript>
       </div>
     </div>
   </div>
 </div>
+
+<br>
