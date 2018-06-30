@@ -45,6 +45,8 @@ defmodule PulapWeb do
       import PulapWeb.Router.Helpers
       import PulapWeb.ErrorHelpers
       import PulapWeb.Gettext
+      # Custom
+      import Pulap.Util.Changeset
     end
   end
 
