@@ -40,13 +40,12 @@ defmodule Pulap.Biz.Managership do
     |> validate_required([:is_active, :is_logical_deleted])
   end
 
-
   @doc false
   def update_changeset_fields(changeset, manager_name, real_estate_name) do
-    name = manager_name <> " - " <>  real_estate_name |> String.downcase
+    name = (manager_name <> " - " <> real_estate_name) |> String.downcase()
+
     changeset
-    |> put_change(:name, name) 
-    |> put_change(:description, name <> " managership.") 
+    |> put_change(:name, name)
+    |> put_change(:description, name <> " managership.")
   end
-  
 end

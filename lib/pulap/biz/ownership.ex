@@ -41,13 +41,12 @@ defmodule Pulap.Biz.Ownership do
     |> validate_required([:is_active, :is_logical_deleted])
   end
 
-  
   @doc false
   def update_changeset_fields(changeset, owner_name, real_estate_name) do
-    name = owner_name <> " - " <>  real_estate_name |> String.downcase
-    changeset
-    |> put_change(:name, name) 
-    |> put_change(:description, name <> " ownership.") 
-  end
+    name = (owner_name <> " - " <> real_estate_name) |> String.downcase()
 
+    changeset
+    |> put_change(:name, name)
+    |> put_change(:description, name <> " ownership.")
+  end
 end
