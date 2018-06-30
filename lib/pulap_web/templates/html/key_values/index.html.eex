@@ -1,48 +1,12 @@
 <% assigns = assigns
-             |> Map.put(:title, "Key Values") %>
+              |> Map.put(:title, "Key Values") %>
 
 <div class="section">
 
+  <%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+
   <%= render "main_bar.html", assigns %>
 
-  <div class="tile is-12 is-parent is-mobile-flex is-hooverable">
-      <table class="table is-fullwidth">
-        <thead>
-          <tr>
-            <!--th><abbr title="Position">Pos.</abbr></th-->
-            <th>Key</th>
-            <th>Value</th>
-            <!--th><abbr title="Group">Group</abbr></th>
-            <th><abbr title="Subgroup">Subgroup</abbr></th>
-            <th><abbr title="Created by">Created by</abbr></th>
-            <th><abbr title="Updated by">Updated by</abbr></th-->
-            <th class="has-text-centered">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= for key_value <- @key_values do %>
-          <tr>
-            <!--th><%#= key_value.position %></th-->
-            <td><%= key_value.key %></td>
-            <td><%= key_value.value %></td>
-            <!--td><%#= key_value.key_group %></td>
-            <td><%#= key_value.key_subgroup %></td>
-            <td><%#= key_value.created_by_id %></td>
-            <td><%#= key_value.updated_by_id %></td-->
-            <td class="has-text-centered">
-              <% path = key_values_path(@conn, :edit, key_value) %>
-              <%= link to: path , method: :post, class: "button is-text is-jsonly has-text-centered", href: path do %>
-                <span class="icon">
-                  <i class="fas fa-edit"></i>
-                </span>
-              <% end %>
-              <noscript>
-                <%= link "Edit", to: path, method: :get, class: "button", href: path %>
-              </noscript>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-  </div>
+  <%= render "list.html", assigns %>
+  
 </div>

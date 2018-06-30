@@ -1,0 +1,29 @@
+  <div class="tile is-12 is-parent is-mobile-flex is-hooverable">
+   <table class="table is-fullwidth">
+     <thead>
+       <tr>
+         <th>Value</th>
+         <th class="has-text-centered">Action</th>
+       </tr>
+     </thead>
+     <tbody>
+       <%= for key_value <- @key_values do %>
+       <tr>
+         <td><%= key_value.key %></td>
+         <td><%= key_value.value %></td>
+         <td class="has-text-centered">
+           <% path = key_values_path(@conn, :edit, key_value) %>
+           <%= link to: path , method: :get, class: "button is-text is-jsonly has-text-centered", href: path do %>
+             <span class="icon">
+               <i class="fas fa-edit"></i>
+             </span>
+           <% end %>
+           <noscript>
+             <%= link "Edit", to: path, method: :get, class: "button", href: path %>
+           </noscript>
+         </td>
+       </tr>
+       <% end %>
+     </tbody>
+   </table>
+  </div>
