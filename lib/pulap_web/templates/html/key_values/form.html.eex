@@ -46,29 +46,22 @@
         </div>
 
         <div class="field is-grouped is-pulled-left">
-
           <%= if assigns[:key_value] do %>
-
             <div class="control">
               <%= link "Delete", to: key_values_path(@conn, :delete, @key_value), method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger is-outlined is-jsonly" %>
             </div>
-
             <div class="control">
-            <noscript>
-              <%= link "Delete", to: key_values_path(@conn, :show_confirm_delete, @key_value), class: "button is-danger is-outlined" %>
-            </noscript>
+              <noscript>
+                <%= link "Delete", to: key_values_path(@conn, :show_confirm_delete, @key_value), class: "button is-danger is-outlined" %>
+              </noscript>
             </div>
-
             <div class="control">
               <%= submit "Update", class: "button is-link" %>
             </div>
-
           <% else  %>
-
             <div class="control">
               <%= submit "Save", class: "button is-link" %>
             </div>
-
           <% end %>
         </div>
 

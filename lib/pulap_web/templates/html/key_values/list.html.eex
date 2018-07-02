@@ -2,6 +2,7 @@
    <table class="table is-fullwidth">
      <thead>
        <tr>
+         <th>Key</th>
          <th>Value</th>
          <th class="has-text-centered">Action</th>
        </tr>

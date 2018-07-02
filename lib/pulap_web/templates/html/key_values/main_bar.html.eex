@@ -3,12 +3,12 @@
   </div>
   <div class="level-right">
     <div class="tile is-ancestor is-pulled-right">
-      <%= form_for @conn, key_values_path(@conn, :index), [as: :search], fn f -> %>
+      <%= form_for @conn, key_values_path(@conn, :find_set_index), [as: :search], fn f -> %>
       <div class="tile is-pulled-right">
         <%= submit "List by set", class: "button is-light is-small" %>
       </div>
       <div class="tile is-pulled-right">
-        <%= text_input f, :key, placeholder: "Set", class: "input is-small" %>
+        <%= text_input f, :set, placeholder: "Set", class: "input is-small" %>
       </div>
       <div class="tile is-pulled-right">
         <%= link "List", to: key_values_path(@conn, :index), method: :get, class: "button is-light is-small" %>

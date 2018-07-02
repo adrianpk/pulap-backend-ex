@@ -18,6 +18,18 @@ defmodule PulapWeb.HTML.KeyValuesController do
     render(conn, "sets_index.html", key_values: key_values, set: nil)
   end
 
+  def find_set_index(conn, %{"search" => search_params}) do
+    set = String.trim(search_params["set"])
+
+    cond do
+      set != "" ->
+        conn |> redirect(to: key_values_path(conn, :set_index, set))
+
+      true ->
+        conn |> redirect(to: key_values_path(conn, :index))
+    end
+  end
+
   def set_index(conn, %{}) do
     set = conn |> set_from_params
     key_values = set |> KeyValueContext.list_set()
