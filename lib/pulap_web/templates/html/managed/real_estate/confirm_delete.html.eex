@@ -1,0 +1,43 @@
+<% assigns = assigns
+              |> Map.put(:set, nil)
+              |> Map.put(:title, "Confirm Delete")
+              |> Map.put(:action, reatl_estate_path(@conn, :delete, @real_estate)) %>
+
+<div class="section">
+
+  <%= render PulapWeb.HTML.Shared, "flash_message.html", assigns %>
+
+  <%= render "main_bar.html", assigns %>
+
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>Confirme delete</p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+    <div class="message-body">
+      <div class="level">
+        <%= @real_estate.name %>
+      </div>
+      <div class="level">
+        <strong><%= @real_estate.description %></strong>
+      </div>
+      <div class="field is-grouped">
+        <div class="level-left">
+          <div class="control">
+            <div class="level-item is-pulled-left">
+              <%= link "Cancel", to: real_estate_path(@conn, :edit_presentation, @real_estate), class: "button is-link" %>
+            </div>
+            <div class="level-item is-pulled-left">
+              <% link "Delete", to: real_estate_path(@conn, :delete,  @real_estate), method: :delete, class: "button is-danger" %>
+              <%= form_for @changeset, @action, fn f -> %>
+                  <%= hidden_input f, :id %>
+                  <%= submit "Delete", class: "button is-danger" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </article>
+</div>
+

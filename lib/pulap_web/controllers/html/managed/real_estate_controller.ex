@@ -27,8 +27,6 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  require IEx
-
   def create(conn, %{"real_estate" => real_estate_params}) do
     manager =
       case Helpers.get_context(conn) do

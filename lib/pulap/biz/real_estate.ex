@@ -105,6 +105,7 @@ defmodule Pulap.Biz.RealEstate do
 
     timestamps()
 
+    has_many(:ownerships, Pulap.Biz.Ownership, on_delete: :delete_all)
     has_many(:managerships, Pulap.Biz.Managership, on_delete: :delete_all)
 
     has_one(:property_type, Pulap.App.KeyValue, on_delete: :nothing)

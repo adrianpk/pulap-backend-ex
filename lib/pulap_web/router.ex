@@ -137,7 +137,9 @@ defmodule PulapWeb.Router do
       put("/key-values/:id", KeyValuesController, :update)
       get("/key-values/:id/confirm-delete", KeyValuesController, :show_confirm_delete)
       delete("/key-values/:id", KeyValuesController, :delete)
+      # KeyValues by Set
       get("/key-values-set", KeyValuesController, :sets_index)
+      post("/key-values-set/find", KeyValuesController, :find_set_index)
       get("/key-values-set/:set/key-values/", KeyValuesController, :set_index)
     end
 
@@ -163,7 +165,10 @@ defmodule PulapWeb.Router do
       get("/real-estate/:id/prices", RealEstateController, :edit_prices)
       patch("/real-estate/:id/prices", RealEstateController, :update_prices)
       put("/real-estate/:id/prices", RealEstateController, :update_prices)
+      get("/real-estate/:id/confirm-delete", RealEstateController, :show_confirm_delete)
       delete("/real-estate/:id", RealEstateController, :delete)
+      patch("/real-estate/:id", RealEstateController, :delete)
+      put("/real-estate/:id", RealEstateController, :delete)
       get("/real-estate/add-images", RealEstateController, :show_add_images)
     end
   end
