@@ -36,6 +36,9 @@ defmodule Pulap.Biz.RealEstate do
     field(:balcony, :boolean, default: false)
     field(:bathroom_area_m2, :float)
     field(:block, :string)
+    field(:building_type_id, Ecto.UUID)
+    field(:building_type_val_en, :string)
+    field(:building_type_val_loc, :string)
     field(:cable_television, :boolean, default: false)
     field(:clothes_dryer, :boolean, default: false)
     field(:country, :string)
@@ -93,10 +96,9 @@ defmodule Pulap.Biz.RealEstate do
     field(:telephone_line, :boolean, default: false)
     field(:terrace, :boolean, default: false)
     field(:total_area_m2, :float)
-    field(:tv_set_type_loc, :string)
-    field(:building_type_id, Ecto.UUID)
-    field(:building_type_val_en, :string)
-    field(:building_type_val_loc, :string)
+    field(:tv_set_type_id, Ecto.UUID)
+    field(:tv_set_type_val_en, :string)
+    field(:tv_set_type_val_loc, :string)
     field(:updated_by_id, Ecto.UUID)
     field(:washing_machine, :boolean, default: false)
     field(:year_of_construction, :integer)
@@ -192,7 +194,7 @@ defmodule Pulap.Biz.RealEstate do
       :telephone_line,
       :terrace,
       :total_area_m2,
-      :tv_set_type_loc,
+      :tv_set_type_id,
       :building_type_id,
       :updated_by_id,
       :washing_machine,
@@ -368,12 +370,12 @@ defmodule Pulap.Biz.RealEstate do
     |> cast_assoc(:property_type, required: false)
     |> cast_assoc(:building_type, required: false)
     |> cast_assoc(:kitchen_type, required: false)
-    # |> validate_required([
-    #   :name,
-    #   :property_type_id,
-    #   :building_type_id,
-    #   :kitchen_type_id
-    # ])
+    |> validate_required([
+      :name
+      # :property_type_id,
+      # :building_type_id,
+      # :kitchen_type_id
+    ])
     |> add_human_readable([
       :property_type_id,
       :building_type_id,

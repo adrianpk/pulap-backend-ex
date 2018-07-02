@@ -30,13 +30,15 @@ defmodule Pulap.Biz.Ownership do
   def changeset(%Ownership{} = ownership, attrs) do
     ownership
     |> cast(attrs, [
-      :user_id,
+      :description,
+      :ends_at,
+      :is_active,
+      :is_logical_deleted,
+      :name,
       :organization_id,
       :real_estate_id,
       :started_at,
-      :ends_at,
-      :is_active,
-      :is_logical_deleted
+      :user_id
     ])
     |> validate_required([:is_active, :is_logical_deleted])
   end

@@ -180,6 +180,7 @@ real_estate_two = Repo.insert!(changeset)
 # Ownership --------------------------------------------------------------------------------------------------------------
 ## Real Estate One Ownership
 data = %{
+  name: "superadmin - real estate one",
   organization_id: pulap_organization.id,
   user_id: superadmin_user.id,
   real_estate_id: real_estate_one.id,
@@ -193,6 +194,7 @@ real_estate_one_ownership = Repo.insert!(changeset)
 
 ## Real Estate Two Ownership
 data = %{
+  name: "superadmin - real estate two",
   user_id: superadmin_user.id,
   real_estate_id: real_estate_two.id,
   active: true,
@@ -205,9 +207,11 @@ real_estate_two_ownership = Repo.insert!(changeset)
 # Managership --------------------------------------------------------------------------------------------------------------
 ## Real Estate One Managership
 data = %{
+  name: "superadmin - real estate one",
   organization_id: pulap_organization.id,
   user_id: superadmin_user.id,
   real_estate_id: real_estate_one.id,
+  is_owner: true,
   active: true,
   is_logical_deleted: false
 }
@@ -218,8 +222,10 @@ real_estate_one_managership = Repo.insert!(changeset)
 
 ## Real Estate Two Managership
 data = %{
+  name: "superadmin - real estate two",
   user_id: superadmin_user.id,
   real_estate_id: real_estate_two.id,
+  is_owner: true,
   active: true,
   is_logical_deleted: false
 }

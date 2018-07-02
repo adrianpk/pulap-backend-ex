@@ -4,12 +4,14 @@ defmodule Pulap.Biz.RealEstate.Context do
   """
 
   import Ecto.Query, warn: false
+  alias Ecto.Multi
   alias Pulap.Repo
 
   alias Pulap.Biz.RealEstate
   alias Pulap.Biz.Managership
   alias Pulap.Biz.Ownership
   alias Pulap.Auth.User
+  require Logger
   require IEx
 
   @doc """
@@ -73,49 +75,70 @@ defmodule Pulap.Biz.RealEstate.Context do
   """
   def create(:managed, attrs \\ %{}, manager) do
     is_owner =
-      attrs["manager_is_owner"]
-      |> String.to_existing_atom()
+      case attrs["manager_is_owner"] do
+        "true" ->
+          true
+
+        _ ->
+          false
+      end
+
+    user =
+      manager
+      |> Ecto.Changeset.change()
+
+    real_estate =
+      %RealEstate{}
+      |> RealEstate.edit_presentation_changeset(attrs)
 
     result =
-      Repo.transaction(fn ->
-        user =
-          manager
-          |> Ecto.Changeset.change()
-
-        real_estate =
-          %RealEstate{}
-          |> RealEstate.edit_presentation_changeset(attrs)
-
-        if is_owner do
-          ownership =
+      Multi.new()
+      |> Multi.insert(:real_estate, real_estate)
+      |> Multi.run(:ownership, fn %{real_estate: real_estate} ->
+        cond do
+          is_owner && real_estate.name ->
             %Ownership{}
             |> Repo.preload([:user, :real_estate])
             |> Ownership.changeset(attrs)
             |> Ecto.Changeset.put_assoc(:user, user)
             |> Ecto.Changeset.put_assoc(:real_estate, real_estate)
-            |> Ownership.update_changeset_fields(manager.username, real_estate.changes.name)
+            |> Ownership.update_changeset_fields(manager.username, real_estate.name)
+            |> Repo.insert()
 
-          Repo.insert(ownership)
+          true ->
+            {:ok, real_estate}
         end
-
-        managership =
-          %Managership{}
-          |> Repo.preload([:user, :real_estate])
-          |> Managership.changeset(attrs)
-          |> Ecto.Changeset.put_change(:is_owner, is_owner)
-          |> Ecto.Changeset.put_assoc(:user, user)
-          |> Ecto.Changeset.put_assoc(:real_estate, real_estate)
-          |> Managership.update_changeset_fields(manager.username, real_estate.changes.name)
-
-        Repo.insert(managership)
       end)
+      |> Multi.run(:managership, fn %{real_estate: real_estate} ->
+        cond do
+          real_estate.name ->
+            %Managership{}
+            |> Repo.preload([:user, :real_estate])
+            |> Managership.changeset(attrs)
+            |> Ecto.Changeset.put_change(:is_owner, is_owner)
+            |> Ecto.Changeset.put_assoc(:user, user)
+            |> Ecto.Changeset.put_assoc(:real_estate, real_estate)
+            |> Managership.update_changeset_fields(manager.username, real_estate.name)
+            |> Repo.insert()
+
+          true ->
+            {:ok, real_estate}
+        end
+      end)
+      |> Repo.transaction()
 
     case result do
-      {:ok, {:ok, managership}} ->
-        {:ok, managership.real_estate}
+      {:ok, all} ->
+        case all[:real_estate] do
+          found ->
+            {:ok, found}
 
-      {:error, error} ->
-        {:error, error}
+          _ ->
+            {:error, real_estate}
+        end
+
+      _ ->
+        {:error, real_estate}
     end
   end
 

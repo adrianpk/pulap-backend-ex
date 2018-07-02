@@ -93,7 +93,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     total_area_m2: 500,
     building_type_val_en: "Traditional",
     building_type_val_loc: "Tradycyjny",
-    year_of_construction: "1978"
+    year_of_construction: "1978",
+    manager_is_owner: true
   }
 
   @real_estate_update_attrs %{
@@ -156,7 +157,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     total_area_m2: 1000,
     building_type_val_en: "Traditional",
     building_type_val_loc: "Tradycyjny",
-    year_of_construction: "1970"
+    year_of_construction: "1970",
+    manager_is_owner: true
   }
 
   @real_estate_invalid_attrs %{
@@ -220,7 +222,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     total_area_m2: nil,
     building_type_val_en: nil,
     building_type_val_loc: nil,
-    year_of_construction: nil
+    year_of_construction: nil,
+    manager_is_owner: nil
   }
 
   @real_estate_2_create_attrs %{
@@ -282,7 +285,8 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
     total_area_m2: 500,
     building_type_val_en: "Traditional",
     building_type_val_loc: "Tradycyjny",
-    year_of_construction: "1978"
+    year_of_construction: "1978",
+    manager_is_owner: true
   }
 
   describe "index" do
@@ -715,10 +719,24 @@ defmodule PulapWeb.HTML.ManagedRealEstateControllerTest do
   def fixture(:all) do
     user = fixture(:user)
     real_estate = fixture(:real_estate)
-    managership_create_attrs = %{user_id: user.id, real_estate_id: real_estate.id}
+    managership_name = user.username <> " - " <> real_estate.name
+
+    managership_create_attrs = %{
+      name: managership_name,
+      user_id: user.id,
+      real_estate_id: real_estate.id
+    }
+
     managership = Biz.create_managership(managership_create_attrs)
     real_estate_2 = fixture(:real_estate_2)
-    managership_create_attrs = %{user_id: user.id, real_estate_id: real_estate_2.id}
+    managership_name = user.username <> " - " <> real_estate_2.name
+
+    managership_create_attrs = %{
+      name: managership_name,
+      user_id: user.id,
+      real_estate_id: real_estate_2.id
+    }
+
     managership_2 = Biz.create_managership(managership_create_attrs)
     {user, real_estate, managership, real_estate_2, managership_2}
   end

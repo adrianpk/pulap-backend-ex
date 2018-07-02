@@ -77,8 +77,8 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :dishwasher, :boolean, default: false, null: false
       add :washing_machine, :boolean, default: false, null: false
       add :clothes_dryer, :boolean, default: false, null: false
-      add :tv_set_type_eng, :string, size: 16
-      add :tv_set_type_loc, :string, size: 16
+      add :tv_set_type_val_en, :string, size: 16
+      add :tv_set_type_val_loc, :string, size: 16
       add :internet, :boolean, default: false, null: false
       add :cable_television, :boolean, default: false, null: false
       add :satellite_television, :boolean, default: false, null: false
@@ -96,6 +96,7 @@ defmodule Pulap.Repo.Migrations.CreateRealEstates do
       add :building_type_id, references(:key_values, type: :uuid, on_delete: :nothing)
       add :kitchen_type_id, references(:key_values, type: :uuid, on_delete: :nothing)
       add :heating_type_id, references(:key_values, type: :uuid, on_delete: :nothing)
+      add :tv_set_type_id, references(:key_values, type: :uuid, on_delete: :nothing)
       add :created_by_id, references(:users, type: :uuid, on_delete: :nothing)
       add :updated_by_id, references(:users, type: :uuid, on_delete: :nothing)
 

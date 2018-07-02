@@ -48,6 +48,7 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
         |> redirect(to: real_estate_path(conn, :edit_address, real_estate))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        changeset = %{changeset | action: :create}
         conn = conn |> put_flash(:error, "Check following errors, please.")
         render(conn, "new.html", changeset: changeset)
     end
