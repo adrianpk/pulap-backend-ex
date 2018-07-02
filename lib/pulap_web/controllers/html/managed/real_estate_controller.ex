@@ -77,6 +77,12 @@ defmodule PulapWeb.HTML.Managed.RealEstateController do
     end
   end
 
+  def show_confirm_delete(conn, %{"id" => id}) do
+    real_estate = RealEstateContext.get!(id)
+    changeset = RealEstateContext.change(real_estate)
+    render(conn, "confirm_delete.html", real_estate: real_estate, changeset: changeset)
+  end
+
   def delete(conn, %{"id" => id}) do
     real_estate = RealEstateContext.get!(id)
     {:ok, _real_estate} = RealEstateContext.delete(real_estate)

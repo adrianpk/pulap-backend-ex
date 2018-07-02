@@ -1,4 +1,4 @@
-<div class="container">
+<div class="level">
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="tile is-child">
@@ -21,11 +21,26 @@
           <%= error_tag f, :manager_is_owner %>
         </div>
 
-        <div class="field is-grouped">
-          <div class="control">
-            <%= submit "Update", class: "button is-link" %>
-          </div>
+        <div class="field is-grouped is-pulled-left">
+          <%= if assigns[:real_estate] do %>
+            <div class="control">
+              <%= link "Delete", to: real_estate_path(@conn, :delete, @real_estate), method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger is-outlined is-jsonly" %>
+            </div>
+            <div class="control">
+              <noscript>
+                <%= link "Delete", to: real_estate_path(@conn, :show_confirm_delete, @real_estate), class: "button is-danger is-outlined" %>
+              </noscript>
+            </div>
+            <div class="control">
+              <%= submit "Update", class: "button is-link" %>
+            </div>
+          <% else  %>
+            <div class="control">
+              <%= submit "Save", class: "button is-link" %>
+            </div>
+          <% end %>
         </div>
+
       <% end %>
       </div>
     </div>
