@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Kuguar <licenses@kuguar.io> Author: Adrian P.K. <apk@kuguar.io>
+# Copyright (c) 2017 Kuguar <licenses@kuguar.dev> Author: Adrian K <adrian.git@kuguar.dev>
 #
 # MIT License
 #
